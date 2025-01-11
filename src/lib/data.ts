@@ -97,7 +97,7 @@ export interface Testimonial {
 
 export function useFetchHomeAboutHero() {
   const { data, error, isLoading } = useSWR<HomeAboutHero[]>(
-    'http://127.0.0.1:8000/readonly-home-about-hero/',
+    'https://muhsiiyy.pythonanywhere.com/readonly-home-about-hero/',
     fetcher
   );
 
@@ -111,7 +111,7 @@ export function useFetchHomeAboutHero() {
 
 export function useFetchHomeServiceHeader() {
     const { data, error, isLoading } = useSWR<HomeServiceHeader[]>(
-      'http://127.0.0.1:8000/readonly-home-service-header/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-home-service-header/',
       fetcher
     );
   
@@ -124,7 +124,7 @@ export function useFetchHomeServiceHeader() {
   
 export function useFetchServices() {
     const { data, error, isLoading } = useSWR<Service[]>(
-      'http://127.0.0.1:8000/readonly-services/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-services/',
       fetcher
     );
   
@@ -137,7 +137,7 @@ export function useFetchServices() {
 
 export function useFetchHomeConsultantHeader() {
     const { data, error, isLoading } = useSWR<HomeConsultantHeader[]>(
-      'http://127.0.0.1:8000/readonly-home-consultant-header/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-home-consultant-header/',
       fetcher
     );
   
@@ -150,7 +150,7 @@ export function useFetchHomeConsultantHeader() {
   
 export function useFetchConsultants() {
     const { data, error, isLoading } = useSWR<Consultant[]>(
-      'http://127.0.0.1:8000/readonly-consultants/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-consultants/',
       fetcher
     );
   
@@ -163,7 +163,7 @@ export function useFetchConsultants() {
 
 export function useFetchHomeSpecialitiesHeader() {
     const { data, error, isLoading } = useSWR<HomeSpecialitiesHeader[]>(
-      'http://127.0.0.1:8000/readonly-home-specialities-header/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-home-specialities-header/',
       fetcher
     );
   
@@ -176,7 +176,7 @@ export function useFetchHomeSpecialitiesHeader() {
   
 export function useFetchSpecialities() {
     const { data, error, isLoading } = useSWR<Speciality[]>(
-      'http://127.0.0.1:8000/readonly-specialities/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-specialities/',
       fetcher
     );
   
@@ -189,7 +189,7 @@ export function useFetchSpecialities() {
 
 export function useFetchEquipments() {
     const { data, error, isLoading } = useSWR<Speciality[]>(
-      'http://127.0.0.1:8000/readonly-equipments/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-equipments/',
       fetcher
     );
   
@@ -202,7 +202,7 @@ export function useFetchEquipments() {
 
 export function useFetchBlogs() {
     const { data, error, isLoading } = useSWR<Blog[]>(
-      'http://127.0.0.1:8000/readonly-blogs/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-blogs/',
       fetcher
     );
   
@@ -215,7 +215,7 @@ export function useFetchBlogs() {
 
 export function useFetchTestimonials() {
     const { data, error, isLoading } = useSWR<Testimonial[]>(
-      'http://127.0.0.1:8000/readonly-testimonials/',
+      'https://muhsiiyy.pythonanywhere.com/readonly-testimonials/',
       fetcher
     );
   
