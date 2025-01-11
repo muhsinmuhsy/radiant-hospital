@@ -11,7 +11,7 @@ const OurEquipment = () => {
 
   const { equipments, isLoading, error } = useFetchEquipments();
 
-  const equipment = equipments || []
+  const equipment = equipments|| []
 
   // const equipment = [
   //   {
@@ -235,8 +235,8 @@ const OurEquipment = () => {
         <div className="mt-8">
           <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden">
             <img
-              src={equipment[activeIndex].image}
-              alt={equipment[activeIndex].name}
+              src={equipment[activeIndex]?.image}
+              alt={equipment[activeIndex]?.name}
               className="w-full h-full object-cover"
             />
             
@@ -244,15 +244,15 @@ const OurEquipment = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="flex flex-col items-start">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-3">{equipment[activeIndex].name}</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3">{equipment[activeIndex]?.name}</h2>
                   <p className="text-base md:text-lg text-white/80 max-w-2xl mb-4">
-                    {equipment[activeIndex].description}
+                    {equipment[activeIndex]?.description}
                   </p>
                   {isMobile && (
                     <button
                       onClick={() => setShowDetails(!showDetails)}
                       className={`px-6 py-2 rounded-full transition-all duration-300 
-                        ${equipment[activeIndex].color} hover:opacity-90`}
+                        ${equipment[activeIndex]?.color} hover:opacity-90`}
                     >
                       {showDetails ? 'Hide Specs' : 'View Specs'}
                     </button>
@@ -268,12 +268,17 @@ const OurEquipment = () => {
               isMobile && !showDetails ? 'hidden' : 'block'
             }`}
           >
-            {Object.entries(equipment[activeIndex].specs).map(([key, value], index) => (
-              <div key={index} className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
-                <div className="text-white/60 text-sm mb-1 capitalize">{key}</div>
-                <div className="text-white text-base font-medium">{value}</div>
-              </div>
-            ))}
+            {equipment[activeIndex]?.specs ? (
+              Object.entries(equipment[activeIndex].specs).map(([key, value], index) => (
+                <div key={index} className="bg-white/10 backdrop-blur-lg rounded-lg p-4">
+                  <div className="text-white/60 text-sm mb-1 capitalize">{key}</div>
+                  <div className="text-white text-base font-medium">{value}</div>
+                </div>
+              ))
+            ) : (
+              <div className="text-white/60">No specifications available.</div>
+            )}
+
           </div>
         </div>
       </div>

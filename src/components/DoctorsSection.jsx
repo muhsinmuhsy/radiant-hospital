@@ -153,9 +153,9 @@ const DoctorsCarousel = () => {
           Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience.
         </p> */}
 
-      <h1 className="text-black">{consultantHeader.title}</h1>
+      <h1 className="text-black">{consultantHeader?.title}</h1>
       <p className="text-black">
-        {consultantHeader.description}
+        {consultantHeader?.specialty}
       </p>
         
       </MainContent>
@@ -199,15 +199,15 @@ const DoctorsCarousel = () => {
                 <div className="bg-[#B3FAFF29] border border-[#B3E4FF82] rounded-[25px] h-[390px] overflow-hidden transition-transform duration-300 hover:scale-105">
                   <div className="bg-[#11b3b8] w-[70%] mx-auto rounded-b-[15px]">
                     <img
-                      src={doctor.image}
-                      alt={doctor.name}
+                      src={doctor?.image}
+                      alt={doctor?.name}
                       className="w-full max-w-[250px] h-[250px] object-cover rounded-b-[15px]"
                     />
                   </div>
                   <div className="text-center mt-3">
-                    <h1 className="text-[1.5rem] mb-0 text-black">{doctor.name}</h1>
+                    <h1 className="text-[1.5rem] mb-0 text-black">{doctor?.name}</h1>
                     <p className="text-[0.9rem] text-[#555] leading-[1.5] mb-[10px]">
-                      {doctor.specialty}
+                      {doctor?.specialty}
                     </p>
                   </div>
                 </div>

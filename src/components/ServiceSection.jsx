@@ -97,7 +97,7 @@ p{
 }
 `
 
-function ServiceSection() {
+function  ServiceSection() {
 
   const { serviceHeader, isLoading, error } = useFetchHomeServiceHeader();
 

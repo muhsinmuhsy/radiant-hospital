@@ -41,7 +41,7 @@ export interface Consultant {
     id: number;
     image: string;
     title: string;
-    description: string;
+    specialty: string;
 }
 
 export interface HomeSpecialitiesHeader {

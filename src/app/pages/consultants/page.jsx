@@ -14,32 +14,32 @@ const ConsultantsPage = () => {
   //   {
   //     image: '/doc-2.png',
   //     name: 'Dr. Priyadarshan M.S',
-  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
   //   },
   //   {
   //     image: '/doc-1.svg',
   //     name: 'Dr. Faslim M.S',
-  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
   //   },
   //   {
   //     image: '/doc-3.png',
   //     name: 'Dr. Priyadarshan',
-  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
   //   },
   //   {
   //     image: '/doc-2.png',
   //     name: 'Dr. Priyadarshan M.S',
-  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
   //   },
   //   {
   //     image: '/doc-1.svg',
   //     name: 'Dr. Faslim M.S',
-  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
   //   },
   //   {
   //     image: '/doc-3.png',
   //     name: 'Dr. Priyadarshan',
-  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
   //   }
   // ];
 
@@ -78,17 +78,17 @@ const ConsultantsPage = () => {
               <div className="bg-[#B3FAFF29] border border-[#B3E4FF82] rounded-[25px] h-[360px] w-[300px] mx-auto overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-[#11b3b8]/20 hover:-translate-y-1">
                 <div className="bg-[#11b3b8] w-[70%] mx-auto rounded-b-[15px] group-hover:bg-[#008488] transition-colors duration-300">
                   <img
-                    src={doctor.image}
-                    alt={doctor.name}
+                    src={doctor?.image}
+                    alt={doctor?.name}
                     className="w-full max-w-[200px] h-[200px] object-cover rounded-b-[15px] mx-auto transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="text-center mt-3 px-4">
                   <h2 className="text-[1.25rem] mb-1 text-black font-semibold group-hover:text-[#11b3b8] transition-colors duration-300">
-                    {doctor.name}
+                    {doctor?.name}
                   </h2>
                   <p className="text-[0.85rem] text-[#555] leading-[1.4] mb-3">
-                    {doctor.description}
+                    {doctor?.specialty}
                   </p>
                   <button className="bg-[#11b3b8] text-white px-6 py-2 rounded-full transform transition-all duration-300 hover:bg-[#008488] hover:scale-105 hover:shadow-lg">
                     Book Appointment
