@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useFetchServices } from '@/lib/data';
 
 const ServiceCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -13,44 +14,47 @@ const ServiceCarousel = () => {
   const carouselRef = useRef(null);
   const autoPlayRef = useRef(null);
 
-  const Data = [
-    {
-      icon: '/hearing-aid.svg',
-      title: 'Hearing Aid',
-      description:
-        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-    },
-    {
-      icon: '/vertigo.svg',
-      title: 'Vertigo Clinic',
-      description:
-        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-    },
-    {
-      icon: '/endoscopy.svg',
-      title: 'Endoscopic & Skull Base Surgery',
-      description:
-        'ENT surgery has expanded its vistas more than any other surgical specialty in the world. An excellent example is endoscopic surgery.',
-    },
-    {
-      icon: '/hearing-aid.svg',
-      title: 'Vertigo Clinic',
-      description:
-        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-    },
-    {
-      icon: '/vertigo.svg',
-      title: 'Vertigo Clinic',
-      description:
-        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-    },
-    {
-      icon: '/vertigo.svg',
-      title: 'Vertigo Clinic',
-      description:
-        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-    },
-  ];
+  const { service, isLoading, error } = useFetchServices();
+
+  const Data = service || [];
+  // const Data = [
+  //   {
+  //     icon: '/hearing-aid.svg',
+  //     title: 'Hearing Aid',
+  //     description:
+  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+  //   },
+  //   {
+  //     icon: '/vertigo.svg',
+  //     title: 'Vertigo Clinic',
+  //     description:
+  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+  //   },
+  //   {
+  //     icon: '/endoscopy.svg',
+  //     title: 'Endoscopic & Skull Base Surgery',
+  //     description:
+  //       'ENT surgery has expanded its vistas more than any other surgical specialty in the world. An excellent example is endoscopic surgery.',
+  //   },
+  //   {
+  //     icon: '/hearing-aid.svg',
+  //     title: 'Vertigo Clinic',
+  //     description:
+  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+  //   },
+  //   {
+  //     icon: '/vertigo.svg',
+  //     title: 'Vertigo Clinic',
+  //     description:
+  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+  //   },
+  //   {
+  //     icon: '/vertigo.svg',
+  //     title: 'Vertigo Clinic',
+  //     description:
+  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+  //   },
+  // ];
 
   const play = useCallback(() => {
     autoPlayRef.current = setInterval(() => {
@@ -134,6 +138,16 @@ const ServiceCarousel = () => {
 
   const cardsPerView = isMobile ? 1 : isTablet ? 2 : 3; // Adjust for tablet view
   const translateValue = -(activeIndex * (100 / cardsPerView));
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  
+  if (error) return <p className='text-center'>Error loading data</p>;
 
   return (
     <section className="relative px-4 py-8 md:px-8">

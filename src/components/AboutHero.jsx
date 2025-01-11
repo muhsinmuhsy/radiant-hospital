@@ -2,6 +2,7 @@
 import React from 'react'
 import Image from 'next/image';
 import styled from 'styled-components';
+import { useFetchHomeAboutHero } from '@/lib/data';
 
 const AboutSectionWrapper = styled.section`
   display: flex;
@@ -104,11 +105,21 @@ const AboutImage = styled.div`
 
 
 function AboutHero() {
+  const { aboutHero, isLoading, error } = useFetchHomeAboutHero();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  if (error) return <p className='text-center'>Error loading data</p>;
   return (
     
     <AboutSectionWrapper>
     <AboutContent>
-      <h1>
+    {/* <h1>
         We Provide affordable,  accessible and quality healthcare for all
       </h1>
       <p>
@@ -116,6 +127,12 @@ function AboutHero() {
         advanced and sophisticated treatment options in various specialities and
         subspecialities, most of them are at par with the international standards.
         We Provide affordable, accessible and quality healthcare for all.
+      </p> */}
+      <h1>
+        {aboutHero?.title}
+      </h1>
+      <p>
+        {aboutHero?.description}
       </p>
       <button>Read More</button>
     </AboutContent>

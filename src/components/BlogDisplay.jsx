@@ -2,59 +2,81 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, StethoscopeIcon, ChevronRight } from 'lucide-react';
 
+import { useFetchBlogs } from '@/lib/data';
+
 const BlogSectionDisplay = () => {
   const [hoveredId, setHoveredId] = useState(null);
 
-  const blogs = [
-    {
-      id: 1,
-      title: "Understanding Tinnitus: Causes and Modern Treatments",
-      image: "/featured.svg",
-      excerpt: "Explore the latest advancements in tinnitus treatment and management. Learn about innovative therapies and lifestyle changes that can help reduce the impact of tinnitus on your daily life.",
-      date: "2025-01-02",
-      readTime: "5 min",
-      category: "Patient Education",
-      author: "Dr. Sarah Miller",
-      isLatest: true
-    },
-    {
-      id: 2,
-      title: "Children's Ear Infections: What Parents Should Know",
-      image: "/blog-1.svg",
-      excerpt: "A comprehensive guide for parents about ear infections in children, including symptoms, prevention, and when to seek medical attention.",
-      date: "2025-01-01",
-      readTime: "6 min",
-      category: "Pediatric ENT",
-      author: "Dr. James Chen"
-    },
-    {
-      id: 3,
-      title: "Latest Advances in Sinus Surgery",
-      image: "/blog-2.svg",
-      excerpt: "Discover how minimally invasive techniques and advanced technology are revolutionizing sinus surgery, leading to faster recovery times.",
-      date: "2024-12-31",
-      readTime: "7 min",
-      category: "Surgical Updates",
-      author: "Dr. Robert Wilson"
-    },
-    {
-      id: 4,
-      title: "Protecting Your Hearing: Prevention Guidelines",
-      image: "/blog-3.svg",
-      excerpt: "Essential tips for protecting your hearing in everyday situations, including workplace safety and recreational activities.",
-      date: "2024-12-30",
-      readTime: "5 min",
-      category: "Hearing Health",
-      author: "Dr. Emily Santos"
-    }
-  ];
+  const { blogs: blogData, isLoading, error} = useFetchBlogs();
+
+  const blogs = blogData || []
+
+
+ 
+
+  // const blogs = [
+  //   {
+  //     id: 1,
+  //     title: "Understanding Tinnitus: Causes and Modern Treatments",
+  //     image: "/featured.svg",
+  //     description: "Explore the latest advancements in tinnitus treatment and management. Learn about innovative therapies and lifestyle changes that can help reduce the impact of tinnitus on your daily life.",
+  //     date: "2025-01-02",
+  //     time_ago: "5 min",
+  //     category: "Patient Education",
+  //     author: "Dr. Sarah Miller",
+  //     is_latest: true
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Children's Ear Infections: What Parents Should Know",
+  //     image: "/blog-1.svg",
+  //     description: "A comprehensive guide for parents about ear infections in children, including symptoms, prevention, and when to seek medical attention.",
+  //     date: "2025-01-01",
+  //     time_ago: "6 min",
+  //     category: "Pediatric ENT",
+  //     author: "Dr. James Chen"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Latest Advances in Sinus Surgery",
+  //     image: "/blog-2.svg",
+  //     description: "Discover how minimally invasive techniques and advanced technology are revolutionizing sinus surgery, leading to faster recovery times.",
+  //     date: "2024-12-31",
+  //     time_ago: "7 min",
+  //     category: "Surgical Updates",
+  //     author: "Dr. Robert Wilson"
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Protecting Your Hearing: Prevention Guidelines",
+  //     image: "/blog-3.svg",
+  //     description: "Essential tips for protecting your hearing in everyday situations, including workplace safety and recreational activities.",
+  //     date: "2024-12-30",
+  //     time_ago: "5 min",
+  //     category: "Hearing Health",
+  //     author: "Dr. Emily Santos"
+  //   }
+  // ];
 
   const truncateText = (text, maxLength = 100) => {
+    if (!text || text.length === 0) {
+      return null;
+    }
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
   };
 
-  const latestBlog = blogs.find(blog => blog.isLatest);
-  const regularBlogs = blogs.filter(blog => !blog.isLatest);
+  const latestBlog = blogs.find(blog => blog.is_latest);
+  const regularBlogs = blogs.filter(blog => !blog.is_latest);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  
+  if (error) return <p className='text-center'>Error loading data</p>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 mt-24 mb-24">
@@ -69,7 +91,7 @@ const BlogSectionDisplay = () => {
       <div className="mb-16">
         <div 
           className="relative group bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-lg"
-          onMouseEnter={() => setHoveredId(latestBlog.id)}
+          onMouseEnter={() => setHoveredId(latestBlog?.id)}
           onMouseLeave={() => setHoveredId(null)}
         >
           <div className="flex flex-col lg:flex-row">
@@ -80,28 +102,28 @@ const BlogSectionDisplay = () => {
                 </span>
               </div>
               <img 
-                src={latestBlog.image} 
-                alt={latestBlog.title}
+                src={latestBlog?.image} 
+                alt={latestBlog?.title}
                 className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
               />
             </div>
             <div className="lg:w-5/12 p-8 lg:p-12 flex flex-col justify-center">
               <div className="flex items-center space-x-4 mb-4">
-                <span className="text-teal-600 text-sm font-medium">{latestBlog.category}</span>
+                <span className="text-teal-600 text-sm font-medium">{latestBlog?.category}</span>
                 <span className="text-gray-400">•</span>
                 <div className="flex items-center text-gray-500 text-sm">
                   <StethoscopeIcon className="w-4 h-4 mr-1" />
-                  {latestBlog.author}
+                  {latestBlog?.author}
                 </div>
               </div>
               <h3 className="text-2xl font-bold mb-4 group-hover:text-teal-600 transition-colors">
-                {latestBlog.title}
+                {latestBlog?.title}
               </h3>
-              <p className="text-gray-600 mb-6">{truncateText(latestBlog.excerpt, 150)}</p>
+              <p className="text-gray-600 mb-6">{truncateText(latestBlog?.description, 150)}</p>
               <div className="flex items-center justify-between mt-auto">
                 <div className="flex items-center text-gray-500 text-sm">
                   <Calendar className="w-4 h-4 mr-2" />
-                  {latestBlog.date}
+                  {latestBlog?.date}
                 </div>
                 <button className="px-4 py-2 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition-colors text-sm">
                   Read Full Article
@@ -141,13 +163,13 @@ const BlogSectionDisplay = () => {
                 </div>
                 <div className="flex items-center">
                   <Clock className="w-4 h-4 mr-1" />
-                  {blog.readTime}
+                  {blog.time_ago}
                 </div>
               </div>
               <h3 className="font-bold text-lg mb-3 group-hover:text-teal-600 transition-colors">
                 {blog.title}
               </h3>
-              <p className="text-gray-600 text-sm mb-4">{truncateText(blog.excerpt)}</p>
+              <p className="text-gray-600 text-sm mb-4">{truncateText(blog.description)}</p>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-500">{blog.date}</span>
                 <button className="text-teal-600 font-medium hover:text-teal-700 transition-colors text-sm flex items-center">

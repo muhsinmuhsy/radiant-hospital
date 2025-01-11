@@ -3,8 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ServiceCarousal from './ServiceCarousal';
 import Link from 'next/link';
-
-
+import { useFetchHomeServiceHeader } from '@/lib/data';
 
 
 
@@ -99,6 +98,19 @@ p{
 `
 
 function ServiceSection() {
+
+  const { serviceHeader, isLoading, error } = useFetchHomeServiceHeader();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  
+  if (error) return <p className='text-center'>Error loading data</p>;
+
   return (
     <Section >
       <ServiceBtn>
@@ -115,8 +127,10 @@ function ServiceSection() {
       </ServiceBtn>
 
       <MainContent>
-        <h1>We Provide</h1>
-        <p>Through our 25+ specialities, we provide in-depth expertise in the spectrum of advance medical and surgical interventions. Our specialities are integrated to provide a seamless experience.</p>
+      {/* <h1>We Provide</h1>
+      <p>Through our 25+ specialities, we provide in-depth expertise in the spectrum of advance medical and surgical interventions. Our specialities are integrated to provide a seamless experience.</p> */}
+        <h1>{serviceHeader?.title}</h1>
+        <p>{serviceHeader?.description}</p>
       </MainContent>
       <ServiceCarousal/>
 

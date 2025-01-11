@@ -1,36 +1,40 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { useFetchTestimonials } from '@/lib/data';
 
-const testimonials = [
-  {
-    name: "David Miller",
-    treatment: "Sinus Surgery",
-    content: "Dr. Smith's expertise in treating my chronic sinusitis was exceptional. After years of struggling with breathing problems, I can finally breathe normally again.",
-    rating: 5,
-    date: "March 2024"
-  },
-  {
-    name: "Sarah Chen",
-    treatment: "Tonsillectomy",
-    content: "The entire staff was incredibly supportive throughout my recovery. The post-operative care instructions were clear, and the follow-up was thorough.",
-    rating: 5,
-    date: "February 2024"
-  },
-  {
-    name: "James Wilson",
-    treatment: "Hearing Aid Fitting",
-    content: "The audiologists here are amazing. They took the time to find the perfect hearing solution for my lifestyle. I can now enjoy conversations with my grandchildren.",
-    rating: 5,
-    date: "January 2024"
-  }
-];
+// const testimonials = [
+//   {
+//     name: "David Miller",
+//     treatment: "Sinus Surgery",
+//     content: "Dr. Smith's expertise in treating my chronic sinusitis was exceptional. After years of struggling with breathing problems, I can finally breathe normally again.",
+//     rating: 5,
+//     date: "March 2024"
+//   },
+//   {
+//     name: "Sarah Chen",
+//     treatment: "Tonsillectomy",
+//     content: "The entire staff was incredibly supportive throughout my recovery. The post-operative care instructions were clear, and the follow-up was thorough.",
+//     rating: 5,
+//     date: "February 2024"
+//   },
+//   {
+//     name: "James Wilson",
+//     treatment: "Hearing Aid Fitting",
+//     content: "The audiologists here are amazing. They took the time to find the perfect hearing solution for my lifestyle. I can now enjoy conversations with my grandchildren.",
+//     rating: 5,
+//     date: "January 2024"
+//   }
+// ];
 
 const TestimonialCarousel = () => {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+
+  const {testimonials: testimonialsData, isLoading, error} = useFetchTestimonials();
+  const testimonials = testimonialsData || [];
 
   useEffect(() => {
     let interval;

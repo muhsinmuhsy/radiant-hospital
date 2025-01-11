@@ -3,6 +3,7 @@ import React from 'react';
 import { Section } from './ServiceSection';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useFetchHomeSpecialitiesHeader, useFetchSpecialities } from '@/lib/data';
 
 export const ServiceBtn = styled.div`
   display: flex;
@@ -131,16 +132,41 @@ export const ImageCard = styled.div`
   }
 `;
 
-function OurSpecialities() {
-  const Specialityimages = [
-    { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
-    { src: '/spec-2.svg', title: 'Phono Microsurgery' },
-    { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
-    { src: '/spec-1.svg', title: 'Phono Microsurgery' },
-    { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
-    { src: '/spec-2.svg', title: 'Phono Microsurgery' },
-  ];
 
+function OurSpecialities() {
+
+  const { specialitiesHeader, isLoading, error } = useFetchHomeSpecialitiesHeader();
+  const { specialities, isLoading: isLoading0, error: error0 } = useFetchSpecialities();
+
+  const Specialityimages = specialities || [];
+  
+  // const Specialityimages = [
+  //   { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
+  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+  //   { src: '/spec-1.svg', title: 'Phono Microsurgery' },
+  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+  // ];
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  
+  if (error) return <p className='text-center'>Error loading data</p>;
+
+  if (isLoading0) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  if (error0) return <p className='text-center'>Error loading data</p>;
   return (
     <Section>
       <ServiceBtn>
@@ -154,11 +180,15 @@ function OurSpecialities() {
       </ServiceBtn>
 
       <MainContent>
-        <h1>We Specialities</h1>
+        {/* <h1>We Specialities</h1>
         <p>
           Through our 25+ specialities, we provide in-depth expertise in the spectrum of
           advanced medical and surgical interventions. Our specialities are integrated to
           provide a seamless experience.
+        </p> */}
+        <h1>{specialitiesHeader?.title}</h1>
+        <p>
+          {specialitiesHeader?.description}
         </p>
       </MainContent>
 

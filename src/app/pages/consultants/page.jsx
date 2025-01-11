@@ -1,40 +1,56 @@
+'use client';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import React from 'react';
+import React from 'react'
+
+import { useFetchConsultants } from '@/lib/data';
 
 const ConsultantsPage = () => {
-  const doctors = [
-    {
-      image: '/doc-2.png',
-      name: 'Dr. Priyadarshan M.S',
-      description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-1.svg',
-      name: 'Dr. Faslim M.S',
-      description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-3.png',
-      name: 'Dr. Priyadarshan',
-      description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-2.png',
-      name: 'Dr. Priyadarshan M.S',
-      description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-1.svg',
-      name: 'Dr. Faslim M.S',
-      description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-3.png',
-      name: 'Dr. Priyadarshan',
-      description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    }
-  ];
+
+  const { consultant, isLoading, error } = useFetchConsultants();
+
+  const doctors = consultant || [];
+  // const doctors = [
+  //   {
+  //     image: '/doc-2.png',
+  //     name: 'Dr. Priyadarshan M.S',
+  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-1.svg',
+  //     name: 'Dr. Faslim M.S',
+  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-3.png',
+  //     name: 'Dr. Priyadarshan',
+  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-2.png',
+  //     name: 'Dr. Priyadarshan M.S',
+  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-1.svg',
+  //     name: 'Dr. Faslim M.S',
+  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-3.png',
+  //     name: 'Dr. Priyadarshan',
+  //     description: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   }
+  // ];
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  if (error) return <p className='text-center'>Error loading data</p>;
 
   return (
     <>
