@@ -20,26 +20,28 @@ const DoctorsCarousel = () => {
   const { consultant, isLoading, error } = useFetchConsultants();
   const { consultantHeader, isLoading: isLoading0, error: error0 } = useFetchHomeConsultantHeader();
 
-  const Data = consultant || [];
+  const DataSub = [
+    {
+      image: '/doc-2.png',
+      name: 'Dr. Priyadarshan M.S',
+      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+    },
+    {
+      image: '/doc-1.svg',
+      name: 'Dr. Faslim M.S',
+      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+    },
+    {
+      image: '/doc-3.png',
+      name: 'Dr. Priyadarshan',
+      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+    },
+    // Add more items if needed
+  ];
 
-  // const Data = [
-  //   {
-  //     image: '/doc-2.png',
-  //     name: 'Dr. Priyadarshan M.S',
-  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-  //   },
-  //   {
-  //     image: '/doc-1.svg',
-  //     name: 'Dr. Faslim M.S',
-  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-  //   },
-  //   {
-  //     image: '/doc-3.png',
-  //     name: 'Dr. Priyadarshan',
-  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-  //   },
-  //   // Add more items if needed
-  // ];
+  const Data = consultant || DataSub;
+
+  
 
   const play = useCallback(() => {
     autoPlayRef.current = setInterval(() => {
@@ -127,11 +129,26 @@ const DoctorsCarousel = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
-        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
       </div>
     );
   }
-  if (error) return <p className='text-center'>Error loading data</p>;
+  if (error) {
+    console.log(`Error loading data: ${error.message}`);
+  }
+
+  if (isLoading0) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
+      </div>
+    );
+  }
+  if (error0) {
+    console.log(`Error loading data: ${error0.message}`);
+  }
 
   return (
     <section className="mt-8 mb-8 mx-auto max-w-[1536px] py-8 px-4 md:px-8">
@@ -153,9 +170,9 @@ const DoctorsCarousel = () => {
           Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience.
         </p> */}
 
-      <h1 className="text-black">{consultantHeader?.title}</h1>
+      <h1 className="text-black">{consultantHeader?.title || "We Provide"}</h1>
       <p className="text-black">
-        {consultantHeader?.specialty}
+        {consultantHeader?.specialty || "Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience."}
       </p>
         
       </MainContent>

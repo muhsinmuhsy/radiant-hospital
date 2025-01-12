@@ -1,6 +1,23 @@
 import React from 'react';
+import { useFetchSpecialitiesHero } from '@/lib/data';
 
 const SpecialityHero = () => {
+
+  const { data, isLoading, error } = useFetchSpecialitiesHero();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
+      </div>
+    );
+  }
+  
+  if (error) {
+    console.log(`Error loading data: ${error.message}`);
+  }
+
   return (
      <div className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50 to-blue-100">
       {/* Background Pattern */}
@@ -16,28 +33,30 @@ const SpecialityHero = () => {
           <div className="space-y-6 md:space-y-8 text-center lg:text-left">
             <div>
               <span className="inline-block px-4 py-2 rounded-full    text-sm mb-4" style={{backgroundColor:'#11B3B8', color:'white'}}>
-                Leading ENT Specialists
+                {data?.simple_title || "Leading ENT Specialists"}
               </span>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
-                Expert ENT Care with Advanced Surgical Solutions
+                {/* Expert ENT Care with Advanced Surgical Solutions */}
+                {data?.title || "Expert ENT Care with Advanced Surgical Solutions"}
               </h1>
               <p className="text-base lg:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Discover our comprehensive range of specialized ENT procedures, combining cutting-edge technology with decades of surgical expertise for optimal patient care.
+                {/* Discover our comprehensive range of specialized ENT procedures, combining cutting-edge technology with decades of surgical expertise for optimal patient care. */}
+                {data?.description || "Discover our comprehensive range of specialized ENT procedures, combining cutting-edge technology with decades of surgical expertise for optimal patient care."}
               </p>
             </div>
 
             {/* Key Statistics */}
             <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto lg:mx-0">
               <div className="text-center p-3 md:p-4 bg-white rounded-lg shadow-sm">
-                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>13+</div>
+                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>{data?.Specialties_count || "13+"}</div>
                 <div className="text-xs md:text-sm text-gray-600">Specialties</div>
               </div>
               <div className="text-center p-3 md:p-4 bg-white rounded-lg shadow-sm">
-                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>1000+</div>
+                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>{data?.surgeries_count || "1000+"}</div>
                 <div className="text-xs md:text-sm text-gray-600">Surgeries</div>
               </div>
               <div className="text-center p-3 md:p-4 bg-white rounded-lg shadow-sm">
-                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>15+</div>
+                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>{data?.years_exp_count || "15+"}</div>
                 <div className="text-xs md:text-sm text-gray-600">Years Exp.</div>
               </div>
             </div>
@@ -59,16 +78,16 @@ const SpecialityHero = () => {
               <div className="absolute inset-0 bg-blue-100 rounded-full opacity-20"></div>
               <div className="relative w-full h-full">
                 <img 
-                  src="/spec-1.svg"
+                  src={data?.image || '/spec-1.svg'}
                   alt="ENT Medical Illustration"
                   className="w-full h-full object-cover rounded-3xl shadow-2xl"
                 />
                 {/* Floating Badges */}
                 <div className="absolute -top-4 -right-4 bg-white p-2 md:p-3 rounded-lg shadow-lg hidden sm:block">
-                  <div className=" font-semibold text-sm md:text-base" style={{color:'#11B3B8'}}>Advanced Tech</div>
+                  <div className=" font-semibold text-sm md:text-base" style={{color:'#11B3B8'}}>{data?.image_badge_one || "Advanced Tech"}</div>
                 </div>
                 <div className="absolute -bottom-4 -left-4 bg-white p-2 md:p-3 rounded-lg shadow-lg hidden sm:block">
-                  <div className=" font-semibold text-sm md:text-base" style={{color:'#11B3B8'}}>Expert Care</div>
+                  <div className=" font-semibold text-sm md:text-base" style={{color:'#11B3B8'}}>{data?.image_badge_two || "Expert Care"}</div>
                 </div>
               </div>
             </div>

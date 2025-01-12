@@ -3,29 +3,29 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { useFetchTestimonials } from '@/lib/data';
 
-// const testimonials = [
-//   {
-//     name: "David Miller",
-//     treatment: "Sinus Surgery",
-//     content: "Dr. Smith's expertise in treating my chronic sinusitis was exceptional. After years of struggling with breathing problems, I can finally breathe normally again.",
-//     rating: 5,
-//     date: "March 2024"
-//   },
-//   {
-//     name: "Sarah Chen",
-//     treatment: "Tonsillectomy",
-//     content: "The entire staff was incredibly supportive throughout my recovery. The post-operative care instructions were clear, and the follow-up was thorough.",
-//     rating: 5,
-//     date: "February 2024"
-//   },
-//   {
-//     name: "James Wilson",
-//     treatment: "Hearing Aid Fitting",
-//     content: "The audiologists here are amazing. They took the time to find the perfect hearing solution for my lifestyle. I can now enjoy conversations with my grandchildren.",
-//     rating: 5,
-//     date: "January 2024"
-//   }
-// ];
+const testimonialsSub = [
+  {
+    name: "David Miller",
+    treatment: "Sinus Surgery",
+    content: "Dr. Smith's expertise in treating my chronic sinusitis was exceptional. After years of struggling with breathing problems, I can finally breathe normally again.",
+    rating: 5,
+    date: "March 2024"
+  },
+  {
+    name: "Sarah Chen",
+    treatment: "Tonsillectomy",
+    content: "The entire staff was incredibly supportive throughout my recovery. The post-operative care instructions were clear, and the follow-up was thorough.",
+    rating: 5,
+    date: "February 2024"
+  },
+  {
+    name: "James Wilson",
+    treatment: "Hearing Aid Fitting",
+    content: "The audiologists here are amazing. They took the time to find the perfect hearing solution for my lifestyle. I can now enjoy conversations with my grandchildren.",
+    rating: 5,
+    date: "January 2024"
+  }
+];
 
 const TestimonialCarousel = () => {
   const [current, setCurrent] = useState(0);
@@ -34,7 +34,7 @@ const TestimonialCarousel = () => {
   const [touchEnd, setTouchEnd] = useState(null);
 
   const {testimonials: testimonialsData, isLoading, error} = useFetchTestimonials();
-  const testimonials = testimonialsData || [];
+  const testimonials = testimonialsData || testimonialsSub;
 
   useEffect(() => {
     let interval;
@@ -76,6 +76,19 @@ const TestimonialCarousel = () => {
     setTouchStart(null);
     setTouchEnd(null);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
+      </div>
+    );
+  }
+  
+  if (error) {
+    console.log(`Error loading data: ${error.message}`);
+  }
 
   return (
     <div 

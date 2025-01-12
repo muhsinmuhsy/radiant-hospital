@@ -110,11 +110,15 @@ function AboutHero() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
-        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
       </div>
     );
   }
-  if (error) return <p className='text-center'>Error loading data</p>;
+  if (error) {
+    console.log(`Error loading data: ${error.message}`);
+  }
+  
   return (
     
     <AboutSectionWrapper>
@@ -129,10 +133,10 @@ function AboutHero() {
         We Provide affordable, accessible and quality healthcare for all.
       </p> */}
       <h1>
-        {aboutHero?.title}
+        {aboutHero?.title || "We Provide affordable,  accessible and quality healthcare for all"}
       </h1>
       <p>
-        {aboutHero?.description}
+        {aboutHero?.description || "Radient Ent Hospital has always been in the forefront to introduce the most advanced and sophisticated treatment options in various specialities and subspecialities, most of them are at par with the international standards. We Provide affordable, accessible and quality healthcare for all."}
       </p>
       <button>Read More</button>
     </AboutContent>

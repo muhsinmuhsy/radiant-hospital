@@ -9,54 +9,53 @@ const BlogSectionDisplay = () => {
 
   const { blogs: blogData, isLoading, error} = useFetchBlogs();
 
-  const blogs = blogData || []
+  const blogsSub = [
+    {
+      id: 1,
+      title: "Understanding Tinnitus: Causes and Modern Treatments",
+      image: "/featured.svg",
+      description: "Explore the latest advancements in tinnitus treatment and management. Learn about innovative therapies and lifestyle changes that can help reduce the impact of tinnitus on your daily life.",
+      date: "2025-01-02",
+      time_ago: "5 min",
+      category: "Patient Education",
+      author: "Dr. Sarah Miller",
+      is_latest: true
+    },
+    {
+      id: 2,
+      title: "Children's Ear Infections: What Parents Should Know",
+      image: "/blog-1.svg",
+      description: "A comprehensive guide for parents about ear infections in children, including symptoms, prevention, and when to seek medical attention.",
+      date: "2025-01-01",
+      time_ago: "6 min",
+      category: "Pediatric ENT",
+      author: "Dr. James Chen"
+    },
+    {
+      id: 3,
+      title: "Latest Advances in Sinus Surgery",
+      image: "/blog-2.svg",
+      description: "Discover how minimally invasive techniques and advanced technology are revolutionizing sinus surgery, leading to faster recovery times.",
+      date: "2024-12-31",
+      time_ago: "7 min",
+      category: "Surgical Updates",
+      author: "Dr. Robert Wilson"
+    },
+    {
+      id: 4,
+      title: "Protecting Your Hearing: Prevention Guidelines",
+      image: "/blog-3.svg",
+      description: "Essential tips for protecting your hearing in everyday situations, including workplace safety and recreational activities.",
+      date: "2024-12-30",
+      time_ago: "5 min",
+      category: "Hearing Health",
+      author: "Dr. Emily Santos"
+    }
+  ];
 
 
- 
+  const blogs = blogData || blogsSub;
 
-  // const blogs = [
-  //   {
-  //     id: 1,
-  //     title: "Understanding Tinnitus: Causes and Modern Treatments",
-  //     image: "/featured.svg",
-  //     description: "Explore the latest advancements in tinnitus treatment and management. Learn about innovative therapies and lifestyle changes that can help reduce the impact of tinnitus on your daily life.",
-  //     date: "2025-01-02",
-  //     time_ago: "5 min",
-  //     category: "Patient Education",
-  //     author: "Dr. Sarah Miller",
-  //     is_latest: true
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Children's Ear Infections: What Parents Should Know",
-  //     image: "/blog-1.svg",
-  //     description: "A comprehensive guide for parents about ear infections in children, including symptoms, prevention, and when to seek medical attention.",
-  //     date: "2025-01-01",
-  //     time_ago: "6 min",
-  //     category: "Pediatric ENT",
-  //     author: "Dr. James Chen"
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Latest Advances in Sinus Surgery",
-  //     image: "/blog-2.svg",
-  //     description: "Discover how minimally invasive techniques and advanced technology are revolutionizing sinus surgery, leading to faster recovery times.",
-  //     date: "2024-12-31",
-  //     time_ago: "7 min",
-  //     category: "Surgical Updates",
-  //     author: "Dr. Robert Wilson"
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Protecting Your Hearing: Prevention Guidelines",
-  //     image: "/blog-3.svg",
-  //     description: "Essential tips for protecting your hearing in everyday situations, including workplace safety and recreational activities.",
-  //     date: "2024-12-30",
-  //     time_ago: "5 min",
-  //     category: "Hearing Health",
-  //     author: "Dr. Emily Santos"
-  //   }
-  // ];
 
   const truncateText = (text, maxLength = 100) => {
     if (!text || text.length === 0) {

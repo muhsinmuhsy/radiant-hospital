@@ -16,45 +16,47 @@ const ServiceCarousel = () => {
 
   const { service, isLoading, error } = useFetchServices();
 
-  const Data = service || [];
-  // const Data = [
-  //   {
-  //     icon: '/hearing-aid.svg',
-  //     title: 'Hearing Aid',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/vertigo.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/endoscopy.svg',
-  //     title: 'Endoscopic & Skull Base Surgery',
-  //     description:
-  //       'ENT surgery has expanded its vistas more than any other surgical specialty in the world. An excellent example is endoscopic surgery.',
-  //   },
-  //   {
-  //     icon: '/hearing-aid.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/vertigo.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/vertigo.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  // ];
+  const DataSub = [
+    {
+      icon: '/hearing-aid.svg',
+      title: 'Hearing Aid',
+      description:
+        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+    },
+    {
+      icon: '/vertigo.svg',
+      title: 'Vertigo Clinic',
+      description:
+        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+    },
+    {
+      icon: '/endoscopy.svg',
+      title: 'Endoscopic & Skull Base Surgery',
+      description:
+        'ENT surgery has expanded its vistas more than any other surgical specialty in the world. An excellent example is endoscopic surgery.',
+    },
+    {
+      icon: '/hearing-aid.svg',
+      title: 'Vertigo Clinic',
+      description:
+        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+    },
+    {
+      icon: '/vertigo.svg',
+      title: 'Vertigo Clinic',
+      description:
+        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+    },
+    {
+      icon: '/vertigo.svg',
+      title: 'Vertigo Clinic',
+      description:
+        'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
+    },
+  ];
+
+  const Data = service || DataSub;
+  
 
   const play = useCallback(() => {
     autoPlayRef.current = setInterval(() => {
@@ -142,12 +144,15 @@ const ServiceCarousel = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
-        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
       </div>
     );
   }
   
-  if (error) return <p className='text-center'>Error loading data</p>;
+  if (error) {
+    console.log(`Error loading data: ${error.message}`);
+  }
 
   return (
     <section className="relative px-4 py-8 md:px-8">

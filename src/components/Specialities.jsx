@@ -138,35 +138,43 @@ function OurSpecialities() {
   const { specialitiesHeader, isLoading, error } = useFetchHomeSpecialitiesHeader();
   const { specialities, isLoading: isLoading0, error: error0 } = useFetchSpecialities();
 
-  const Specialityimages = specialities || [];
-  
-  // const Specialityimages = [
-  //   { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
-  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
-  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
-  //   { src: '/spec-1.svg', title: 'Phono Microsurgery' },
-  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
-  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
-  // ];
+  const SpecialityimagesSub = [
+    { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
+    { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+    { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+    { src: '/spec-1.svg', title: 'Phono Microsurgery' },
+    { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+    { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+  ];
+
+  const Specialityimages = specialities || SpecialityimagesSub;
+
 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
-        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
       </div>
     );
   }
   
-  if (error) return <p className='text-center'>Error loading data</p>;
+  if (error) {
+    console.log(`Error loading data: ${error.message}`);
+  }
 
   if (isLoading0) {
     return (
       <div className="flex justify-center items-center">
-        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
+
       </div>
     );
   }
-  if (error0) return <p className='text-center'>Error loading data</p>;
+  
+  if (error0) {
+    console.log(`Error loading data: ${error0.message}`);
+  }
   return (
     <Section>
       <ServiceBtn>
