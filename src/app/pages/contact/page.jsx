@@ -43,8 +43,6 @@ const AboutUs = () => {
     ...value,
     icon: iconMap[index % iconMap.length], // Assign icon based on index
   }));
-  
-  console.log(values);
 
  
 

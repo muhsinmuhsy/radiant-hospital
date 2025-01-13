@@ -103,14 +103,15 @@ function  ServiceSection() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center">
-        <div className="w-10 m-10 h-10 border-4 border-t-4 border-gray-300 rounded-full animate-spin" style={{ borderTopColor: '#21ccd2' }}></div>
-
+      <>
+      <div className="grid grid-cols-3 gap-6 m-24">
+        <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
+        <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
+        <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
       </div>
+      </>
+
     );
-  }
-  if (error) {
-    console.log(`Error loading data: ${error.message}`);
   }
 
   return (

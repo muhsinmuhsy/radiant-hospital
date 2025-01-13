@@ -1,29 +1,36 @@
 'use client';
+
 import React, { useState } from 'react';
 import { Calendar, Clock, User, Tag, Search } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useFetchBlogs } from '@/lib/data';
 
 const ENTBlog = () => {
-  const [posts] = useState([
+
+  const { blogs: blogData, isLoading, error} = useFetchBlogs();
+
+  console.log(blogData)
+
+  const posts = blogData || [
     {
       id: 1,
       title: "Latest Advances in Sinus Surgery Technology",
-      excerpt: "Exploring revolutionary techniques in minimally invasive sinus procedures and their impact on patient recovery times...",
+      description: "Exploring revolutionary techniques in minimally invasive sinus procedures and their impact on patient recovery times...",
       author: "Dr. Sarah Chen",
       date: "Jan 5, 2025",
-      readTime: "8 min",
+      time_ago: "8 min",
       image: "/karl-storz.webp",
       categories: ["Surgery", "Technology"],
-      featured: true
+      is_featured: true
     },
     {
       id: 2,
       title: "Common ENT Conditions and Treatments",
-      excerpt: "Expert insights into symptoms, treatments, and prevention strategies for common ENT issues...",
+      description: "Expert insights into symptoms, treatments, and prevention strategies for common ENT issues...",
       author: "Dr. Michael Brown",
       date: "Jan 4, 2025",
-      readTime: "5 min",
+      time_ago: "5 min",
       image: "/spec-1.svg",
       categories: ["Health Tips"],
       featured: false
@@ -31,42 +38,43 @@ const ENTBlog = () => {
     {
       id: 3,
       title: "Pediatric Ear Infections: What Parents Should Know",
-      excerpt: "Understanding the causes, symptoms, and treatment options for childhood ear infections...",
+      description: "Understanding the causes, symptoms, and treatment options for childhood ear infections...",
       author: "Dr. Lisa Wong",
       date: "Jan 3, 2025",
-      readTime: "6 min",
+      time_ago: "6 min",
       image: "/spec-2.svg",
       categories: ["Pediatric ENT"],
       featured: false
     },
     {
-        id: 4,
-        title: " What Parents Should Know",
-        excerpt: "Understanding the causes, symptoms, and treatment options for childhood ear infections...",
-        author: "Dr. Lisa Wong",
-        date: "Jan 3, 2025",
-        readTime: "6 min",
-        image: "/spec-3.svg",
-        categories: ["Pediatric ENT"],
-        featured: false
-      }
-  ]);
+      id: 4,
+      title: "What Parents Should Know",
+      description: "Understanding the causes, symptoms, and treatment options for childhood ear infections...",
+      author: "Dr. Lisa Wong",
+      date: "Jan 3, 2025",
+      time_ago: "6 min",
+      image: "/spec-3.svg",
+      categories: ["Pediatric ENT"],
+      featured: false
+    }
+  ];
+  
 
   const [categories] = useState([
-    { name: "Ear Health", count: 12 },
-    { name: "Throat Conditions", count: 8 },
-    { name: "Nasal Care", count: 15 },
-    { name: "Pediatric ENT", count: 10 },
-    { name: "Surgery Updates", count: 6 }
+    { name: "Ear Health" },
+    { name: "Throat Conditions" },
+    { name: "Nasal Care" },
+    { name: "Pediatric ENT" },
+    { name: "Surgery Updates" }
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [email, setEmail] = useState("");
 
-  const filteredPosts = posts.filter(post => {
+  const filteredPosts = posts?.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+                         post.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = !selectedCategory || post.categories.includes(selectedCategory);
     return matchesSearch && matchesCategory;
   });
@@ -76,6 +84,15 @@ const ENTBlog = () => {
     console.log('Subscribed:', email);
     setEmail("");
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen w-screen fixed top-0 left-0">
+        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+
+    );
+  }
 
   return (
     <>
@@ -88,26 +105,26 @@ const ENTBlog = () => {
           {/* Main Content */}
           <div className="col-span-12 lg:col-span-8">
             <div className="space-y-10">
-              {filteredPosts.map(post => (
-                post.featured ? (
-                  <article key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden">
-                    <img src={post.image} alt={post.title} className="w-full h-64 object-cover"/>
+              {filteredPosts?.map(post => (
+                post?.is_featured ? (
+                  <article key={post?.id} className="bg-white rounded-xl shadow-md overflow-hidden">
+                    <img src={post?.image} alt={post?.title} className="w-full h-64 object-cover"/>
                     <div className="p-6">
                       <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
                         <span className="flex items-center gap-1">
                           <Calendar size={16} />
-                          {post.date}
+                          {post?.date}
                         </span>
                         <span className="flex items-center gap-1">
                           <User size={16} />
-                          {post.author}
+                          {post?.author}
                         </span>
                       </div>
-                      <h2 className="text-2xl font-bold mb-3 text-gray-900">{post.title}</h2>
-                      <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                      <h2 className="text-2xl font-bold mb-3 text-gray-900">{post?.title}</h2>
+                      <p className="text-gray-600 mb-4">{post?.description?.slice(0, 10)}...</p>
                       <div className="flex items-center justify-between">
                         <div className="flex gap-2">
-                          {post.categories.map(category => (
+                          {post?.categories.map(category => (
                             <button 
                               key={category}
                               onClick={() => setSelectedCategory(category)}
@@ -122,24 +139,24 @@ const ENTBlog = () => {
                     </div>
                   </article>
                 ) : (
-                  <article key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden flex">
-                    <img src={post.image} alt={post.title} className="w-48 object-cover"/>
+                  <article key={post?.id} className="bg-white rounded-xl shadow-md overflow-hidden flex">
+                    <img src={post?.image} alt={post?.title} className="w-48 object-cover"/>
                     <div className="p-6 flex-1">
                       <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
                         <span className="flex items-center gap-1">
                           <Calendar size={16} />
-                          {post.date}
+                          {post?.date}
                         </span>
                         <span className="flex items-center gap-1">
                           <Clock size={16} />
-                          {post.readTime}
+                          {post?.time_ago}
                         </span>
                       </div>
-                      <h3 className="text-xl font-bold mb-3 text-gray-900">{post.title}</h3>
-                      <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                      <h3 className="text-xl font-bold mb-3 text-gray-900">{post?.title}</h3>
+                      <p className="text-gray-600 mb-4">{post?.description}</p>
                       <div className="flex items-center justify-between">
                         <div className="flex gap-2">
-                          {post.categories.map(category => (
+                          {post?.categories.map(category => (
                             <button 
                               key={category}
                               onClick={() => setSelectedCategory(category)}
@@ -184,10 +201,10 @@ const ENTBlog = () => {
                     onClick={() => setSelectedCategory(category.name)}
                     className="w-full flex items-center justify-between text-gray-600 hover:text-blue-600"
                   >
-                    <span>{category.name}</span>
-                    <span className="bg-gray-100 px-2 py-1 rounded-full text-sm">
+                    <span>{category?.name}</span>
+                    {/* <span className="bg-gray-100 px-2 py-1 rounded-full text-sm">
                       {category.count}
-                    </span>
+                    </span> */}
                   </button>
                 ))}
               </div>

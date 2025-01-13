@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 /////////////////////////////////// Fetcher ///////////////////////////////////
 
-const BASE_URL = 'https://muhsiiyy.pythonanywhere.com';
+const BASE_URL = 'http://127.0.0.1:8000';
 
 const fetcher = async (url: string): Promise<any> => {
   const res = await fetch(`${BASE_URL}${url}`);
@@ -77,7 +77,7 @@ export interface Blog {
     id: number,
     image: string,
     author: string,
-    category: string,
+    categories: string,
     title: string,
     date: string,
     description: string,
@@ -124,8 +124,6 @@ export interface ContactHero {
   title_one: string;
   title_two: string;
   description: string;
-  created_at: string;
-  updated_at: string;
 }
 
 export interface QuickInfo {
@@ -133,41 +131,77 @@ export interface QuickInfo {
   contact: string;
   hours: string;
   location: string;
-  created_at: string;
-  updated_at: string;
 }
 
 export interface Mission {
   id: number;
   title: string;
   description: string;
-  created_at: string;
-  updated_at: string;
 }
 
 export interface Vision {
   id: number;
   title: string;
   description: string;
-  created_at: string;
-  updated_at: string;
 }
 
 export interface OurValues {
   id: number;
   title: string;
   description: string;
-  created_at: string;
-  updated_at: string;
 }
 
 export interface CTASection {
   id: number;
   title: string;
   description: string;
-  created_at: string;
+}
+
+// AboutHero Type
+export interface AboutHero {
+  id: number; 
+  title: string;
+  description?: string | null; 
+  created_at: string; 
   updated_at: string;
 }
+
+// AboutStats Type
+export interface AboutStats {
+  id: number;
+  label: string;
+  number: string;
+}
+
+// AboutCoreValues Type
+export interface AboutCoreValues {
+  id: number;
+  name: string;
+}
+
+// AboutFeatures Type
+export interface AboutFeatures {
+  id: number;
+  title: string;
+  description?: string | null;
+}
+
+// AboutAchievements Type
+export interface AboutAchievements {
+  id: number;
+  title: string;
+  description?: string | null;
+}
+
+// AboutContactDetails Type
+export interface AboutContactDetails {
+  id: number;
+  phone: string;
+  mail: string;
+  location: string;
+  time: string;
+}
+
 
 
 /////////////////////////////////// Hook ///////////////////////////////////
@@ -425,6 +459,73 @@ export function useFetchCTASection() {
     '/readonly-cta-section/',
     fetcher
   );
+
+  return {
+    data: data ? data[0] : null,
+    isLoading,
+    error,
+  };
+}
+
+
+// Hook for AboutHero
+export function useFetchAboutHero() {
+  const { data, error, isLoading } = useSWR<AboutHero[]>('/readonly-about-hero/', fetcher);
+
+  return {
+    data: data ? data[0] : null,
+    isLoading,
+    error,
+  };
+}
+
+// Hook for AboutStats
+export function useFetchAboutStats() {
+  const { data, error, isLoading } = useSWR<AboutStats[]>('/readonly-about-stats/', fetcher);
+
+  return {
+    data: data || [],
+    isLoading,
+    error,
+  };
+}
+
+// Hook for AboutCoreValues
+export function useFetchAboutCoreValues() {
+  const { data, error, isLoading } = useSWR<AboutCoreValues[]>('/readonly-about-core-values/', fetcher);
+
+  return {
+    data: data || [],
+    isLoading,
+    error,
+  };
+}
+
+// Hook for AboutFeatures
+export function useFetchAboutFeatures() {
+  const { data, error, isLoading } = useSWR<AboutFeatures[]>('/readonly-about-features/', fetcher);
+
+  return {
+    data: data || [],
+    isLoading,
+    error,
+  };
+}
+
+// Hook for AboutAchievements
+export function useFetchAboutAchievements() {
+  const { data, error, isLoading } = useSWR<AboutAchievements[]>('/readonly-about-achievements/', fetcher);
+
+  return {
+    data: data || [],
+    isLoading,
+    error,
+  };
+}
+
+// Hook for AboutContactDetails
+export function useFetchAboutContactDetails() {
+  const { data, error, isLoading } = useSWR<AboutContactDetails[]>('/readonly-about-contact-details/', fetcher);
 
   return {
     data: data ? data[0] : null,
