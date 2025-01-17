@@ -1,41 +1,47 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useFetchDescCarousal, useFetchMobCarousal } from '@/lib/data';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
+  const { data, isLoading, error} = useFetchDescCarousal();
+
+  const { data: data0, isLoading: isLoading0, error: error0} = useFetchMobCarousal();
+
   // ENT Hospital specific slides
-  const slides = [
-    {
-      id: 1,
-      // title: "Expert ENT Care",
-      // description: "State-of-the-art diagnosis and treatment for ear, nose, and throat conditions",
-      // Sample image showing modern medical facility
-      imageUrl: "/carousal1.png",
-      // overlayColor: "bg-black/50"
-    //   overlayColor: "bg-blue-900/40"
-    },
-    {
-      id: 2,
-      // title: "Advanced Hearing Solutions",
-      // description: "Comprehensive hearing tests and cutting-edge hearing aid technology",
-      // Sample image showing audiometry equipment
-      imageUrl: "/carousal2.png",
-      // overlayColor: "bg-black/50"
-      
-    },
-    {
-      id: 3,
-      // title: "Pediatric ENT Specialists",
-      // description: "Gentle, specialized care for children's ENT health needs",
-      // Sample image showing child-friendly medical environment
-      imageUrl: "/carousal3.png",
-      // overlayColor: "bg-black/50"
-      
-    }
+
+  const Slides = [
+    { id: 1, imageUrl: "/carousal1.png" },
+    { id: 2, imageUrl: "/carousal2.png" },
+    { id: 3, imageUrl: "/carousal3.png" },
   ];
+
+  const DesktopSlides = data || Slides;
+  
+  const MobileSlides = data0 || Slides;
+
+  const [isMobile, setIsMobile] = useState(false);
+  const slides = isMobile ? MobileSlides : DesktopSlides;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
+    };
+
+    // Set initial state
+    handleResize();
+
+    // Add resize event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {

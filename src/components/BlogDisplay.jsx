@@ -67,18 +67,6 @@ const BlogSectionDisplay = () => {
   const latestBlog = blogs.find(blog => blog.is_latest);
   const regularBlogs = blogs.filter(blog => !blog.is_latest);
 
-  if (isLoading) {
-    return (
-      <>
-        <div className="grid grid-cols-3 gap-6 m-24">
-          <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-        </div>
-      </>
-
-    );
-  }
   
   if (error) return <p className='text-center'>Error loading data</p>;
 

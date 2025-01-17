@@ -142,33 +142,6 @@ const OurEquipment = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  if (isLoading) {
-    return (
-      <>
-      <div className='m-24'>
-        <div className="grid grid-cols-4 gap-6">
-          <div className="h-40 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-40 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-40 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-40 bg-gray-300 mb-3 rounded-lg w-full animate-pulse"></div>
-        </div>
-          <div className="h-5 bg-gray-300 mb-3 rounded-lg w-40 animate-pulse"></div>
-
-          <div className="h-96 bg-gray-300 rounded-lg w-full mb-3 animate-pulse"></div>
-
-        <div className="grid grid-cols-4 gap-6">
-          <div className="h-40 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-40 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-40 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-          <div className="h-40 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-        </div>
-      </div>
-        
-        
-      </>
-
-    );
-  }
   
   if (error) {
     console.log(`Error loading data: ${error.message}`);

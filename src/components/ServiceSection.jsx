@@ -101,19 +101,6 @@ function  ServiceSection() {
 
   const { serviceHeader, isLoading, error } = useFetchHomeServiceHeader();
 
-  if (isLoading) {
-    return (
-      <>
-      <div className="grid grid-cols-3 gap-6 m-24">
-        <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-        <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-        <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-      </div>
-      </>
-
-    );
-  }
-
   return (
     <Section >
       <ServiceBtn>

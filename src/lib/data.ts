@@ -14,6 +14,16 @@ const fetcher = async (url: string): Promise<any> => {
 
 /////////////////////////////////// Types ///////////////////////////////////
 
+export interface DescCarousal {
+  id: number;
+  image: string;
+}
+
+export interface MobCarousal {
+  id: number;
+  image: string;
+}
+
 export interface HomeAboutHero {
   id: number;
   title: string;
@@ -205,6 +215,33 @@ export interface AboutContactDetails {
 
 
 /////////////////////////////////// Hook ///////////////////////////////////
+
+export function useFetchDescCarousal() {
+  const { data, error, isLoading } = useSWR<DescCarousal[]>(
+    '/readonly-desc-carousal/',
+    fetcher
+  );
+
+  return {
+    data: data || null,
+    isLoading,
+    error,
+  };
+}
+
+
+export function useFetchMobCarousal() {
+  const { data, error, isLoading } = useSWR<MobCarousal[]>(
+    '/readonly-mob-carousal/',
+    fetcher
+  );
+
+  return {
+    data: data || null,
+    isLoading,
+    error,
+  };
+}
 
 export function useFetchHomeAboutHero() {
   const { data, error, isLoading } = useSWR<HomeAboutHero[]>(

@@ -77,16 +77,6 @@ const TestimonialCarousel = () => {
     setTouchEnd(null);
   };
 
-  if (isLoading) {
-    return (
-      <>
-        <div className=" m-24">
-          <div className="h-80 bg-gray-300 rounded-lg w-full animate-pulse"></div>
-        </div>
-      </>
-
-    );
-  }
   
   if (error) {
     console.log(`Error loading data: ${error.message}`);

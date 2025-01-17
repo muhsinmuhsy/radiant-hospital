@@ -85,14 +85,6 @@ const ENTBlog = () => {
     setEmail("");
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen w-screen fixed top-0 left-0">
-        <div className="w-10 h-10 border-4 border-t-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-      </div>
-
-    );
-  }
 
   return (
     <>
@@ -124,7 +116,7 @@ const ENTBlog = () => {
                       <p className="text-gray-600 mb-4">{post?.description?.slice(0, 10)}...</p>
                       <div className="flex items-center justify-between">
                         <div className="flex gap-2">
-                          {post?.categories.map(category => (
+                          {post?.categories?.map(category => (
                             <button 
                               key={category}
                               onClick={() => setSelectedCategory(category)}
@@ -156,7 +148,7 @@ const ENTBlog = () => {
                       <p className="text-gray-600 mb-4">{post?.description}</p>
                       <div className="flex items-center justify-between">
                         <div className="flex gap-2">
-                          {post?.categories.map(category => (
+                          {post?.categories?.map(category => (
                             <button 
                               key={category}
                               onClick={() => setSelectedCategory(category)}
