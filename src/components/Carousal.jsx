@@ -14,9 +14,9 @@ const HeroCarousel = () => {
   // ENT Hospital specific slides
 
   const Slides = [
-    { id: 1, imageUrl: "/carousal1.png" },
-    { id: 2, imageUrl: "/carousal2.png" },
-    { id: 3, imageUrl: "/carousal3.png" },
+    { id: 1, image: "/carousal1.png" },
+    { id: 2, image: "/carousal2.png" },
+    { id: 3, image: "/carousal3.png" },
   ];
 
   const DesktopSlides = data || Slides;
@@ -87,7 +87,7 @@ const HeroCarousel = () => {
             {/* Image */}
             <div className="relative w-full h-full">
               <img
-                src={slide.imageUrl}
+                src={slide.image}
                 alt={slide.title}
                 className="object-cover w-full h-full"
               />

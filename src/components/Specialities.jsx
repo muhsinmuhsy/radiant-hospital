@@ -186,11 +186,13 @@ function OurSpecialities() {
       <ImageDiv>
         {Specialityimages.map((specialities, index) => (
           <ImageCard key={index}>
-            <img src={specialities?.src} alt={specialities?.title} />
-            <div className="text-overlay">{specialities?.title}</div>
-            <div className="top-right-arrow">
-              <img src="/spec-arrow.svg" alt="arrow" />
-            </div>
+            <Link href={`/pages/specialities/${specialities.id}`} key={specialities.id}>
+              <img src={specialities?.src} alt={specialities?.title} />
+              <div className="text-overlay">{specialities?.title}</div>
+              <div className="top-right-arrow">
+                <img src="/spec-arrow.svg" alt="arrow" />
+              </div>
+            </Link> 
           </ImageCard>
         ))}
       </ImageDiv>
