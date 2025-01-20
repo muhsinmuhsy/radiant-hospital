@@ -117,8 +117,8 @@ function  ServiceSection() {
       </ServiceBtn>
 
       <MainContent>
-        <h1>{serviceHeader?.title || "We Provide"}</h1>
-        <p>{serviceHeader?.description || "Through our 25+ specialities, we provide in-depth expertise in the spectrum of advance medical and surgical interventions. Our specialities are integrated to provide a seamless experience."}</p>
+        <h1>{serviceHeader?.title}</h1>
+        <p>{serviceHeader?.description}</p>
       </MainContent>
       <ServiceCarousal/>
 

@@ -20,26 +20,26 @@ const DoctorsCarousel = () => {
   const { consultant, isLoading, error } = useFetchConsultants();
   const { consultantHeader, isLoading: isLoading0, error: error0 } = useFetchHomeConsultantHeader();
 
-  const DataSub = [
-    {
-      image: '/doc-2.png',
-      name: 'Dr. Priyadarshan M.S',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-1.svg',
-      name: 'Dr. Faslim M.S',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-3.png',
-      name: 'Dr. Priyadarshan',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    // Add more items if needed
-  ];
+  // const DataSub = [
+  //   {
+  //     image: '/doc-2.png',
+  //     name: 'Dr. Priyadarshan M.S',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-1.svg',
+  //     name: 'Dr. Faslim M.S',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-3.png',
+  //     name: 'Dr. Priyadarshan',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   // Add more items if needed
+  // ];
 
-  const Data = consultant || DataSub;
+  const Data = consultant;
 
   
 
@@ -117,7 +117,7 @@ const DoctorsCarousel = () => {
     setIsAnimating(true);
 
     setActiveIndex((prev) =>
-      prev + cardsPerView >= Data.length ? 0 : prev + cardsPerView
+      prev + cardsPerView >= Data?.length ? 0 : prev + cardsPerView
     );
 
     setTimeout(() => setIsAnimating(false), 500);
@@ -193,7 +193,7 @@ const DoctorsCarousel = () => {
               transform: `translateX(${translateValue}%)`,
             }}
           >
-            {Data.map((doctor, index) => (
+            {Data?.map((doctor, index) => (
               <div
                 key={index}
                 className="flex-shrink-0 px-2 md:px-4"
@@ -233,7 +233,7 @@ const DoctorsCarousel = () => {
           </button>
         )}
 
-        <div className="flex justify-center mt-6 gap-2">
+        {/* <div className="flex justify-center mt-6 gap-2">
           {Array.from({ length: Math.ceil(Data.length / cardsPerView) }).map((_, index) => (
             <button
               key={index}
@@ -252,7 +252,28 @@ const DoctorsCarousel = () => {
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
+        </div> */}
+        <div className="flex justify-center mt-6 gap-2">
+          {Data && Data.length > 0 && Array.from({ length: Math.ceil(Data.length / cardsPerView) }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setIsPaused(true);
+                if (!isAnimating) {
+                  setIsAnimating(true);
+                  setActiveIndex(index * cardsPerView);
+                  setTimeout(() => setIsAnimating(false), 500);
+                }
+                setTimeout(() => setIsPaused(false), 5000);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                activeIndex === index * cardsPerView ? 'bg-[#11b3b8] w-6' : 'bg-[#11b3b8]/40'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
+
       </div>
     </section>
   );

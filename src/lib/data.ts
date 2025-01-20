@@ -374,6 +374,20 @@ export function useFetchBlogs() {
     };
 }
 
+
+export function useViewBlog(blogId: number) {
+  const { data, error, isLoading } = useSWR<Blog>(
+    blogId ? `/readonly-blogs/${blogId}/` : null,
+    fetcher
+  );
+
+  return {
+    data : data || {},
+    isLoading,
+    error
+  };
+}
+
 export function useFetchTestimonials() {
     const { data, error, isLoading } = useSWR<Testimonial[]>(
       '/readonly-testimonials/',

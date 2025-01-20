@@ -13,15 +13,15 @@ const HeroCarousel = () => {
 
   // ENT Hospital specific slides
 
-  const Slides = [
-    { id: 1, image: "/carousal1.png" },
-    { id: 2, image: "/carousal2.png" },
-    { id: 3, image: "/carousal3.png" },
-  ];
+  // const Slides = [  
+  //   { id: 1, image: "/carousal1.png" },
+  //   { id: 2, image: "/carousal2.png" },
+  //   { id: 3, image: "/carousal3.png" },
+  // ];
 
-  const DesktopSlides = data || Slides;
+  const DesktopSlides = data;
   
-  const MobileSlides = data0 || Slides;
+  const MobileSlides = data0;
 
   const [isMobile, setIsMobile] = useState(false);
   const slides = isMobile ? MobileSlides : DesktopSlides;
@@ -55,7 +55,7 @@ const HeroCarousel = () => {
   const handleNext = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % slides?.length);
     setTimeout(() => setIsAnimating(false), 500);
   };
 
@@ -77,7 +77,7 @@ const HeroCarousel = () => {
     <div className="relative w-full h-[550px] overflow-hidden bg-gray-100">
       {/* Slides */}
       <div className="relative w-full h-full">
-        {slides.map((slide, index) => (
+        {slides?.map((slide, index) => (
           <div
             key={slide.id}
             className={`absolute w-full h-full transition-all duration-500 ease-in-out transform
@@ -128,7 +128,7 @@ const HeroCarousel = () => {
 
       {/* Dots Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
-        {slides.map((_, index) => (
+        {slides?.map((_, index) => (
           <button
             key={index}
             onClick={() => handleDotClick(index)}

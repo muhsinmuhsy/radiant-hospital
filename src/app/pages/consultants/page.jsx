@@ -10,40 +10,40 @@ const ConsultantsPage = () => {
   const { consultant, isLoading, error } = useFetchConsultants();
   const { data: ConsultantsMainHeaderData, isLoading: isLoading0, error: error0 } = useFetchConsultantsMainHeader();
 
-  const doctorsSub = [
-    {
-      image: '/doc-2.png',
-      name: 'Dr. Priyadarshan M.S',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-1.svg',
-      name: 'Dr. Faslim M.S',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-3.png',
-      name: 'Dr. Priyadarshan',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-2.png',
-      name: 'Dr. Priyadarshan M.S',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-1.svg',
-      name: 'Dr. Faslim M.S',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    },
-    {
-      image: '/doc-3.png',
-      name: 'Dr. Priyadarshan',
-      specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-    }
-  ];
+  // const doctorsSub = [
+  //   {
+  //     image: '/doc-2.png',
+  //     name: 'Dr. Priyadarshan M.S',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-1.svg',
+  //     name: 'Dr. Faslim M.S',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-3.png',
+  //     name: 'Dr. Priyadarshan',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-2.png',
+  //     name: 'Dr. Priyadarshan M.S',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-1.svg',
+  //     name: 'Dr. Faslim M.S',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   },
+  //   {
+  //     image: '/doc-3.png',
+  //     name: 'Dr. Priyadarshan',
+  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
+  //   }
+  // ];
 
-  const doctors = consultant || doctorsSub;
+  const doctors = consultant;
   
   
   if (error) {
@@ -58,17 +58,17 @@ const ConsultantsPage = () => {
       {/* Header Section */}
       <div className="text-center mb-16 px-4">
         <h1 className="text-4xl md:text-5xl font-bold text-[#11b3b8] mb-4">
-          {ConsultantsMainHeaderData?.title || "Meet Our Expert Consultants"}
+          {ConsultantsMainHeaderData?.title}
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-        {ConsultantsMainHeaderData?.description || "Through our 25+ specialities, we provide in-depth expertise in the spectrum of advance medical and surgical interventions."}
+        {ConsultantsMainHeaderData?.description}
         </p>
       </div>
 
       {/* Doctors Grid */}
       <div className="max-w-[1536px] mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {doctors.map((doctor, index) => (
+          {doctors?.map((doctor, index) => (
             <div 
               key={index}
               className="group relative"

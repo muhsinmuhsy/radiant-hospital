@@ -126,10 +126,10 @@ function AboutHero() {
         We Provide affordable, accessible and quality healthcare for all.
       </p> */}
       <h1>
-        {aboutHero?.title || "We Provide affordable,  accessible and quality healthcare for all"}
+        {aboutHero?.title}
       </h1>
       <p>
-        {aboutHero?.description || "Radient Ent Hospital has always been in the forefront to introduce the most advanced and sophisticated treatment options in various specialities and subspecialities, most of them are at par with the international standards. We Provide affordable, accessible and quality healthcare for all."}
+        {aboutHero?.description}
       </p>
       <button>Read More</button>
     </AboutContent>

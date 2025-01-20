@@ -9,52 +9,52 @@ const BlogSectionDisplay = () => {
 
   const { blogs: blogData, isLoading, error} = useFetchBlogs();
 
-  const blogsSub = [
-    {
-      id: 1,
-      title: "Understanding Tinnitus: Causes and Modern Treatments",
-      image: "/featured.svg",
-      description: "Explore the latest advancements in tinnitus treatment and management. Learn about innovative therapies and lifestyle changes that can help reduce the impact of tinnitus on your daily life.",
-      date: "2025-01-02",
-      time_ago: "5 min",
-      categories: "Patient Education",
-      author: "Dr. Sarah Miller",
-      is_latest: true
-    },
-    {
-      id: 2,
-      title: "Children's Ear Infections: What Parents Should Know",
-      image: "/blog-1.svg",
-      description: "A comprehensive guide for parents about ear infections in children, including symptoms, prevention, and when to seek medical attention.",
-      date: "2025-01-01",
-      time_ago: "6 min",
-      categories: "Pediatric ENT",
-      author: "Dr. James Chen"
-    },
-    {
-      id: 3,
-      title: "Latest Advances in Sinus Surgery",
-      image: "/blog-2.svg",
-      description: "Discover how minimally invasive techniques and advanced technology are revolutionizing sinus surgery, leading to faster recovery times.",
-      date: "2024-12-31",
-      time_ago: "7 min",
-      categories: "Surgical Updates",
-      author: "Dr. Robert Wilson"
-    },
-    {
-      id: 4,
-      title: "Protecting Your Hearing: Prevention Guidelines",
-      image: "/blog-3.svg",
-      description: "Essential tips for protecting your hearing in everyday situations, including workplace safety and recreational activities.",
-      date: "2024-12-30",
-      time_ago: "5 min",
-      categories: "Hearing Health",
-      author: "Dr. Emily Santos"
-    }
-  ];
+  // const blogsSub = [
+  //   {
+  //     id: 1,
+  //     title: "Understanding Tinnitus: Causes and Modern Treatments",
+  //     image: "/featured.svg",
+  //     description: "Explore the latest advancements in tinnitus treatment and management. Learn about innovative therapies and lifestyle changes that can help reduce the impact of tinnitus on your daily life.",
+  //     date: "2025-01-02",
+  //     time_ago: "5 min",
+  //     categories: "Patient Education",
+  //     author: "Dr. Sarah Miller",
+  //     is_latest: true
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Children's Ear Infections: What Parents Should Know",
+  //     image: "/blog-1.svg",
+  //     description: "A comprehensive guide for parents about ear infections in children, including symptoms, prevention, and when to seek medical attention.",
+  //     date: "2025-01-01",
+  //     time_ago: "6 min",
+  //     categories: "Pediatric ENT",
+  //     author: "Dr. James Chen"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Latest Advances in Sinus Surgery",
+  //     image: "/blog-2.svg",
+  //     description: "Discover how minimally invasive techniques and advanced technology are revolutionizing sinus surgery, leading to faster recovery times.",
+  //     date: "2024-12-31",
+  //     time_ago: "7 min",
+  //     categories: "Surgical Updates",
+  //     author: "Dr. Robert Wilson"
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Protecting Your Hearing: Prevention Guidelines",
+  //     image: "/blog-3.svg",
+  //     description: "Essential tips for protecting your hearing in everyday situations, including workplace safety and recreational activities.",
+  //     date: "2024-12-30",
+  //     time_ago: "5 min",
+  //     categories: "Hearing Health",
+  //     author: "Dr. Emily Santos"
+  //   }
+  // ];
 
 
-  const blogs = blogData || blogsSub;
+  const blogs = blogData;
 
 
   const truncateText = (text, maxLength = 100) => {
@@ -64,8 +64,8 @@ const BlogSectionDisplay = () => {
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
   };
 
-  const latestBlog = blogs.find(blog => blog.is_latest);
-  const regularBlogs = blogs.filter(blog => !blog.is_latest);
+  const latestBlog = blogs?.find(blog => blog.is_latest);
+  const regularBlogs = blogs?.filter(blog => !blog.is_latest);
 
   
   if (error) return <p className='text-center'>Error loading data</p>;
@@ -111,7 +111,13 @@ const BlogSectionDisplay = () => {
               <h3 className="text-2xl font-bold mb-4 group-hover:text-teal-600 transition-colors">
                 {latestBlog?.title}
               </h3>
-              <p className="text-gray-600 mb-6">{truncateText(latestBlog?.description, 150)}</p>
+              
+              <div className='rich-view'
+                  dangerouslySetInnerHTML={{
+                      __html: (latestBlog?.description?.substring(0, 200) ?? '') + (latestBlog?.description?.length > 200 ? '...' : ''),
+                  }}
+              />
+
               <div className="flex items-center justify-between mt-auto">
                 <div className="flex items-center text-gray-500 text-sm">
                   <Calendar className="w-4 h-4 mr-2" />
@@ -128,7 +134,7 @@ const BlogSectionDisplay = () => {
 
       {/* Regular Posts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {regularBlogs.map(blog => (
+        {regularBlogs?.map(blog => (
           <div 
             key={blog.id}
             className="group bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1"

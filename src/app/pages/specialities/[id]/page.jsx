@@ -16,23 +16,8 @@ const SpecialtyDetails = () => {
   useEffect(() => {
     if (id) {
 
-      const specialistsSub = [
-        {
-          "id": 1,
-          image: '/images/otoneurology.jpg',
-          "title": "Micro Ear Surgeries ll",
-          "description": "Advanced surgical procedures for ear conditions with precision and care.",
-          "about": "Micro Ear Surgeries involve advanced techniques to address ear conditions such as chronic infections, tumors, and hearing impairments. These minimally invasive procedures ensure precision and faster recovery.",
-          "stat": "95% Success Rate",
-          "benefits": [
-            "Minimally invasive techniques",
-            "High success rates",
-            "Improved hearing outcomes",
-            "Reduced recovery time"
-          ]
-        }
-      ];
-      const specialties = specialities || specialistsSub;
+     
+      const specialties = specialities;
 
       const matchedSpecialty = specialties.find((item) => item.id === Number(id));
       setSpecialty(matchedSpecialty);

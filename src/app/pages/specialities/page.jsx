@@ -58,29 +58,29 @@ const ImageCard = styled.div`
   }
 `;
 
-const specialtiesSub = [
-  { id: '1', title: 'Micro Ear Surgeries', image: '/spec-1.svg' },
-  { id: '2', title: 'Endoscopic Ear Surgery', image: '/spec-2.svg' },
-  { id: '3', title: 'Endoscopic SIWOS Surgeries', image: '/speciality/siwos.webp' },
-  { id: '4', title: 'COBLATION ADENOTONSILLECTOMY', image: '/spec-2.svg' },
-  { id: '5', title: 'SURGERIES FOR SNORING', image: '/spec-3.svg' },
-  { id: '6', title: 'ENDOLARYNGEAC SURGERIES', image: '/spec-1.svg' },
-  { id: '7', title: 'VOICE RESTORATION SURGERIES ', image: '/spec-2.svg' },
-  { id: '8', title: 'SKULL BASE SURGERIES  ', image: '/spec-3.svg' },
-  { id: '9', title: 'NECK SURGERIES  ', image: '/spec-1.svg' },
-  { id: '10', title: 'ENDOSCOPY   ', image: '/spec-3.svg' },
-  { id: '11', title: 'SLEEP STUDY AND SLEEP ENDOSCOPY    ', image: '/spec-2.svg' },
-  { id: '12', title: '	OTONEUROLOGY    ', image: '/spec-1.svg' },
-  { id: '13', title: '	PEDIATRIC OTO RHINO CARYNGOLOGY    ', image: '/spec-3.svg' },
-  // Add more specialties here...
-];
+// const specialtiesSub = [
+//   { id: '1', title: 'Micro Ear Surgeries', image: '/spec-1.svg' },
+//   { id: '2', title: 'Endoscopic Ear Surgery', image: '/spec-2.svg' },
+//   { id: '3', title: 'Endoscopic SIWOS Surgeries', image: '/speciality/siwos.webp' },
+//   { id: '4', title: 'COBLATION ADENOTONSILLECTOMY', image: '/spec-2.svg' },
+//   { id: '5', title: 'SURGERIES FOR SNORING', image: '/spec-3.svg' },
+//   { id: '6', title: 'ENDOLARYNGEAC SURGERIES', image: '/spec-1.svg' },
+//   { id: '7', title: 'VOICE RESTORATION SURGERIES ', image: '/spec-2.svg' },
+//   { id: '8', title: 'SKULL BASE SURGERIES  ', image: '/spec-3.svg' },
+//   { id: '9', title: 'NECK SURGERIES  ', image: '/spec-1.svg' },
+//   { id: '10', title: 'ENDOSCOPY   ', image: '/spec-3.svg' },
+//   { id: '11', title: 'SLEEP STUDY AND SLEEP ENDOSCOPY    ', image: '/spec-2.svg' },
+//   { id: '12', title: '	OTONEUROLOGY    ', image: '/spec-1.svg' },
+//   { id: '13', title: '	PEDIATRIC OTO RHINO CARYNGOLOGY    ', image: '/spec-3.svg' },
+//   // Add more specialties here...
+// ];
 
 const SpecialitiesPage = () => {
 
   const { specialities, isLoading: isLoading, error: error } = useFetchSpecialities();
   const { data: SpecialitiesMainHeaderData, isLoading: isLoading0, error: error0 } = useFetchSpecialitiesMainHeader();
 
-  const specialties = specialities || specialtiesSub;
+  const specialties = specialities;
 
   
   if (error) {
@@ -98,13 +98,13 @@ const SpecialitiesPage = () => {
       <SpecialityHero/>
       <div className="px-4 py-8">
         <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-800">{SpecialitiesMainHeaderData?.title || "Our Specialties"}</h1>
+        <h1 className="text-4xl font-bold text-gray-800">{SpecialitiesMainHeaderData?.title}</h1>
           <p className="mt-2 text-gray-600">
-            {SpecialitiesMainHeaderData?.description || "Explore our wide range of specialized medical and surgical interventions to ensure optimal care for our patients."}
+            {SpecialitiesMainHeaderData?.description}
           </p>
         </div>
         <ImageDiv>
-          {specialties.map((specialty) => (
+          {specialties?.map((specialty) => (
             <Link href={`/pages/specialities/${specialty.id}`} key={specialty.id}>
               <ImageCard>
                 <Image

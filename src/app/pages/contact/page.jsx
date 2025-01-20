@@ -26,20 +26,20 @@ const AboutUs = () => {
   const { data: ourValues, isLoading: isOurValuesLoading, error: ourValuesError } = useFetchOurValues();
   const { data: ctaSection, isLoading: isCTASectionLoading, error: ctaSectionError } = useFetchCTASection();
 
-  const valuesData = [
-    { id: 1, icon: <Star size={24} />, title: 'Medical Excellence', 
-      description: 'Committed to providing the highest standard of ENT care' },
-    { id: 2, icon: <Award size={24} />, title: 'Innovation', 
-      description: 'Using cutting-edge technology and latest medical advances' },
-    { id: 3, icon: <Heart size={24} />, title: 'Patient-First Care', 
-      description: 'Treating every patient with empathy and personalized attention' }
-  ];
+  // const valuesData = [
+  //   { id: 1, icon: <Star size={24} />, title: 'Medical Excellence', 
+  //     description: 'Committed to providing the highest standard of ENT care' },
+  //   { id: 2, icon: <Award size={24} />, title: 'Innovation', 
+  //     description: 'Using cutting-edge technology and latest medical advances' },
+  //   { id: 3, icon: <Heart size={24} />, title: 'Patient-First Care', 
+  //     description: 'Treating every patient with empathy and personalized attention' }
+  // ];
   
   // Defining iconMap at the top so it is available in the map function
   const iconMap = [<Star size={24} />, <Award size={24} />, <Heart size={24} />];
   
   // Ensure ourValues is an array before mapping and fallback to valuesData if it's not
-  const values = (Array.isArray(ourValues) && ourValues.length > 0 ? ourValues : valuesData)?.map((value, index) => ({
+  const values = (Array.isArray(ourValues) && ourValues.length > 0 ? ourValues : ourValues)?.map((value, index) => ({
     ...value,
     icon: iconMap[index % iconMap.length], // Assign icon based on index
   }));
@@ -75,9 +75,9 @@ const AboutUs = () => {
       <div className="bg-white shadow-lg relative -mt-16 sm:-mt-20 z-30 mx-3 xs:mx-4 sm:mx-8 lg:mx-auto max-w-6xl rounded-xl">
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-6 md:p-8">
           {[
-            { icon: <Phone />, title: "Contact", info: quickInfo?.contact || "+91 123 456 7890" },
-            { icon: <Clock />, title: "Hours", info: quickInfo?.hours || "24/7 Emergency Care" },
-            { icon: <MapPin />, title: "Location", info: quickInfo?.location || "Kannur, Kerala" },
+            { icon: <Phone />, title: "Contact", info: quickInfo?.contact},
+            { icon: <Clock />, title: "Hours", info: quickInfo?.hours},
+            { icon: <MapPin />, title: "Location", info: quickInfo?.location},
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-3 sm:gap-4">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-teal-50 flex items-center justify-center shrink-0" style={{ color: '#11B3B8' }}>
@@ -117,7 +117,7 @@ const AboutUs = () => {
                 <>
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">{mission?.title || "Our Mission"}</h2>
                   <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    {mission?.description || 'To provide world-class ENT care through innovative treatments, expert specialists, and compassionate service. We strive to improve the quality of life for our patients using the latest medical advancements and personalized care approaches.'}
+                    {mission?.description}
                   </p>
                 </>
               ) : (

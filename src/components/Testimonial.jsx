@@ -3,29 +3,29 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { useFetchTestimonials } from '@/lib/data';
 
-const testimonialsSub = [
-  {
-    name: "David Miller",
-    treatment: "Sinus Surgery",
-    content: "Dr. Smith's expertise in treating my chronic sinusitis was exceptional. After years of struggling with breathing problems, I can finally breathe normally again.",
-    rating: 5,
-    date: "March 2024"
-  },
-  {
-    name: "Sarah Chen",
-    treatment: "Tonsillectomy",
-    content: "The entire staff was incredibly supportive throughout my recovery. The post-operative care instructions were clear, and the follow-up was thorough.",
-    rating: 5,
-    date: "February 2024"
-  },
-  {
-    name: "James Wilson",
-    treatment: "Hearing Aid Fitting",
-    content: "The audiologists here are amazing. They took the time to find the perfect hearing solution for my lifestyle. I can now enjoy conversations with my grandchildren.",
-    rating: 5,
-    date: "January 2024"
-  }
-];
+// const testimonialsSub = [
+//   {
+//     name: "David Miller",
+//     treatment: "Sinus Surgery",
+//     content: "Dr. Smith's expertise in treating my chronic sinusitis was exceptional. After years of struggling with breathing problems, I can finally breathe normally again.",
+//     rating: 5,
+//     date: "March 2024"
+//   },
+//   {
+//     name: "Sarah Chen",
+//     treatment: "Tonsillectomy",
+//     content: "The entire staff was incredibly supportive throughout my recovery. The post-operative care instructions were clear, and the follow-up was thorough.",
+//     rating: 5,
+//     date: "February 2024"
+//   },
+//   {
+//     name: "James Wilson",
+//     treatment: "Hearing Aid Fitting",
+//     content: "The audiologists here are amazing. They took the time to find the perfect hearing solution for my lifestyle. I can now enjoy conversations with my grandchildren.",
+//     rating: 5,
+//     date: "January 2024"
+//   }
+// ];
 
 const TestimonialCarousel = () => {
   const [current, setCurrent] = useState(0);
@@ -34,17 +34,18 @@ const TestimonialCarousel = () => {
   const [touchEnd, setTouchEnd] = useState(null);
 
   const {testimonials: testimonialsData, isLoading, error} = useFetchTestimonials();
-  const testimonials = testimonialsData || testimonialsSub;
+  const testimonials = testimonialsData;
 
   useEffect(() => {
-    let interval;
-    if (isPlaying) {
-      interval = setInterval(() => {
+    if (testimonials && testimonials.length > 0 && isPlaying) {
+      let interval = setInterval(() => {
         setCurrent((current + 1) % testimonials.length);
       }, 5000);
+  
+      return () => clearInterval(interval);
     }
-    return () => clearInterval(interval);
-  }, [current, isPlaying]);
+  }, [current, isPlaying, testimonials]);
+  
 
   const next = () => {
     setCurrent((current + 1) % testimonials.length);
@@ -117,7 +118,7 @@ const TestimonialCarousel = () => {
               className="transition-transform duration-700 ease-in-out flex"
               style={{ transform: `translateX(-${current * 100}%)` }}
             >
-              {testimonials.map((testimonial, idx) => (
+              {testimonials?.map((testimonial, idx) => (
                 <div
                   key={idx}
                   className="w-full flex-shrink-0 px-2 sm:px-4"
@@ -161,7 +162,7 @@ const TestimonialCarousel = () => {
               <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </button>
             <div className="flex items-center gap-1.5 sm:gap-2">
-              {testimonials.map((_, idx) => (
+              {testimonials?.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrent(idx)}

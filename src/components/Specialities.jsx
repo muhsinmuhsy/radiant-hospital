@@ -4,6 +4,7 @@ import { Section } from './ServiceSection';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useFetchHomeSpecialitiesHeader, useFetchSpecialities } from '@/lib/data';
+import Image from 'next/image';
 
 export const ServiceBtn = styled.div`
   display: flex;
@@ -138,16 +139,16 @@ function OurSpecialities() {
   const { specialitiesHeader, isLoading, error } = useFetchHomeSpecialitiesHeader();
   const { specialities, isLoading: isLoading0, error: error0 } = useFetchSpecialities();
 
-  const SpecialityimagesSub = [
-    { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
-    { src: '/spec-2.svg', title: 'Phono Microsurgery' },
-    { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
-    { src: '/spec-1.svg', title: 'Phono Microsurgery' },
-    { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
-    { src: '/spec-2.svg', title: 'Phono Microsurgery' },
-  ];
+  // const SpecialityimagesSub = [
+  //   { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
+  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+  //   { src: '/spec-1.svg', title: 'Phono Microsurgery' },
+  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+  // ];
 
-  const Specialityimages = specialities || SpecialityimagesSub;
+  const Specialityimages = specialities;
 
 
   if (error) {
@@ -184,16 +185,41 @@ function OurSpecialities() {
       </MainContent>
 
       <ImageDiv>
-        {Specialityimages.map((specialities, index) => (
+        {Specialityimages?.map((specialities, index) => (
+          <Link href={`/pages/specialities/${specialities?.id}`} key={specialities?.id}>
           <ImageCard key={index}>
-            <Link href={`/pages/specialities/${specialities.id}`} key={specialities.id}>
-              <img src={specialities?.src} alt={specialities?.title} />
+            
+              {specialities.src ? (
+                typeof specialities.src === 'string' ? (
+                  <>
+                    <div>
+                      <Image
+                        src={specialities.src}
+                        width={100}
+                        height={760}
+                        alt={`Image for ${specialities.title}`}
+                        className={`w-8 h-8 md:w-12 md:h-12 lg:w-12 lg:h-12 object-cover rounded mt-2 mb-4`}
+                        onError={() => console.error('Error loading image')}
+                        priority
+                      />
+                      
+                    </div>
+                  </>
+                ) : (
+                  <p>Image format is invalid</p>
+                )
+              ) : (
+                <p>Image not available</p>
+              )}
+
+              {/* <img src={specialities?.src || "/spec-1.svg"} alt={specialities?.title || "src"} /> */}
               <div className="text-overlay">{specialities?.title}</div>
               <div className="top-right-arrow">
                 <img src="/spec-arrow.svg" alt="arrow" />
               </div>
-            </Link> 
+            
           </ImageCard>
+          </Link> 
         ))}
       </ImageDiv>
     </Section>
