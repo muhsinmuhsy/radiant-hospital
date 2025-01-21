@@ -3,23 +3,29 @@ const nextConfig = {
     images: {
       remotePatterns: [
         {
-          protocol: 'http',
-          hostname: '127.0.0.1',
+          protocol: '*',
+          hostname: '**',
           port: '',
           pathname: '/**',
         },
-        {
-          protocol: 'http',
-          hostname: 'localhost',
-          port: '',
-          pathname: '/**',
-        },
-        {
-          protocol: 'https',
-          hostname: 'muhsiiyy.pythonanywhere.com',
-          port: '',
-          pathname: '/**',
-        },
+        // {
+        //   protocol: 'http',
+        //   hostname: '127.0.0.1',
+        //   port: '',
+        //   pathname: '/**',
+        // },
+        // {
+        //   protocol: 'http',
+        //   hostname: 'localhost',
+        //   port: '',
+        //   pathname: '/**',
+        // },
+        // {
+        //   protocol: 'https',
+        //   hostname: 'muhsiiyy.pythonanywhere.com',
+        //   port: '',
+        //   pathname: '/**',
+        // },
       ],
     },
   };
