@@ -1,0 +1,24 @@
+.description body { font-family:Helvetica,Arial,sans-serif !important; font-size:14px !important; }
+
+.description ol {
+    list-style-type: decimal !important; /* Default number style for ordered lists */
+    margin: 1em 0 !important; /* Space above and below the list */
+    padding-left: 40px !important; /* Default padding for ordered list items */
+  }
+  
+.description ul {
+    list-style-type: disc !important; /* Default bullet style for unordered lists */
+    margin: 1em 0 !important; /* Space above and below the list */
+    padding-left: 40px !important; /* Default padding for unordered list items */
+}
+  
+.description li {
+    display: list-item !important; /* Default display behavior for list items */
+    margin-bottom: 0.5em !important; /* Space between list items */
+}
+  
+.description a {
+    color: #551a8b !important; /* Default link color in most browsers */
+    text-decoration: underline !important; /* Remove underline */
+}
+  
