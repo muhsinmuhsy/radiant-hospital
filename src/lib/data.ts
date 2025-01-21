@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 /////////////////////////////////// Fetcher ///////////////////////////////////
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'https://muhsiiyy.pythonanywhere.com';
 
 const fetcher = async (url: string): Promise<any> => {
   const res = await fetch(`${BASE_URL}${url}`);
