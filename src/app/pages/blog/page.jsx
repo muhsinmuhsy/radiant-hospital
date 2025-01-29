@@ -115,7 +115,11 @@ const ENTBlog = () => {
                         </span>
                       </div>
                       <h2 className="text-2xl font-bold mb-3 text-gray-900">{post?.title}</h2>
-                      <p className="text-gray-600 mb-4">{post?.description?.slice(0, 10)}...</p>
+                      <div className='rich-view'
+                          dangerouslySetInnerHTML={{
+                              __html: (post?.description?.substring(0, 50) ?? '') + (post?.description?.length > 50 ? '...' : ''),
+                          }}
+                      />
                       <div className="flex items-center justify-between">
                         <div className="flex gap-2">
                           {post?.categories?.map(category => (
@@ -149,7 +153,11 @@ const ENTBlog = () => {
                         </span>
                       </div>
                       <h3 className="text-xl font-bold mb-3 text-gray-900">{post?.title}</h3>
-                      <p className="text-gray-600 mb-4">{post?.description}</p>
+                      <div className='rich-view'
+                          dangerouslySetInnerHTML={{
+                              __html: (post?.description?.substring(0, 50) ?? '') + (post?.description?.length > 50 ? '...' : ''),
+                          }}
+                      />
                       <div className="flex items-center justify-between">
                         <div className="flex gap-2">
                           {post?.categories?.map(category => (
