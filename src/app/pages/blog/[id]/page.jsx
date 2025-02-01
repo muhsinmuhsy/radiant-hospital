@@ -4,31 +4,22 @@ import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useViewBlog } from '@/lib/data';
-import '../style.css'
+import '../style.css';
 
 export default function ViewBlog() {
-
   const { id } = useParams();
   const blogId = Number(id);
 
   const { data: blog, loading: viewBlogLoading, error: viewBlogError } = useViewBlog(blogId || 0);
 
-  console.log(blog)
+  console.log(blog);
 
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-      <div className="w-full flex-none md:w-64">
-      </div>       
-
-      <div className="flex-grow pl-3 pr-3 md:overflow-y-auto md:p-12">
-        <div className="grid grid-cols-2 gap-2">
-          <div className="text-2xl mb-3">Blog View</div>
-            
-        </div>
-
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
         {/* Error Handling */}
         {viewBlogError && (
-          <div className="m-5 text-sm text-red-500">
+          <div className="p-6 text-sm text-red-600 bg-red-50 border-l-4 border-red-500">
             {typeof viewBlogError === 'string'
               ? viewBlogError
               : 'An error occurred while loading the blog. Please try again.'}
@@ -37,57 +28,56 @@ export default function ViewBlog() {
 
         {/* Loading State */}
         {viewBlogLoading && (
-          <div className="m-5 text-center text-gray-500">
+          <div className="p-6 text-center text-gray-500">
             <p>Loading blog details...</p>
           </div>
         )}
 
         {/* Blog Content */}
         {!viewBlogLoading && !viewBlogError && blog && (
-          <div className="m-5">
-            <div className="flex flex-col  w-full h-auto border-2 border-gray-300 rounded-lg bg-gray-50 p-5">
-                {/* Blog Image */}
-                <div className="mb-4 w-full h-64 flex justify-center items-center">
-                
-                    {blog.image ? (
-                        typeof blog.image === 'string' ? (
-                        <>
-                            <div>
-                            <Image
-                                src={blog.image}
-                                width={200}
-                                height={200}
-                                alt={`Image for ${blog.title}`}
-                                onError={() => console.error('Error loading image')}
-                                priority
-                            />
-                         
-                            </div>
-                        </>
-                        ) : (
-                        <p>Image format is invalid</p>
-                        )
-                    ) : (
-                        <p>Image not available</p>
-                    )}
-
+          <div className="space-y-8">
+            {/* Blog Image */}
+            <div className="relative w-full h-96">
+              {blog.image ? (
+                typeof blog.image === 'string' ? (
+                  <Image
+                    src={blog.image}
+                    alt={`Image for ${blog.title}`}
+                    fill
+                    className="object-cover"
+                    onError={() => console.error('Error loading image')}
+                    priority
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full bg-gray-200 text-gray-500">
+                    <p>Image format is invalid</p>
+                  </div>
+                )
+              ) : (
+                <div className="flex items-center justify-center h-full bg-gray-200 text-gray-500">
+                  <p>Image not available</p>
                 </div>
+              )}
+            </div>
 
-                <h2 className="text-xl font-semibold text-center mb-3">{blog.title}</h2>
+            {/* Blog Details */}
+            <div className="p-6">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">{blog.title}</h2>
+              <div className="flex items-center space-x-4 text-gray-600 mb-6">
+                <span className="text-sm font-medium">{blog.author}</span>
+                <span className="text-sm">•</span>
+                <span className="text-sm">
+                  {blog.date ? new Date(blog.date).toLocaleDateString() : 'No date available'}
+                </span>
+              </div>
 
-                <h4 className="text-xl font-semibold text-center mb-3">{blog.author}</h4>
-
-                {blog.date ? new Date(blog.date).toLocaleDateString() : 'No date available'}
-                
-                <br /> <br />
-                
-                <div className='description'
-                    dangerouslySetInnerHTML={{
-                        __html: blog.description ?? '',
-                    }}
-                />
-                <br /> <br />
-                
+              {/* Blog Description */}
+              <div
+                className="prose prose-lg max-w-none text-gray-700"
+                dangerouslySetInnerHTML={{
+                  __html: blog.description ?? '',
+                }}
+              />
             </div>
           </div>
         )}
