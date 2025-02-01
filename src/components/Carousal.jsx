@@ -1,77 +1,69 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useFetchDescCarousal, useFetchMobCarousal } from '@/lib/data';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-
-  const { data, isLoading, error} = useFetchDescCarousal();
-
-  const { data: data0, isLoading: isLoading0, error: error0} = useFetchMobCarousal();
-
-  // ENT Hospital specific slides
-
-  // const Slides = [  
-  //   { id: 1, image: "/carousal1.png" },
-  //   { id: 2, image: "/carousal2.png" },
-  //   { id: 3, image: "/carousal3.png" },
-  // ];
-
-  const DesktopSlides = data;
-  
-  const MobileSlides = data0;
-
   const [isMobile, setIsMobile] = useState(false);
-  const slides = isMobile ? MobileSlides : DesktopSlides;
 
+  const { data: desktopSlides, isLoading, error } = useFetchDescCarousal();
+  const { data: mobileSlides, isLoading: isLoading0, error: error0 } = useFetchMobCarousal();
+
+  const slides = isMobile ? mobileSlides : desktopSlides;
+
+  // Handle window resize to detect mobile/desktop
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
     };
 
-    // Set initial state
-    handleResize();
-
-    // Add resize event listener
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup on unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    handleResize(); // Set initial state
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Auto-play functionality
   useEffect(() => {
+    if (isAnimating || !slides?.length) return;
+
     const interval = setInterval(() => {
-      if (!isAnimating) {
-        handleNext();
-      }
+      handleNext();
     }, 5000);
+
     return () => clearInterval(interval);
-  }, [currentSlide, isAnimating]);
+  }, [currentSlide, isAnimating, slides]);
 
-  const handleNext = () => {
-    if (isAnimating) return;
+  // Handle next slide
+  const handleNext = useCallback(() => {
+    if (isAnimating || !slides?.length) return;
     setIsAnimating(true);
-    setCurrentSlide((prev) => (prev + 1) % slides?.length);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setTimeout(() => setIsAnimating(false), 500); // Match transition duration
+  }, [isAnimating, slides]);
 
-  const handlePrev = () => {
-    if (isAnimating) return;
+  // Handle previous slide
+  const handlePrev = useCallback(() => {
+    if (isAnimating || !slides?.length) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
+    setTimeout(() => setIsAnimating(false), 500); // Match transition duration
+  }, [isAnimating, slides]);
 
-  const handleDotClick = (index) => {
-    if (isAnimating || index === currentSlide) return;
-    setIsAnimating(true);
-    setCurrentSlide(index);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
+  // Handle dot click
+  const handleDotClick = useCallback(
+    (index) => {
+      if (isAnimating || index === currentSlide || !slides?.length) return;
+      setIsAnimating(true);
+      setCurrentSlide(index);
+      setTimeout(() => setIsAnimating(false), 500); // Match transition duration
+    },
+    [isAnimating, currentSlide, slides]
+  );
+
+  if (isLoading || isLoading0) return <div>Loading...</div>;
+  if (error || error0) return <div>Error loading carousel data.</div>;
 
   return (
     <div className="relative w-full h-[550px] overflow-hidden bg-gray-100">
@@ -83,16 +75,18 @@ const HeroCarousel = () => {
             className={`absolute w-full h-full transition-all duration-500 ease-in-out transform
               ${index === currentSlide ? 'opacity-100 translate-x-0' : 
                 index < currentSlide ? 'opacity-0 -translate-x-full' : 'opacity-0 translate-x-full'}`}
+            aria-hidden={index !== currentSlide}
           >
             {/* Image */}
             <div className="relative w-full h-full">
               <img
                 src={slide.image}
-                alt={slide.title}
+                alt={slide.title || 'Carousel Slide'}
                 className="object-cover w-full h-full"
+                loading="lazy" // Improve performance
               />
               {/* Overlay with medical-themed color */}
-              <div className={`absolute inset-0 ${slide.overlayColor}`} />
+              <div className={`absolute inset-0 ${slide.overlayColor || 'bg-black/30'}`} />
             </div>
 
             {/* Content */}
@@ -115,6 +109,7 @@ const HeroCarousel = () => {
         onClick={handlePrev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
         aria-label="Previous slide"
+        disabled={isAnimating}
       >
         <ChevronLeft className="w-6 h-6 text-white" />
       </button>
@@ -122,6 +117,7 @@ const HeroCarousel = () => {
         onClick={handleNext}
         className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
         aria-label="Next slide"
+        disabled={isAnimating}
       >
         <ChevronRight className="w-6 h-6 text-white" />
       </button>
@@ -135,6 +131,7 @@ const HeroCarousel = () => {
             className={`w-3 h-3 rounded-full transition-all duration-300 
               ${index === currentSlide ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'}`}
             aria-label={`Go to slide ${index + 1}`}
+            disabled={isAnimating}
           />
         ))}
       </div>
