@@ -62,7 +62,15 @@ const HeroCarousel = () => {
     [isAnimating, currentSlide, slides]
   );
 
-  if (isLoading || isLoading0) return <div>Loading...</div>;
+  if (isLoading || isLoading0) {
+    return (
+      <div
+        className="bg-gray-300 rounded-lg w-full animate-pulse mb-3"
+        style={{ height: '600px' }}
+      ></div>
+    );
+  }
+  
   if (error || error0) return <div>Error loading carousel data.</div>;
 
   return (
@@ -85,8 +93,6 @@ const HeroCarousel = () => {
                 className="object-cover w-full h-full"
                 loading="lazy" // Improve performance
               />
-              {/* Overlay with medical-themed color */}
-              <div className={`absolute inset-0 ${slide.overlayColor || 'bg-black/30'}`} />
             </div>
 
             {/* Content */}
