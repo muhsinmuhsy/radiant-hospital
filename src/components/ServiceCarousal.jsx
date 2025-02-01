@@ -5,66 +5,28 @@ import { useFetchServices } from '@/lib/data';
 const ServiceCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const carouselRef = useRef(null);
   const autoPlayRef = useRef(null);
 
-  const { service, isLoading, error } = useFetchServices();
+  const { service: Data, isLoading, error } = useFetchServices();
 
-  // const DataSub = [
-  //   {
-  //     icon: '/hearing-aid.svg',
-  //     title: 'Hearing Aid',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/vertigo.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/endoscopy.svg',
-  //     title: 'Endoscopic & Skull Base Surgery',
-  //     description:
-  //       'ENT surgery has expanded its vistas more than any other surgical specialty in the world. An excellent example is endoscopic surgery.',
-  //   },
-  //   {
-  //     icon: '/hearing-aid.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/vertigo.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  //   {
-  //     icon: '/vertigo.svg',
-  //     title: 'Vertigo Clinic',
-  //     description:
-  //       'There are no hearing aids that are only for children, but there are hearing aids with features that suit children especially well.',
-  //   },
-  // ];
+  const cardsPerView = isMobile ? 1 : isTablet ? 2 : 3; // Adjust for tablet view
+  const translateValue = -(activeIndex * (100 / cardsPerView));
 
-  const Data = service ;
-  
-
+  // Auto-play functionality
   const play = useCallback(() => {
     autoPlayRef.current = setInterval(() => {
-      if (!isPaused) {
+      if (!isPaused && Data?.length) {
         handleNext();
       }
     }, 3000);
-  }, [isPaused]);
+  }, [isPaused, Data]);
 
   useEffect(() => {
     play();
@@ -75,6 +37,7 @@ const ServiceCarousel = () => {
     };
   }, [play]);
 
+  // Handle window resize
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -87,6 +50,7 @@ const ServiceCarousel = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Touch swipe handling
   const minSwipeDistance = 50;
 
   const handleTouchStart = (e) => {
@@ -116,8 +80,9 @@ const ServiceCarousel = () => {
     setTouchEnd(null);
   };
 
-  const handlePrev = () => {
-    if (isAnimating) return;
+  // Handle previous slide
+  const handlePrev = useCallback(() => {
+    if (isAnimating || !Data?.length) return;
     setIsAnimating(true);
 
     setActiveIndex((prev) =>
@@ -125,26 +90,33 @@ const ServiceCarousel = () => {
     );
 
     setTimeout(() => setIsAnimating(false), 500);
-  };
+  }, [isAnimating, Data, cardsPerView]);
 
-  const handleNext = () => {
-    if (isAnimating) return;
+  // Handle next slide
+  const handleNext = useCallback(() => {
+    if (isAnimating || !Data?.length) return;
     setIsAnimating(true);
 
     setActiveIndex((prev) =>
-      prev + cardsPerView >= Data?.length ? 0 : prev + cardsPerView
+      prev + cardsPerView >= Data.length ? 0 : prev + cardsPerView
     );
 
     setTimeout(() => setIsAnimating(false), 500);
-  };
+  }, [isAnimating, Data, cardsPerView]);
 
-  const cardsPerView = isMobile ? 1 : isTablet ? 2 : 3; // Adjust for tablet view
-  const translateValue = -(activeIndex * (100 / cardsPerView));
+  // Handle dot click
+  const handleDotClick = useCallback(
+    (index) => {
+      if (isAnimating || !Data?.length) return;
+      setIsAnimating(true);
+      setActiveIndex(index * cardsPerView);
+      setTimeout(() => setIsAnimating(false), 500);
+    },
+    [isAnimating, Data, cardsPerView]
+  );
 
-  
-  if (error) {
-    console.log(`Error loading data: ${error.message}`);
-  }
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data: {error.message}</div>;
 
   return (
     <section className="relative px-4 py-8 md:px-8">
@@ -190,6 +162,7 @@ const ServiceCarousel = () => {
                       src={item.icon}
                       alt={item.title}
                       className="w-[60px] h-[60px] mb-4"
+                      loading="lazy"
                     />
                     <h1 className="text-xl md:text-2xl text-white">{item.title}</h1>
                   </div>
@@ -220,15 +193,7 @@ const ServiceCarousel = () => {
           {Array.from({ length: Math.ceil(Data?.length / cardsPerView) }).map((_, index) => (
             <button
               key={index}
-              onClick={() => {
-                setIsPaused(true);
-                if (!isAnimating) {
-                  setIsAnimating(true);
-                  setActiveIndex(index * cardsPerView);
-                  setTimeout(() => setIsAnimating(false), 500);
-                }
-                setTimeout(() => setIsPaused(false), 5000);
-              }}
+              onClick={() => handleDotClick(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 activeIndex === index * cardsPerView ? 'bg-white w-6' : 'bg-white/40'
               }`}
