@@ -13,7 +13,10 @@ const ENTBlog = () => {
 
   console.log(blogData)
 
-  const posts = blogData || [
+  const sortedBlogs = blogData?.slice().sort((a, b) => b.is_featured - a.is_featured);
+
+
+  const posts = sortedBlogs || [
     // {
     //   id: 1,
     //   title: "Latest Advances in Sinus Surgery Technology",
@@ -85,6 +88,7 @@ const ENTBlog = () => {
     console.log('Subscribed:', email);
     setEmail("");
   };
+  
 
 
   return (
@@ -101,7 +105,7 @@ const ENTBlog = () => {
             {filteredPosts?.map(post => (
               post?.is_featured ? (
                 <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
-                  <article className="bg-white rounded-xl shadow-md overflow-hidden">
+                  <article className="bg-white rounded-xl shadow-md overflow-hidden mb-2">
                     <img src={post?.image} alt={post?.title} className="w-full h-64 object-cover" />
                     <div className="p-6">
                       <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
@@ -139,7 +143,7 @@ const ENTBlog = () => {
                 </Link>
               ) : (
                 <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
-                  <article className="bg-white rounded-xl shadow-md overflow-hidden flex">
+                  <article className="bg-white rounded-xl shadow-md overflow-hidden flex mb-2">
                     <img src={post?.image} alt={post?.title} className="w-48 object-cover" />
                     <div className="p-6 flex-1">
                       <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
