@@ -165,7 +165,13 @@ const BlogSectionDisplay = () => {
               <h3 className="font-bold text-lg mb-3 group-hover:text-teal-600 transition-colors">
                 {blog.title}
               </h3>
-              <p className="text-gray-600 text-sm mb-4">{truncateText(blog.description)}</p>
+
+              <div className='text-gray-600 text-sm mb-4'
+                  dangerouslySetInnerHTML={{
+                      __html: (latestBlog?.description?.substring(0, 100) ?? '') + (latestBlog?.description?.length > 100 ? '...' : ''),
+                  }}
+              />
+              
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-500">{blog.date}</span>
                 <button className="text-teal-600 font-medium hover:text-teal-700 transition-colors text-sm flex items-center">
