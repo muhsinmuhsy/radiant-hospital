@@ -146,9 +146,9 @@ const BlogSectionDisplay = () => {
                 className="w-full h-56 object-cover transform transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute top-4 left-4">
-                <span className="bg-white/90 backdrop-blur-sm text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
+                {/* <span className="bg-white/90 backdrop-blur-sm text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
                   {blog.categories}
-                </span>
+                </span> */}
               </div>
             </div>
             <div className="p-6">
