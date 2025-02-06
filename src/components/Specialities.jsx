@@ -139,6 +139,8 @@ function OurSpecialities() {
   const { specialitiesHeader, isLoading, error } = useFetchHomeSpecialitiesHeader();
   const { specialities, isLoading: isLoading0, error: error0 } = useFetchSpecialities();
 
+  const limitedSpecialities = specialities ? specialities.slice(0, 5) : [];
+
   // const SpecialityimagesSub = [
   //   { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
   //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
@@ -148,7 +150,7 @@ function OurSpecialities() {
   //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
   // ];
 
-  const Specialityimages = specialities;
+  const Specialityimages = limitedSpecialities;
 
 
   if (error) {
