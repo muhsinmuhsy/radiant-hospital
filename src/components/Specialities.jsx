@@ -139,7 +139,7 @@ function OurSpecialities() {
   const { specialitiesHeader, isLoading, error } = useFetchHomeSpecialitiesHeader();
   const { specialities, isLoading: isLoading0, error: error0 } = useFetchSpecialities();
 
-  const limitedSpecialities = specialities ? specialities.slice(0, 5) : [];
+  const limitedSpecialities = specialities ? specialities.slice(0, 6) : [];
 
   // const SpecialityimagesSub = [
   //   { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
