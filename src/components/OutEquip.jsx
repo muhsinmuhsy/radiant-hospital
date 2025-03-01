@@ -14,7 +14,7 @@ const OurEquipment = () => {
   const equipmentSub = [
     {
       name: "Laminar Airflow Operation Theater",
-      shortDesc: "Sterile environment for advanced surgical procedures",
+      short_desc: "Sterile environment for advanced surgical procedures",
       description: "The Laminar Airflow Operation Theater provides a sterile and controlled environment by utilizing unidirectional airflow to minimize contamination risk. It is designed to meet stringent surgical requirements for high-risk operations.",
       specs: {
         airflowType: "Unidirectional (Laminar)",
@@ -27,7 +27,7 @@ const OurEquipment = () => {
     },
     // {
     //   name: "Carl Zeiss S5 Operating Microscope",
-    //   shortDesc: "Precision surgical microscope for enhanced visualization",
+    //   short_desc: "Precision surgical microscope for enhanced visualization",
     //   description: "The Carl Zeiss S5 is a state-of-the-art surgical microscope designed for intricate procedures, providing exceptional depth, clarity, and magnification. Engineered in Germany, it offers unmatched optical performance for delicate surgeries.",
     //   specs: {
     //     magnificationRange: "0.4x to 25x",
@@ -40,7 +40,7 @@ const OurEquipment = () => {
     // },
     // {
     //   name: "Carl Zeiss PICO Operating Microscope",
-    //   shortDesc: "Compact yet powerful surgical visualization tool",
+    //   short_desc: "Compact yet powerful surgical visualization tool",
     //   description: "The Carl Zeiss PICO is a compact surgical microscope designed for ENT and microsurgical applications. It combines precision optics with ergonomic design, offering surgeons unparalleled control and visibility.",
     //   specs: {
     //     magnification: "5x to 20x",
@@ -53,7 +53,7 @@ const OurEquipment = () => {
     // },
     // {
     //   name: "ArthroCare Coblator 2",
-    //   shortDesc: "Advanced tissue ablation and coagulation device",
+    //   short_desc: "Advanced tissue ablation and coagulation device",
     //   description: "The ArthroCare Coblator 2 is a cutting-edge surgical device that uses plasma technology for precise tissue removal and coagulation, minimizing damage to surrounding tissues. It is highly effective for ENT and orthopedic procedures.",
     //   specs: {
     //     technology: "Plasma-based Ablation",
@@ -66,7 +66,7 @@ const OurEquipment = () => {
     // },
     // {
     //   name: "Medtronic Microdebriders",
-    //   shortDesc: "High-performance tissue shaver for ENT surgeries",
+    //   short_desc: "High-performance tissue shaver for ENT surgeries",
     //   description: "Medtronic Microdebriders are versatile tools used for removing tissue in ENT procedures. Designed with precision and speed, these devices improve surgical outcomes by offering unparalleled control.",
     //   specs: {
     //     speed: "Up to 30,000 RPM",
@@ -79,7 +79,7 @@ const OurEquipment = () => {
     // },
     // {
     //   name: "Karl Storz Video Endoscopy",
-    //   shortDesc: "High-definition endoscopy system for surgical precision",
+    //   short_desc: "High-definition endoscopy system for surgical precision",
     //   description: "The Karl Storz Video Endoscopy system delivers crystal-clear imaging for endoscopic surgeries. Manufactured in Germany, it supports various medical specialties with unmatched video quality and durability.",
     //   specs: {
     //     resolution: "Full HD (1080p)",
@@ -92,7 +92,7 @@ const OurEquipment = () => {
     // },
     // {
     //   name: "Stryker 4K Camera and Endoscopy System",
-    //   shortDesc: "Advanced 4K imaging for minimally invasive surgeries",
+    //   short_desc: "Advanced 4K imaging for minimally invasive surgeries",
     //   description: "The Stryker 4K system offers ultra-high-definition imaging for endoscopic procedures. With its advanced optics and ergonomic design, it enhances surgical precision and visualization.",
     //   specs: {
     //     resolution: "4K Ultra HD",
@@ -105,7 +105,7 @@ const OurEquipment = () => {
     // },
     // {
     //   name: "Karl Storz Endocarynger Surgery System",
-    //   shortDesc: "Comprehensive surgical tool for ENT procedures",
+    //   short_desc: "Comprehensive surgical tool for ENT procedures",
     //   description: "The Karl Storz Endocarynger Surgery System is engineered for precision in endoscopic ENT surgeries. Its robust design and high-quality optics ensure optimal outcomes for complex cases.",
     //   specs: {
     //     resolution: "HD Video",
@@ -185,7 +185,7 @@ const OurEquipment = () => {
                           {item.name}
                         </h3>
                         <p className={`text-sm mt-1 ${activeIndex === slideIndex * 4 + index ? 'text-white/90' : 'text-white/60'}`}>
-                          {item.shortDesc}
+                          {item.short_desc}
                         </p>
                       </button>
                     ))}

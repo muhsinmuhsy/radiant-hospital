@@ -132,9 +132,28 @@ function OurSpecialities() {
   const { specialitiesHeader, isLoading, error } = useFetchHomeSpecialitiesHeader();
   const { specialities, isLoading: isLoading0, error: error0 } = useFetchSpecialities();
 
-  if (error) console.log(`Error loading data: ${error.message}`);
-  if (error0) console.log(`Error loading data: ${error0.message}`);
+  const limitedSpecialities = specialities ? specialities.slice(0, 6) : [];
 
+  // const SpecialityimagesSub = [
+  //   { src: '/spec-1.svg', title: 'Bone Conduction Devices' },
+  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+  //   { src: '/spec-1.svg', title: 'Phono Microsurgery' },
+  //   { src: '/spec-3.svg', title: 'Acoustic Neuroma Surgery' },
+  //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
+  // ];
+
+  const Specialityimages = specialities;
+
+
+  if (error) {
+    console.log(`Error loading data: ${error.message}`);
+  }
+
+  
+  if (error0) {
+    console.log(`Error loading data: ${error0.message}`);
+  }
   return (
     <Section>
       <ServiceBtn>

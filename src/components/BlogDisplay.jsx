@@ -84,43 +84,41 @@ const BlogSectionDisplay = () => {
           </div>
         </div> */}
 
-        {/* Regular Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {regularBlogs?.map(blog => (
-            <div 
-              key={blog.id}
-              className="group bg-white rounded-xl shadow-sm overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-              onMouseEnter={() => setHoveredId(blog.id)}
-              onMouseLeave={() => setHoveredId(null)}
-            >
-              <div className="relative h-48 md:h-56 overflow-hidden">
-                <img 
-                  src={blog.image} 
-                  alt={blog.title}
-                  className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white/95 backdrop-blur-sm text-teal-600 px-4 py-1 rounded-full text-sm font-medium shadow-sm">
-                    {blog.categories}
-                  </span>
+      {/* Regular Posts Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {regularBlogs?.map(blog => (
+          <div 
+            key={blog.id}
+            className="group bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            onMouseEnter={() => setHoveredId(blog.id)}
+            onMouseLeave={() => setHoveredId(null)}
+          >
+            <div className="relative overflow-hidden">
+              <img 
+                src={blog.image} 
+                alt={blog.title}
+                className="w-full h-56 object-cover transform transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute top-4 left-4">
+                <span className="bg-white/90 backdrop-blur-sm text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
+                  {blog.categories}
+                </span>
+              </div>
+            </div>
+            <div className="p-6">
+              <div className="flex items-center space-x-4 mb-3 text-sm text-gray-500">
+                <div className="flex items-center">
+                  <StethoscopeIcon className="w-4 h-4 mr-1" />
+                  <span className="truncate">{blog.author}</span>
+                </div>
+                <div className="flex items-center">
+                  <Clock className="w-4 h-4 mr-1" />
+                  {blog.time_ago}
                 </div>
               </div>
-
-              <div className="p-6">
-                <div className="flex items-center space-x-4 mb-4 text-sm text-gray-600">
-                  <div className="flex items-center">
-                    <StethoscopeIcon className="w-4 h-4 mr-1" />
-                    <span className="truncate">{blog.author}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {blog.time_ago}
-                  </div>
-                </div>
-
-                <h3 className="font-bold text-lg mb-3 group-hover:text-teal-600 transition-colors line-clamp-2">
-                  {blog.title}
-                </h3>
+              <h3 className="font-bold text-lg mb-3 group-hover:text-teal-600 transition-colors">
+                {blog.title}
+              </h3>
 
                 <div className="text-gray-600 text-sm mb-4 line-clamp-3"
                   dangerouslySetInnerHTML={{
