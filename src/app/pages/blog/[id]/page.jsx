@@ -83,5 +83,6 @@ export default function ViewBlog() {
         )}
       </div>
     </div>
+    
   );
 }

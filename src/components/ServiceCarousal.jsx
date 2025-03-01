@@ -25,7 +25,7 @@ const ServiceCarousel = () => {
       if (!isPaused && Data?.length) {
         handleNext();
       }
-    }, 3000);
+    }, 10000);
   }, [isPaused, Data]);
 
   useEffect(() => {

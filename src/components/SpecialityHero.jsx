@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFetchSpecialitiesHero } from '@/lib/data';
+import AppointmentBooking from './AppointmentBooking';
 
 const SpecialityHero = () => {
 
@@ -55,10 +56,11 @@ const SpecialityHero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <button className="w-full sm:w-auto px-6 md:px-8 py-3  text-white  rounded-lg hover:bg-blue-700 transition-colors" style={{backgroundColor:'#11B3B8'}}>
+              {/* <button className="w-full sm:w-auto px-6 md:px-8 py-3  text-white  rounded-lg hover:bg-blue-700 transition-colors" style={{backgroundColor:'#11B3B8'}}>
                 Book Consultation
-              </button>
-              <button className="w-full sm:w-auto px-6 md:px-8 py-3  rounded-lg hover:bg-blue-50 transition-colors" style={{border:'2px solid #11B3B8'}}>
+              </button> */}
+              <AppointmentBooking/>
+              <button className="  px-10 md:px-8 py-3  rounded-lg hover:bg-blue-50 transition-colors" style={{border:'2px solid #11B3B8'}}>
                 View Procedures
               </button>
             </div>

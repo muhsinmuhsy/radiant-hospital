@@ -34,6 +34,7 @@ justify-content: space-between;
 padding: 25px;
 color: white;
 
+
 .left{
   margin-left: 45px;
 

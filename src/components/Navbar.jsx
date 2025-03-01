@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, Menu, X } from 'lucide-react';
+import AppointmentBooking from './AppointmentBooking';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -53,10 +54,10 @@ export default function Navbar() {
             <Link href="/pages/specialities">Specialities</Link>
             {/* Services Dropdown - Desktop */}
             <div className="relative group">
-              <button className="nav-link flex items-center">
+              <Link href="/pages/service" className="nav-link flex items-center">
                 Services
                 <ChevronDown className="ml-1 w-4 h-4" />
-              </button>
+              </Link>
               <div className="hidden group-hover:block absolute top-full left-0 w-[600px] bg-white shadow-xl rounded-b-lg">
                 <div className="grid grid-cols-2 p-6 gap-6">
                   {Object.entries(services).map(([category, items]) => (
@@ -88,9 +89,7 @@ export default function Navbar() {
 
           {/* Book Appointment Button - Desktop */}
           <div className="hidden lg:block">
-            <button className="bg-teal-600 text-white px-6 py-2 rounded-full hover:bg-teal-700 transition-colors">
-              Book Appointment
-            </button>
+            <AppointmentBooking />
           </div>
 
           {/* Mobile Menu Button */}
@@ -116,22 +115,11 @@ export default function Navbar() {
 
             {/* Services Dropdown - Mobile */}
             <div>
-              <button
-                onClick={() => toggleDropdown('Services')}
-                className="flex items-center justify-between w-full text-lg text-gray-700 hover:text-teal-600"
-              >
+              <Link href="/pages/service" className="flex items-center justify-between w-full text-lg text-gray-700 hover:text-teal-600">
                 <span>Services</span>
-                <ChevronDown
-                  className={`w-4 h-4 transform transition-transform ${
-                    activeDropdown === 'Services' ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              <div
-                className={`${
-                  activeDropdown === 'Services' ? 'block' : 'hidden'
-                } mt-2 space-y-2 pl-4`}
-              >
+                <ChevronDown className="w-4 h-4 transform transition-transform" />
+              </Link>
+              <div className="mt-2 space-y-2 pl-4">
                 {Object.entries(services).map(([category, items]) => (
                   <div key={category}>
                     <button
@@ -140,16 +128,10 @@ export default function Navbar() {
                     >
                       <span>{category}</span>
                       <ChevronDown
-                        className={`w-4 h-4 transform transition-transform ${
-                          activeSubDropdown === category ? 'rotate-180' : ''
-                        }`}
+                        className={`w-4 h-4 transform transition-transform ${activeSubDropdown === category ? 'rotate-180' : ''}`}
                       />
                     </button>
-                    <div
-                      className={`${
-                        activeSubDropdown === category ? 'block' : 'hidden'
-                      } mt-1 pl-4 space-y-1`}
-                    >
+                    <div className={`${activeSubDropdown === category ? 'block' : 'hidden'} mt-1 pl-4 space-y-1`}>
                       {items.map((item) => (
                         <Link
                           key={item}

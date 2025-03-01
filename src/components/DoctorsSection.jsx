@@ -48,7 +48,7 @@ const DoctorsCarousel = () => {
       if (!isPaused) {
         handleNext();
       }
-    }, 3000);
+    }, 10000);
   }, [isPaused]);
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const DoctorsCarousel = () => {
   }
 
   return (
-    <section className="mt-8 mb-8 mx-auto max-w-[1536px] py-8 px-4 md:px-8">
+    <section className="mt-8 mb-8 mx-auto max-w-[1536px] py-8  md:px-8">
       <ServiceBtn>
         <div className="left text-black">Our Consultants</div>
         <div className="right">
@@ -150,7 +150,7 @@ const DoctorsCarousel = () => {
         </div>
       </ServiceBtn>
 
-      <MainContent>
+      <MainContent className='mb-10'>
         {/* <h1 className="text-black">We Provide</h1>
         <p className="text-black">
           Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience.
@@ -233,26 +233,7 @@ const DoctorsCarousel = () => {
           </button>
         )}
 
-        {/* <div className="flex justify-center mt-6 gap-2">
-          {Array.from({ length: Math.ceil(Data.length / cardsPerView) }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setIsPaused(true);
-                if (!isAnimating) {
-                  setIsAnimating(true);
-                  setActiveIndex(index * cardsPerView);
-                  setTimeout(() => setIsAnimating(false), 500);
-                }
-                setTimeout(() => setIsPaused(false), 5000);
-              }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                activeIndex === index * cardsPerView ? 'bg-[#11b3b8] w-6' : 'bg-[#11b3b8]/40'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div> */}
+        
         <div className="flex justify-center mt-6 gap-2">
           {Data && Data.length > 0 && Array.from({ length: Math.ceil(Data.length / cardsPerView) }).map((_, index) => (
             <button

@@ -30,7 +30,7 @@ const HeroCarousel = () => {
 
     const interval = setInterval(() => {
       handleNext();
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [currentSlide, isAnimating, slides]);
@@ -74,7 +74,7 @@ const HeroCarousel = () => {
   if (error || error0) return <div>Error loading carousel data.</div>;
 
   return (
-    <div className="relative w-full h-[550px] overflow-hidden bg-gray-100">
+    <div className="relative w-full lg:h-[250px] xl:h-[450px] h-[220px] overflow-hidden bg-gray-100">
       {/* Slides */}
       <div className="relative w-full h-full">
         {slides?.map((slide, index) => (
@@ -86,7 +86,7 @@ const HeroCarousel = () => {
             aria-hidden={index !== currentSlide}
           >
             {/* Image */}
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full lazy-loading">
               <img
                 src={slide.image}
                 alt={slide.title || 'Carousel Slide'}

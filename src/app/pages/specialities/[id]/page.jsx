@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { CheckCircle, Calendar, ArrowRight, Award, Phone } from 'lucide-react';
 import { useFetchSpecialities } from '@/lib/data';
+import AppointmentBooking from '@/components/AppointmentBooking';
 
 const SpecialtyDetails = () => {
   const { id } = useParams(); 
@@ -108,14 +109,13 @@ const SpecialtyDetails = () => {
                 Learn more about how this treatment can help you. Our specialists are ready to answer your questions.
               </p>
 
-              <button
-                onClick={() => alert('Schedule Consultation')}
-                className="w-full  text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group" style={{backgroundColor:'#11B3B8'}}
+              <div
+                
+                className="w-full  text-white  rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group" style={{backgroundColor:'#11B3B8'}}
               >
-                <Calendar className="w-5 h-5" />
-                Book Appointment
+                 <AppointmentBooking/>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </div>
               <button
                 onClick={() => alert('Schedule Consultation')}
                 className="w-full  text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group mt-5" style={{backgroundColor:'#11B3B8'}}
@@ -129,6 +129,7 @@ const SpecialtyDetails = () => {
           </div>
         </div>
       </div>
+      
 
       <Footer />
     </div>

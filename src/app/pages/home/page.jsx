@@ -1,5 +1,6 @@
 
 import AboutHero from "@/components/AboutHero";
+import HeroText from "@/components/AHeroText";
 import BlogSectionDisplay from "@/components/BlogDisplay";
 import Carousal from "@/components/Carousal";
 import DoctorsSection from "@/components/DoctorsSection";
@@ -19,6 +20,7 @@ export default function MainHome() {
   return (
   <>
     <Carousal/>
+    {/* <HeroText/> */}
     {/* <HeroTwo/> */}
     {/* <HeroThree/> */}
     {/* <HeroFour/>  */}

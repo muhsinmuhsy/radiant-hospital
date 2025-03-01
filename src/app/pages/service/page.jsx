@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
+import ServicesPageSample from '@/components/ServicePageSample';
 import React from 'react';
 
 const ServicesPage = () => {
@@ -101,7 +102,7 @@ const ServicesPage = () => {
       
     </div>
     {/* CTA Section */}
-    <div className="bg-teal-400 py-16 px-4">
+    {/* <div className="bg-teal-400 py-16 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Ready to Experience Expert ENT Care?
@@ -113,7 +114,9 @@ const ServicesPage = () => {
               Book an Appointment
             </button>
           </div>
-        </div>
+        </div> */}
+
+        {/* <ServicesPageSample/> */}
     <Footer/>
     </>
   );

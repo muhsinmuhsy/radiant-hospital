@@ -245,6 +245,7 @@ const ENTBlog = () => {
         </div>
       </div>
     </div>
+    
     <Footer/>
     </>
   );
