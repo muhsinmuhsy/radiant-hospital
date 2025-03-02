@@ -142,36 +142,6 @@ const AppointmentBooking = () => {
                   </div>
 
                   <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Age *
-                  </label>
-                  <input
-                    type="number"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                    placeholder="25"
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                  <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Address *
-                  </label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    placeholder="123 Main St, City"
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Select Doctor *</label>
                     <select
                       name="doctors"
