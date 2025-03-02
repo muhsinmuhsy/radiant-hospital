@@ -143,7 +143,7 @@ function OurSpecialities() {
   //   { src: '/spec-2.svg', title: 'Phono Microsurgery' },
   // ];
 
-  const Specialityimages = specialities;
+  // const Specialityimages = specialities;
 
 
   if (error) {
@@ -172,7 +172,7 @@ function OurSpecialities() {
       </MainContent>
 
       <ImageDiv>
-        {specialities?.map((speciality) => (
+        {limitedSpecialities?.map((speciality) => (
           <Link href={`/pages/specialities/${speciality?.id}`} key={speciality?.id}>
             <ImageCard>
               <div className="image-container">

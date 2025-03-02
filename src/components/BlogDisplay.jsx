@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, StethoscopeIcon, ChevronRight } from 'lucide-react';
 import { useFetchBlogs } from '@/lib/data';
+import Link from 'next/link';
 
 const BlogSectionDisplay = () => {
   const [hoveredId, setHoveredId] = useState(null);
@@ -86,16 +87,16 @@ const BlogSectionDisplay = () => {
 
       {/* Regular Posts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {regularBlogs?.map(blog => (
-          <div 
-            key={blog.id}
-            className="group bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+      {regularBlogs?.map((blog) => (
+        <Link href={`/pages/blog/${blog?.id}`} key={blog.id} className="group">
+          <div
+            className="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             onMouseEnter={() => setHoveredId(blog.id)}
             onMouseLeave={() => setHoveredId(null)}
           >
             <div className="relative overflow-hidden">
-              <img 
-                src={blog.image} 
+              <img
+                src={blog.image}
                 alt={blog.title}
                 className="w-full h-56 object-cover transform transition-transform duration-500 group-hover:scale-105"
               />
@@ -119,25 +120,27 @@ const BlogSectionDisplay = () => {
               <h3 className="font-bold text-lg mb-3 group-hover:text-teal-600 transition-colors">
                 {blog.title}
               </h3>
-
-                <div className="text-gray-600 text-sm mb-4 line-clamp-3"
-                  dangerouslySetInnerHTML={{
-                    __html: (blog?.description?.substring(0, 100) ?? '') + (blog?.description?.length > 100 ? '...' : ''),
-                  }}
-                />
-                
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <span className="text-sm text-gray-500">{blog.date}</span>
-                  <button className="text-teal-600 font-medium hover:text-teal-700 transition-colors text-sm flex items-center group">
-                    Read More
-                    <ChevronRight className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+              <div
+                className="text-gray-600 text-sm mb-4 line-clamp-3"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    (blog?.description?.substring(0, 100) ?? '') +
+                    (blog?.description?.length > 100 ? '...' : ''),
+                }}
+              />
+              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                <span className="text-sm text-gray-500">{blog.date}</span>
+                <span className="text-teal-600 font-medium hover:text-teal-700 transition-colors text-sm flex items-center group">
+                  Read More
+                  <ChevronRight className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
+                </span>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+    </div>
     </div>
   );
 };
