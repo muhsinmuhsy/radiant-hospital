@@ -3,7 +3,7 @@
 import React from 'react'
 
 import { useFetchConsultants, useFetchConsultantsMainHeader } from '@/lib/data';
-import AppointmentBooking from '@/components/AppointmentBooking';
+import AppointmentBookingDirectly from '@/components/AppointmentBookingDirectly';
 
 const DoctorList = () => {
 
@@ -58,7 +58,7 @@ const DoctorList = () => {
                     {doctor?.specialty}
                   </p>
                   <div className=" text-white px-6 py-2 rounded-full transform transition-all duration-300  hover:scale-105 ">
-                  <AppointmentBooking/>
+                   <AppointmentBookingDirectly selectedDoctor={doctor} />
                   </div>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Calendar } from "lucide-react";
 import { useFetchConsultants } from '@/lib/data';
 import { BASE_URL } from '@/lib/data';
+import Swal from 'sweetalert2'
 
 // Fetch API function
 async function createAppointment(data) {
@@ -22,7 +23,6 @@ async function createAppointment(data) {
 const AppointmentBooking = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const { consultant, isLoading, error } = useFetchConsultants();
 
@@ -52,11 +52,19 @@ const AppointmentBooking = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
 
     try {
       await createAppointment(formData);
-      setMessage("Appointment created successfully!");
+      // window.alert("Appointment created successfully!");
+      Swal.fire({
+        title: "Appointment Confirmed!",
+        text: "Your appointment has been successfully booked. Our team will contact you shortly with further details.",
+        icon: "success",
+        confirmButtonText: "OK",
+        draggable: true
+      });
+      
+      setIsOpen(false)
       setFormData({
         full_name: "",
         email: "",
@@ -68,7 +76,7 @@ const AppointmentBooking = () => {
         preferred_time: "",
       });
     } catch (error) {
-      setMessage("Error: " + error.message);
+      window.alert("Error: " + error.message);
     }
 
     setLoading(false);
@@ -219,8 +227,6 @@ const AppointmentBooking = () => {
                     </select>
                   </div>
                 </div>
-
-                {message && <p className="text-center text-sm text-green-600">{message}</p>}
 
                 <div className="flex justify-end mt-6">
                   <button type="submit" className="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700">
