@@ -41,7 +41,7 @@ const SpecialityHero = () => {
             {/* Key Statistics */}
             <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto lg:mx-0">
               <div className="text-center p-3 md:p-4 bg-white rounded-lg shadow-sm">
-                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>{data?.Specialties_count }</div>
+                <div className="text-2xl md:text-3xl font-bold " style={{color:'#11B3B8'}}>{data?.specialties_count }</div>
                 <div className="text-xs md:text-sm text-gray-600">Specialties</div>
               </div>
               <div className="text-center p-3 md:p-4 bg-white rounded-lg shadow-sm">

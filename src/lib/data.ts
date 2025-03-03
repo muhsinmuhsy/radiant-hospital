@@ -109,7 +109,7 @@ export interface SpecialitiesHero {
   simple_title: string,
   title: string,
   description: string,
-  Specialties_count: string,
+  specialties_count: string,
   surgeries_count: string,
   years_exp_count: string,
   image: string,
