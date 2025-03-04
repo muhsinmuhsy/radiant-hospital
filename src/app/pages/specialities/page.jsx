@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SpecialityHero from '@/components/SpecialityHero';
 import { useFetchSpecialities, useFetchSpecialitiesMainHeader } from '@/lib/data';
+import SpecialtyListAll from '@/components/SpecialityListAll';
 
 const ImageDiv = styled.div`
   display: grid;
@@ -119,6 +120,7 @@ const SpecialitiesPage = () => {
           ))}
         </ImageDiv>
       </div>
+      <SpecialtyListAll/>
       <Footer />
     </>
   );

@@ -74,7 +74,7 @@ const HeroCarousel = () => {
   if (error || error0) return <div>Error loading carousel data.</div>;
 
   return (
-    <div className="relative w-full lg:h-[250px] xl:h-[450px] h-[220px] overflow-hidden bg-gray-100">
+    <div className="relative w-full md:h-[450px] lg:h-[250px] xl:h-[450px] h-[200px] overflow-hidden bg-gray-100">
       {/* Slides */}
       <div className="relative w-full h-full">
         {slides?.map((slide, index) => (
@@ -110,37 +110,43 @@ const HeroCarousel = () => {
         ))}
       </div>
 
-      {/* Navigation Buttons */}
-      <button
-        onClick={handlePrev}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
-        aria-label="Previous slide"
-        disabled={isAnimating}
-      >
-        <ChevronLeft className="w-6 h-6 text-white" />
-      </button>
-      <button
-        onClick={handleNext}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
-        aria-label="Next slide"
-        disabled={isAnimating}
-      >
-        <ChevronRight className="w-6 h-6 text-white" />
-      </button>
-
-      {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
-        {slides?.map((_, index) => (
+      {/* Navigation Buttons - Only visible on Desktop */}
+      {!isMobile && (
+        <>
           <button
-            key={index}
-            onClick={() => handleDotClick(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 
-              ${index === currentSlide ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'}`}
-            aria-label={`Go to slide ${index + 1}`}
+            onClick={handlePrev}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
+            aria-label="Previous slide"
             disabled={isAnimating}
-          />
-        ))}
-      </div>
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
+            aria-label="Next slide"
+            disabled={isAnimating}
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
+        </>
+      )}
+
+      {/* Dots Indicator - Only visible on Desktop */}
+      {!isMobile && (
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+          {slides?.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 
+                ${index === currentSlide ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'}`}
+              aria-label={`Go to slide ${index + 1}`}
+              disabled={isAnimating}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

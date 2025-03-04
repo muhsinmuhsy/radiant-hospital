@@ -20,36 +20,18 @@ const DoctorsCarousel = () => {
   const { consultant, isLoading, error } = useFetchConsultants();
   const { consultantHeader, isLoading: isLoading0, error: error0 } = useFetchHomeConsultantHeader();
 
-  // const DataSub = [
-  //   {
-  //     image: '/doc-2.png',
-  //     name: 'Dr. Priyadarshan M.S',
-  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-  //   },
-  //   {
-  //     image: '/doc-1.svg',
-  //     name: 'Dr. Faslim M.S',
-  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-  //   },
-  //   {
-  //     image: '/doc-3.png',
-  //     name: 'Dr. Priyadarshan',
-  //     specialty: 'ENT Surgeon, Head and Neck Ultrasonography Professional Voice care',
-  //   },
-  //   // Add more items if needed
-  // ];
-
-  const Data = consultant;
-
-  
+  const Data = consultant || []; // Ensure Data is always an array
+  const cardsPerView = isMobile ? 1 : isTablet ? 2 : 3;
+  const totalSlides = Data.length ? Math.ceil(Data.length / cardsPerView) : 1;
 
   const play = useCallback(() => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     autoPlayRef.current = setInterval(() => {
-      if (!isPaused) {
+      if (!isPaused && Data.length > 0) {
         handleNext();
       }
     }, 10000);
-  }, [isPaused]);
+  }, [isPaused, Data.length]);
 
   useEffect(() => {
     play();
@@ -88,56 +70,34 @@ const DoctorsCarousel = () => {
     if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      handleNext();
-    } else if (isRightSwipe) {
-      handlePrev();
-    }
+    if (distance > minSwipeDistance) handleNext();
+    if (distance < -minSwipeDistance) handlePrev();
 
     setTouchStart(null);
     setTouchEnd(null);
   };
 
   const handlePrev = () => {
-    if (isAnimating) return;
+    if (isAnimating || Data.length === 0) return;
     setIsAnimating(true);
-
-    setActiveIndex((prev) =>
-      prev === 0 ? Math.max(0, Data.length - cardsPerView) : prev - cardsPerView
-    );
-
+    setActiveIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
     setTimeout(() => setIsAnimating(false), 500);
   };
 
   const handleNext = () => {
-    if (isAnimating) return;
+    if (isAnimating || Data.length === 0) return;
     setIsAnimating(true);
-
-    setActiveIndex((prev) =>
-      prev + cardsPerView >= Data?.length ? 0 : prev + cardsPerView
-    );
-
+    setActiveIndex((prev) => (prev + 1 >= totalSlides ? 0 : prev + 1));
     setTimeout(() => setIsAnimating(false), 500);
   };
 
-  const cardsPerView = isMobile ? 1 : isTablet ? 2 : 3;
   const translateValue = -(activeIndex * (100 / cardsPerView));
 
-
-  if (error) {
-    console.log(`Error loading data: ${error.message}`);
-  }
-
-  
-  if (error0) {
-    console.log(`Error loading data: ${error0.message}`);
-  }
+  if (error) console.log(`Error loading data: ${error.message}`);
+  if (error0) console.log(`Error loading data: ${error0.message}`);
 
   return (
-    <section className="mt-8 mb-8 mx-auto max-w-[1536px] py-8  md:px-8">
+    <section className="mt-8 mb-8 mx-auto max-w-[1536px] py-8 md:px-8">
       <ServiceBtn>
         <div className="left text-black">Our Consultants</div>
         <div className="right">
@@ -150,17 +110,11 @@ const DoctorsCarousel = () => {
         </div>
       </ServiceBtn>
 
-      <MainContent className='mb-10'>
-        {/* <h1 className="text-black">We Provide</h1>
+      <MainContent className="mb-10">
+        <h1 className="text-black">{consultantHeader?.title || 'We Provide'}</h1>
         <p className="text-black">
-          Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience.
-        </p> */}
-
-      <h1 className="text-black">{consultantHeader?.title || "We Provide"}</h1>
-      <p className="text-black">
-        {consultantHeader?.specialty || "Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience."}
-      </p>
-        
+          {consultantHeader?.specialty || 'Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience.'}
+        </p>
       </MainContent>
 
       <div className="relative max-w-7xl mx-auto">
@@ -189,33 +143,25 @@ const DoctorsCarousel = () => {
         >
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateX(${translateValue}%)`,
-            }}
+            style={{ transform: `translateX(${translateValue}%)` }}
           >
-            {Data?.map((doctor, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 px-2 md:px-4"
-                style={{ width: `${100 / cardsPerView}%` }}
-              >
-                <div className="bg-[#B3FAFF29] border border-[#B3E4FF82] rounded-[25px] h-[390px] overflow-hidden transition-transform duration-300 hover:scale-105">
-                  <div className="bg-[#11b3b8] w-[70%] mx-auto rounded-b-[15px]">
-                    <img
-                      src={doctor?.image}
-                      alt={doctor?.name}
-                      className="w-full max-w-[250px] h-[250px] object-cover rounded-b-[15px]"
-                    />
-                  </div>
-                  <div className="text-center mt-3">
-                    <h1 className="text-[1.5rem] mb-0 text-black">{doctor?.name}</h1>
-                    <p className="text-[0.9rem] text-[#555] leading-[1.5] mb-[10px]">
-                      {doctor?.specialty}
-                    </p>
+            {Data.length > 0 ? (
+              Data.map((doctor, index) => (
+                <div key={index} className="flex-shrink-0 px-2 md:px-4" style={{ width: `${100 / cardsPerView}%` }}>
+                  <div className="bg-[#B3FAFF29] border border-[#B3E4FF82] rounded-[25px] h-[390px] overflow-hidden transition-transform duration-300 hover:scale-105">
+                    <div className="bg-[#11b3b8] w-[70%] mx-auto rounded-b-[15px]">
+                      <img src={doctor?.image} alt={doctor?.name} className="w-full max-w-[250px] h-[250px] object-cover rounded-b-[15px]" />
+                    </div>
+                    <div className="text-center mt-3">
+                      <h1 className="text-[1.5rem] mb-0 text-black">{doctor?.name}</h1>
+                      <p className="text-[0.9rem] text-[#555] leading-[1.5] mb-[10px]">{doctor?.specialty}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-center w-full text-gray-500">No consultants available</p>
+            )}
           </div>
         </div>
 
@@ -232,29 +178,6 @@ const DoctorsCarousel = () => {
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
         )}
-
-        
-        <div className="flex justify-center mt-6 gap-2">
-          {Data && Data.length > 0 && Array.from({ length: Math.ceil(Data.length / cardsPerView) }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setIsPaused(true);
-                if (!isAnimating) {
-                  setIsAnimating(true);
-                  setActiveIndex(index * cardsPerView);
-                  setTimeout(() => setIsAnimating(false), 500);
-                }
-                setTimeout(() => setIsPaused(false), 5000);
-              }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                activeIndex === index * cardsPerView ? 'bg-[#11b3b8] w-6' : 'bg-[#11b3b8]/40'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-
       </div>
     </section>
   );
