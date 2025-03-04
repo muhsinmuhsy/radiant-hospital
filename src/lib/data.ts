@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 /////////////////////////////////// Fetcher ///////////////////////////////////
 
-const BASE_URL = 'https://muhsiiyy.pythonanywhere.com';
+export const BASE_URL = 'https://muhsiiyy.pythonanywhere.com';
 
 const fetcher = async (url: string): Promise<any> => {
   const res = await fetch(`${BASE_URL}${url}`);
@@ -109,7 +109,7 @@ export interface SpecialitiesHero {
   simple_title: string,
   title: string,
   description: string,
-  Specialties_count: string,
+  specialties_count: string,
   surgeries_count: string,
   years_exp_count: string,
   image: string,

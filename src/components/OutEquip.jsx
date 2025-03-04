@@ -143,9 +143,10 @@ const OurEquipment = () => {
   }, []);
 
   
-  if (error) {
-    console.log(`Error loading data: ${error.message}`);
-  }
+
+  if (isLoading) return <p>Loading...</p>;
+
+  if (error) return <p>Error loading data.</p>;
 
   return (
     <div className="min-h-screen bg-black text-white py-10 px-4">

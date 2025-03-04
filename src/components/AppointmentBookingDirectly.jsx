@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Calendar } from "lucide-react";
-import { useFetchConsultants } from '@/lib/data';
 import { BASE_URL } from '@/lib/data';
 import Swal from 'sweetalert2'
 
@@ -20,13 +19,10 @@ async function createAppointment(data) {
   return response.json();
 }
 
-const AppointmentBooking = () => {
+const AppointmentBookingDirectly = ({ selectedDoctor }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { consultant, isLoading, error } = useFetchConsultants();
-
-  const doctors = consultant;
 
   const [formData, setFormData] = useState({
     full_name: "",
@@ -34,10 +30,16 @@ const AppointmentBooking = () => {
     phone: "",
     age: "",
     address: "",
-    doctors: "",
+    doctors: selectedDoctor?.id || "",
     preferred_date: "",
     preferred_time: "",
   });
+
+  useEffect(() => {
+    if (selectedDoctor) {
+      setFormData((prev) => ({ ...prev, doctors: selectedDoctor.id }));
+    }
+  }, [selectedDoctor]);
 
   const timeSlots = [
     "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM",
@@ -180,21 +182,16 @@ const AppointmentBooking = () => {
                 </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Select Doctor *</label>
-                    <select
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Doctor *</label>
+                    <input
                       name="doctors"
-                      value={formData.doctors}
-                      onChange={handleChange}
-                      required
+                      type="text"
+                      value={selectedDoctor?.name}
+                      readOnly
                       className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="">Choose a doctor</option>
-                      {doctors.map((doctor) => (
-                        <option key={doctor.id} value={doctor.id}>
-                          {doctor.name} - {doctor.specialty}
-                        </option>
-                      ))}
-                    </select>
+                      
+                    </input>
                   </div>
 
                   <div>
@@ -242,4 +239,4 @@ const AppointmentBooking = () => {
   );
 };
 
-export default AppointmentBooking;
+export default AppointmentBookingDirectly;
