@@ -1,13 +1,13 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import SpecialityHero from '@/components/SpecialityHero';
 import { useFetchSpecialities, useFetchSpecialitiesMainHeader } from '@/lib/data';
-import SpecialtyListAll from '@/components/SpecialityListAll';
+import Footer from '@/components/Footer';
 
 const ImageDiv = styled.div`
   display: grid;
@@ -59,53 +59,92 @@ const ImageCard = styled.div`
   }
 `;
 
-// const specialtiesSub = [
-//   { id: '1', title: 'Micro Ear Surgeries', image: '/spec-1.svg' },
-//   { id: '2', title: 'Endoscopic Ear Surgery', image: '/spec-2.svg' },
-//   { id: '3', title: 'Endoscopic SIWOS Surgeries', image: '/speciality/siwos.webp' },
-//   { id: '4', title: 'COBLATION ADENOTONSILLECTOMY', image: '/spec-2.svg' },
-//   { id: '5', title: 'SURGERIES FOR SNORING', image: '/spec-3.svg' },
-//   { id: '6', title: 'ENDOLARYNGEAC SURGERIES', image: '/spec-1.svg' },
-//   { id: '7', title: 'VOICE RESTORATION SURGERIES ', image: '/spec-2.svg' },
-//   { id: '8', title: 'SKULL BASE SURGERIES  ', image: '/spec-3.svg' },
-//   { id: '9', title: 'NECK SURGERIES  ', image: '/spec-1.svg' },
-//   { id: '10', title: 'ENDOSCOPY   ', image: '/spec-3.svg' },
-//   { id: '11', title: 'SLEEP STUDY AND SLEEP ENDOSCOPY    ', image: '/spec-2.svg' },
-//   { id: '12', title: '	OTONEUROLOGY    ', image: '/spec-1.svg' },
-//   { id: '13', title: '	PEDIATRIC OTO RHINO CARYNGOLOGY    ', image: '/spec-3.svg' },
-//   // Add more specialties here...
-// ];
+const ToggleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  background-color: #f0f4f8;
+  padding: 10px;
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const ToggleButton = styled.button`
+  padding: 12px 24px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: ${props => props.active === 'true' ? '#795F9F' : 'transparent'};
+  color: ${props => props.active === 'true' ? 'white' : '#6c757d'};
+  
+  transform: ${props => props.active === 'true' ? 'scale(1.05)' : 'scale(1)'};
+
+  &:hover {
+    background-color: ${props => props.active === 'true' 
+      ? '#8B489A' 
+      : '#D4BEDE'};
+    color: ${props => props.active === 'true' ? 'white' : '#795F9F'};
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 const SpecialitiesPage = () => {
+  const [activeView, setActiveView] = useState('surgery');
 
-  const { specialities, isLoading: isLoading, error: error } = useFetchSpecialities();
+  const { specialities, isLoading, error } = useFetchSpecialities();
   const { data: SpecialitiesMainHeaderData, isLoading: isLoading0, error: error0 } = useFetchSpecialitiesMainHeader();
 
-  const specialties = specialities;
+  const displaySpecialties = specialities || [];
 
-  
   if (error) {
     console.log(`Error loading data: ${error.message}`);
   }
   
   if (error0) {
-    console.log(`Error loading data: ${error.message}`);
+    console.log(`Error loading data: ${error0.message}`);
   }
-
 
   return (
     <>
       <Navbar />
-      <SpecialityHero/>
+      <SpecialityHero />
       <div className="px-4 py-8">
         <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-800">{SpecialitiesMainHeaderData?.title}</h1>
+          <h1 className="text-4xl font-bold text-gray-800">
+            {SpecialitiesMainHeaderData?.title}
+          </h1>
           <p className="mt-2 text-gray-600">
             {SpecialitiesMainHeaderData?.description}
           </p>
         </div>
+
+        {/* Modern Toggle Buttons */}
+        <ToggleContainer>
+          <ToggleButton 
+            active={String(activeView === 'surgery')}
+            onClick={() => setActiveView('surgery')}
+          >
+            Surgical Procedures
+          </ToggleButton>
+          <ToggleButton 
+            active={String(activeView === 'endoscopy')}
+            onClick={() => setActiveView('endoscopy')}
+          >
+            Endoscopic Procedures
+          </ToggleButton>
+        </ToggleContainer>
+
         <ImageDiv>
-          {specialties?.map((specialty) => (
+          {displaySpecialties?.map((specialty) => (
             <Link href={`/pages/specialities/${specialty.id}`} key={specialty.id}>
               <ImageCard>
                 <Image
@@ -120,8 +159,8 @@ const SpecialitiesPage = () => {
           ))}
         </ImageDiv>
       </div>
-      <SpecialtyListAll/>
-      <Footer />
+      
+  <Footer/>
     </>
   );
 };

@@ -15,25 +15,25 @@ function WhyChooseUs() {
             icon: Users,
             title: "Expert Team",
             description: "Our board-certified specialists bring decades of combined experience in ENT care, ensuring you receive the highest quality treatment.",
-            color: "from-emerald-500 to-cyan-500"
+            color: "from-[#8B489A] to-[#795F9F]"
         },
         {
             icon: Award,
             title: "Advanced Technology",
             description: "We invest in state-of-the-art diagnostic and treatment equipment to provide precise and effective care for all ENT conditions.",
-            color: "from-emerald-500 to-cyan-500"
+            color: "from-[#795F9F] to-[#8B489A]"
         },
         {
             icon: HeartPulse,
             title: "Comprehensive Care",
             description: "From routine check-ups to complex surgeries, we offer a complete range of ENT services under one roof for your convenience.",
-            color: "from-emerald-500 to-cyan-500"
+            color: "from-[#795F9F] to-[#8B489A]"
         },
         {
             icon: Calendar,
             title: "Easy Access",
             description: "With minimal wait times and convenient scheduling, we ensure you get the care you need when you need it most.",
-            color: "from-emerald-500 to-cyan-500"
+            color: "from-[#795F9F] to-[#8B489A]"
         }
     ];
 
@@ -45,7 +45,7 @@ function WhyChooseUs() {
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                         Why Choose Radiant ENT?
                     </h2>
-                    <div className="w-24 h-1 bg-gradient-to-r from-teal-600 to-cyan-600 mx-auto rounded-full" />
+                    <div className="w-24 h-1 bg-gradient-to-r from-[#795F9F] to-[#8B489A] mx-auto rounded-full" />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

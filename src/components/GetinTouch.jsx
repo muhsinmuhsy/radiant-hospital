@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { 
    
@@ -48,8 +49,8 @@ function GetinTouch() {
                     key={index}
                     className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white hover:shadow-md transition-all group"
                   >
-                    <div className="p-2 rounded-lg bg-teal-100 group-hover:bg-teal-600 transition-colors">
-                      <item.icon className="w-6 h-6 text-teal-600 group-hover:text-white" />
+                    <div className="p-2 rounded-lg bg-[#8B489A] group-hover:bg-[#D4BEDE] transition-colors">
+                      <item.icon className="w-6 h-6 text-[#fff] group-hover:text-[#8B489A]" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">{item.title}</h3>
@@ -66,11 +67,11 @@ function GetinTouch() {
                 <p className="text-gray-600 mb-8">
                   Schedule your consultation with our expert ENT specialists. We're here to provide the care you deserve.
                 </p>
-                <div className="w-full bg-gradient-to-r  text-white  rounded-xl font-medium  transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center group" style={{backgroundColor:"#11B3B8"}}>
+                <div className="w-full bg-gradient-to-r  text-white  rounded-xl font-medium  transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center group" style={{backgroundColor:"#795F9F"}}>
                  <AppointmentBooking/>
                   <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <div className=" mt-5 w-full bg-gradient-to-r  text-white py-3 rounded-xl font-medium  transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center group" style={{backgroundColor:"#11B3B8"}}>
+                <div className=" mt-5 w-full bg-gradient-to-r  text-[#795F9F] py-3 rounded-xl font-medium  transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center group" style={{backgroundColor:"#D4BEDE"}}>
                     Connect With Us
                   <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </div>

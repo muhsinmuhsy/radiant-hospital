@@ -1,252 +1,149 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Calendar, Clock, User, Tag, Search } from 'lucide-react';
+import React from 'react';
+import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useFetchBlogs } from '@/lib/data';
 import Link from 'next/link';
 
 const ENTBlog = () => {
-
-  const { blogs: blogData, isLoading, error} = useFetchBlogs();
-
-  console.log(blogData)
-
+  const { blogs: blogData, isLoading, error } = useFetchBlogs();
   const sortedBlogs = blogData?.slice().sort((a, b) => b.is_featured - a.is_featured);
+  const posts = sortedBlogs || [];
 
-
-  const posts = sortedBlogs || [
-    // {
-    //   id: 1,
-    //   title: "Latest Advances in Sinus Surgery Technology",
-    //   description: "Exploring revolutionary techniques in minimally invasive sinus procedures and their impact on patient recovery times...",
-    //   author: "Dr. Sarah Chen",
-    //   date: "Jan 5, 2025",
-    //   time_ago: "8 min",
-    //   image: "/karl-storz.webp",
-    //   categories: ["Surgery", "Technology"],
-    //   is_featured: true
-    // },
-    // {
-    //   id: 2,
-    //   title: "Common ENT Conditions and Treatments",
-    //   description: "Expert insights into symptoms, treatments, and prevention strategies for common ENT issues...",
-    //   author: "Dr. Michael Brown",
-    //   date: "Jan 4, 2025",
-    //   time_ago: "5 min",
-    //   image: "/spec-1.svg",
-    //   categories: ["Health Tips"],
-    //   featured: false
-    // },
-    // {
-    //   id: 3,
-    //   title: "Pediatric Ear Infections: What Parents Should Know",
-    //   description: "Understanding the causes, symptoms, and treatment options for childhood ear infections...",
-    //   author: "Dr. Lisa Wong",
-    //   date: "Jan 3, 2025",
-    //   time_ago: "6 min",
-    //   image: "/spec-2.svg",
-    //   categories: ["Pediatric ENT"],
-    //   featured: false
-    // },
-    // {
-    //   id: 4,
-    //   title: "What Parents Should Know",
-    //   description: "Understanding the causes, symptoms, and treatment options for childhood ear infections...",
-    //   author: "Dr. Lisa Wong",
-    //   date: "Jan 3, 2025",
-    //   time_ago: "6 min",
-    //   image: "/spec-3.svg",
-    //   categories: ["Pediatric ENT"],
-    //   featured: false
-    // }
-  ];
-  
-
-  const [categories] = useState([
-    { name: "Ear Health" },
-    { name: "Throat Conditions" },
-    { name: "Nasal Care" },
-    { name: "Pediatric ENT" },
-    { name: "Surgery Updates" }
-  ]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [email, setEmail] = useState("");
-
-  const filteredPosts = posts?.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = !selectedCategory || post.categories.includes(selectedCategory);
-    return matchesSearch && matchesCategory;
-  });
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    console.log('Subscribed:', email);
-    setEmail("");
-  };
-  
-
+  // Separate featured and regular posts
+  const featuredPosts = posts.filter(post => post.is_featured);
+  const regularPosts = posts.filter(post => !post.is_featured);
 
   return (
     <>
-      <Navbar/>
-    <div className="min-h-screen bg-gray-50">
-    
-
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-12 gap-8">
-          {/* Main Content */}
-          <div className="col-span-12 lg:col-span-8">
-            <div className="space-y-10">
-            {filteredPosts?.map(post => (
-              post?.is_featured ? (
-                <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
-                  <article className="bg-white rounded-xl shadow-md overflow-hidden mb-2">
-                    <img src={post?.image} alt={post?.title} className="w-full h-64 object-cover" />
-                    <div className="p-6">
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                        <span className="flex items-center gap-1">
-                          <Calendar size={16} />
-                          {post?.date}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <User size={16} />
-                          {post?.author}
-                        </span>
-                      </div>
-                      <h2 className="text-2xl font-bold mb-3 text-gray-900">{post?.title}</h2>
-                      <div className='rich-view'
-                          dangerouslySetInnerHTML={{
-                              __html: (post?.description?.substring(0, 50) ?? '') + (post?.description?.length > 50 ? '...' : ''),
-                          }}
-                      />
-                      <div className="flex items-center justify-between">
-                        <div className="flex gap-2">
-                          {post?.categories?.map(category => (
-                            <button
-                              key={category}
-                              onClick={() => setSelectedCategory(category)}
-                              className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm"
-                            >
-                              {category}
-                            </button>
-                          ))}
-                        </div>
-                        <button className="text-blue-600 hover:text-blue-800">Read more →</button>
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              ) : (
-                <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
-                  <article className="bg-white rounded-xl shadow-md overflow-hidden flex mb-2">
-                    <img src={post?.image} alt={post?.title} className="w-48 object-cover" />
-                    <div className="p-6 flex-1">
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                        <span className="flex items-center gap-1">
-                          <Calendar size={16} />
-                          {post?.date}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock size={16} />
-                          {post?.time_ago}
-                        </span>
-                      </div>
-                      <h3 className="text-xl font-bold mb-3 text-gray-900">{post?.title}</h3>
-                      <div className='rich-view'
-                          dangerouslySetInnerHTML={{
-                              __html: (post?.description?.substring(0, 50) ?? '') + (post?.description?.length > 50 ? '...' : ''),
-                          }}
-                      />
-                      <div className="flex items-center justify-between">
-                        <div className="flex gap-2">
-                          {post?.categories?.map(category => (
-                            <button
-                              key={category}
-                              onClick={() => setSelectedCategory(category)}
-                              className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm"
-                            >
-                              {category}
-                            </button>
-                          ))}
-                        </div>
-                        <button className="text-blue-600 hover:text-blue-800">Read more →</button>
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              )
-            ))}
-
+      <Navbar />
+      <div className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 py-20">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="max-w-3xl">
+              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+                ENT Healthcare <span className="text-purple-700">Insights</span>
+              </h1>
+              <p className="text-xl text-gray-700 mb-8">
+                Expert advice and comprehensive insights into Ear, Nose, and Throat healthcare
+              </p>
+              <div className="h-1 w-32 bg-purple-600 rounded-full"></div>
             </div>
           </div>
+        </div>
 
-          {/* Sidebar */}
-          <div className="col-span-12 lg:col-span-4 space-y-6">
-            {/* Search */}
-            <div className="bg-white p-6 rounded-xl shadow-md">
-              <div className="relative">
-                <input 
-                  type="text" 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search articles..." 
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg"
-                />
-                <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
+        {/* Featured Posts Section */}
+        {featuredPosts.length > 0 && (
+          <div className="py-16 bg-white">
+            <div className="max-w-6xl mx-auto px-4">
+              <div className="mb-10">
+                <span className="text-purple-600 font-medium">Featured Articles</span>
+                <h2 className="text-3xl font-bold text-gray-900 mt-2">Latest Insights</h2>
               </div>
-            </div>
 
-            {/* Categories */}
-            <div className="bg-white p-6 rounded-xl shadow-md">
-              <h4 className="text-lg font-bold mb-4">Categories</h4>
-              <div className="space-y-2">
-                {categories.map((category) => (
-                  <button 
-                    key={category.name}
-                    onClick={() => setSelectedCategory(category.name)}
-                    className="w-full flex items-center justify-between text-gray-600 hover:text-blue-600"
-                  >
-                    <span>{category?.name}</span>
-                    {/* <span className="bg-gray-100 px-2 py-1 rounded-full text-sm">
-                      {category.count}
-                    </span> */}
-                  </button>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {featuredPosts.map(post => (
+                  <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
+                    <article className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md group">
+                      <div className="relative h-72 overflow-hidden">
+                        <img 
+                          src={post?.image} 
+                          alt={post?.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div className="absolute bottom-6 left-6 right-6">
+                          <span className="inline-block bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium mb-3">
+                            Featured
+                          </span>
+                          <h3 className="text-2xl font-bold text-white mb-2 line-clamp-2">{post?.title}</h3>
+                          <div className="flex items-center text-white/90 text-sm space-x-4">
+                            <div className="flex items-center">
+                              <Calendar className="w-4 h-4 mr-1" />
+                              <span>{post?.date}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <User className="w-4 h-4 mr-1" />
+                              <span>{post?.author}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
                 ))}
               </div>
             </div>
+          </div>
+        )}
 
-            {/* Newsletter */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-xl text-white">
-              <h4 className="text-lg font-bold mb-4">Stay Updated</h4>
-              <p className="mb-4">Get the latest ENT care insights delivered to your inbox.</p>
-              <form onSubmit={handleSubscribe}>
-                <input 
-                  type="email" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email" 
-                  className="w-full px-4 py-2 rounded-lg text-gray-900 mb-3"
-                  required
-                />
-                <button 
-                  type="submit"
-                  className="w-full bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  Subscribe
-                </button>
-              </form>
+        {/* All Posts Section */}
+        <div className="py-16 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="mb-10">
+              <span className="text-purple-600 font-medium">All Articles</span>
+              <h2 className="text-3xl font-bold text-gray-900 mt-2">Browse Our Collection</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularPosts.map(post => (
+                <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
+                  <article className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden flex flex-col h-full transition-all duration-300 hover:shadow-md hover:border-purple-200 group">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={post?.image} 
+                        alt={post?.title} 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      
+                      {post?.categories?.length > 0 && (
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-white/90 text-purple-700 px-2 py-1 rounded text-xs font-medium">
+                            {post?.categories[0]}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="p-6 flex-grow flex flex-col">
+                      <div className="flex items-center text-gray-500 text-sm mb-3 space-x-4">
+                        <div className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-1 text-purple-500" />
+                          <span>{post?.date}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Clock className="w-4 h-4 mr-1 text-purple-500" />
+                          <span>{post?.time_ago || '5 min'} read</span>
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-700 transition-colors">
+                        {post?.title}
+                      </h3>
+                      
+                      <div 
+                        className="text-gray-600 mb-4 text-sm line-clamp-2 flex-grow"
+                        dangerouslySetInnerHTML={{
+                          __html: (post?.description?.substring(0, 100) ?? '') + (post?.description?.length > 100 ? '...' : ''),
+                        }}
+                      />
+                      
+                      <div className="flex items-center text-purple-600 font-medium mt-2">
+                        <span>Read Article</span>
+                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </article>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <Footer/>
+      <Footer/>
     </>
   );
 };

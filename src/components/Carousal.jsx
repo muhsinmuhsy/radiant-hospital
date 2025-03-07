@@ -13,13 +13,13 @@ const HeroCarousel = () => {
 
   const slides = isMobile ? mobileSlides : desktopSlides;
 
-  // Handle window resize to detect mobile/desktop
+  // Detect mobile screen
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    handleResize(); // Set initial state
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -40,7 +40,7 @@ const HeroCarousel = () => {
     if (isAnimating || !slides?.length) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setTimeout(() => setIsAnimating(false), 500); // Match transition duration
+    setTimeout(() => setIsAnimating(false), 700); // Match transition duration
   }, [isAnimating, slides]);
 
   // Handle previous slide
@@ -48,7 +48,7 @@ const HeroCarousel = () => {
     if (isAnimating || !slides?.length) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setTimeout(() => setIsAnimating(false), 500); // Match transition duration
+    setTimeout(() => setIsAnimating(false), 700); // Match transition duration
   }, [isAnimating, slides]);
 
   // Handle dot click
@@ -57,7 +57,7 @@ const HeroCarousel = () => {
       if (isAnimating || index === currentSlide || !slides?.length) return;
       setIsAnimating(true);
       setCurrentSlide(index);
-      setTimeout(() => setIsAnimating(false), 500); // Match transition duration
+      setTimeout(() => setIsAnimating(false), 700);
     },
     [isAnimating, currentSlide, slides]
   );
@@ -70,7 +70,7 @@ const HeroCarousel = () => {
       ></div>
     );
   }
-  
+
   if (error || error0) return <div>Error loading carousel data.</div>;
 
   return (
@@ -80,9 +80,10 @@ const HeroCarousel = () => {
         {slides?.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute w-full h-full transition-all duration-500 ease-in-out transform
-              ${index === currentSlide ? 'opacity-100 translate-x-0' : 
-                index < currentSlide ? 'opacity-0 -translate-x-full' : 'opacity-0 translate-x-full'}`}
+            className={`absolute w-full h-full transition-all duration-700 ease-in-out
+              ${index === currentSlide ? 'translate-x-0' : 
+                index < currentSlide ? '-translate-x-full' : 'translate-x-full'}`}
+            style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)' }}
             aria-hidden={index !== currentSlide}
           >
             {/* Image */}
@@ -91,17 +92,23 @@ const HeroCarousel = () => {
                 src={slide.image}
                 alt={slide.title || 'Carousel Slide'}
                 className="object-cover w-full h-full"
-                loading="lazy" // Improve performance
+                loading="lazy"
               />
             </div>
 
             {/* Content */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
               <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center transform transition-all duration-700">
+                <h2
+                  className={`text-3xl md:text-5xl font-bold mb-4 text-center transform transition-all duration-700 opacity-0 translate-y-5 delay-200
+                  ${index === currentSlide ? 'opacity-100 translate-y-0' : ''}`}
+                >
                   {slide.title}
                 </h2>
-                <p className="text-lg md:text-xl text-center max-w-2xl mx-auto transform transition-all duration-700">
+                <p
+                  className={`text-lg md:text-xl text-center max-w-2xl mx-auto transform transition-all duration-700 opacity-0 translate-y-5 delay-300
+                  ${index === currentSlide ? 'opacity-100 translate-y-0' : ''}`}
+                >
                   {slide.description}
                 </p>
               </div>

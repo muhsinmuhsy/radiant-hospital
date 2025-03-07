@@ -3,37 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { useFetchTestimonials } from '@/lib/data';
 
-// const testimonialsSub = [
-//   {
-//     name: "David Miller",
-//     treatment: "Sinus Surgery",
-//     content: "Dr. Smith's expertise in treating my chronic sinusitis was exceptional. After years of struggling with breathing problems, I can finally breathe normally again.",
-//     rating: 5,
-//     date: "March 2024"
-//   },
-//   {
-//     name: "Sarah Chen",
-//     treatment: "Tonsillectomy",
-//     content: "The entire staff was incredibly supportive throughout my recovery. The post-operative care instructions were clear, and the follow-up was thorough.",
-//     rating: 5,
-//     date: "February 2024"
-//   },
-//   {
-//     name: "James Wilson",
-//     treatment: "Hearing Aid Fitting",
-//     content: "The audiologists here are amazing. They took the time to find the perfect hearing solution for my lifestyle. I can now enjoy conversations with my grandchildren.",
-//     rating: 5,
-//     date: "January 2024"
-//   }
-// ];
-
 const TestimonialCarousel = () => {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
-  const {testimonials: testimonialsData, isLoading, error} = useFetchTestimonials();
+  const { testimonials: testimonialsData, isLoading, error } = useFetchTestimonials();
   const testimonials = testimonialsData;
 
   useEffect(() => {
@@ -46,7 +22,6 @@ const TestimonialCarousel = () => {
     }
   }, [current, isPlaying, testimonials]);
   
-
   const next = () => {
     setCurrent((current + 1) % testimonials.length);
   };
@@ -78,32 +53,34 @@ const TestimonialCarousel = () => {
     setTouchEnd(null);
   };
 
-  
   if (error) {
     console.log(`Error loading data: ${error.message}`);
   }
 
   return (
-    <div 
-      className="w-full max-w-5xl mx-auto p-2 sm:p-4 md:p-6"
-      
-    >
-      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#ffffff] shadow-xl">
-        <div className="absolute top-0 left-0 w-full h-2" style={{ background: '#11B3B8' }}></div>
-        <div className="absolute top-2 left-0 w-full h-1" style={{ background: '#22CCD2' }}></div>
+    <div className="w-full max-w-7xl mx-auto p-2 sm:p-4 md:p-6">
+      <div className="text-center mb-12 mt-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">What Our Patients Say</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Real stories from patients who've experienced our care
+              </p>
+      </div>
+      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#ffffff] shadow-xl text-center">
+        <div className="absolute top-0 left-0 w-full h-2" style={{ background: '#8B489A' }}></div>
+        <div className="absolute top-2 left-0 w-full h-1" style={{ background: '#795F9F' }}></div>
 
         <div className="p-4 sm:p-6 md:p-8">
           <div className="flex items-center justify-between mb-4 sm:mb-8">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: '#1F2F61' }}>Patient Stories</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: '#8B489A' }}>Patient Stories</h2>
             <button
               onClick={() => setIsPlaying(!isPlaying)}
               className="p-1.5 sm:p-2 rounded-full hover:opacity-80"
-              style={{ background: '#E6FEFF' }}
+              style={{ background: '#D4BEDE' }}
             >
               {isPlaying ? (
-                <Pause className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: '#11B3B8' }} />
+                <Pause className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: '#795F9F' }} />
               ) : (
-                <Play className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: '#11B3B8' }} />
+                <Play className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: '#795F9F' }} />
               )}
             </button>
           </div>
@@ -124,27 +101,27 @@ const TestimonialCarousel = () => {
                   className="w-full flex-shrink-0 px-2 sm:px-4"
                 >
                   <div className="p-4 sm:p-6 rounded-lg sm:rounded-xl relative" 
-                       style={{ background: 'rgba(17, 179, 184, 0.1)' }}>
+                       style={{ background: 'rgba(212, 190, 222, 0.3)' }}>
                     <div className="absolute -bottom-0 -right-2 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center"
-                         style={{ background: '#11B3B8' }}>
+                         style={{ background: '#795F9F' }}>
                       <span className="text-white text-xl sm:text-2xl font-bold">+</span>
                     </div>
                     
-                    <blockquote className="text-base sm:text-lg mb-4 sm:mb-6 italic" style={{ color: '#1F2F61' }}>
+                    <blockquote className="text-base sm:text-lg mb-4 sm:mb-6 italic" style={{ color: '#8B489A' }}>
                       "{testimonial.content}"
                     </blockquote>
                     <div className="mt-3 sm:mt-4">
-                      <div className="flex items-center gap-1 sm:gap-2 mb-2">
+                      <div className="flex items-center gap-1 sm:gap-2 mb-2 justify-center">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <svg key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-current" style={{ color: '#22CCD2' }} viewBox="0 0 20 20">
+                          <svg key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-current" style={{ color: '#795F9F' }} viewBox="0 0 20 20">
                             <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
                           </svg>
                         ))}
                       </div>
-                      <div className="space-y-0.5 sm:space-y-1">
-                        <p className="font-semibold text-sm sm:text-base" style={{ color: '#1F2F61' }}>{testimonial.name}</p>
-                        <p className="font-medium text-sm sm:text-base" style={{ color: '#11B3B8' }}>Treatment: {testimonial.treatment}</p>
-                        <p className="text-xs sm:text-sm" style={{ color: '#1F2F61', opacity: 0.7 }}>{testimonial.date}</p>
+                      <div className="space-y-0.5 sm:space-y-1 text-center">
+                        <p className="font-semibold text-sm sm:text-base" style={{ color: '#8B489A' }}>{testimonial.name}</p>
+                        <p className="font-medium text-sm sm:text-base" style={{ color: '#795F9F' }}>Treatment: {testimonial.treatment}</p>
+                        <p className="text-xs sm:text-sm" style={{ color: '#8B489A', opacity: 0.7 }}>{testimonial.date}</p>
                       </div>
                     </div>
                   </div>
@@ -157,7 +134,7 @@ const TestimonialCarousel = () => {
             <button
               onClick={prev}
               className="p-1.5 sm:p-2 rounded-full transition-opacity hover:opacity-80"
-              style={{ background: '#11B3B8' }}
+              style={{ background: '#8B489A' }}
             >
               <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </button>
@@ -168,7 +145,7 @@ const TestimonialCarousel = () => {
                   onClick={() => setCurrent(idx)}
                   className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full transition-colors`}
                   style={{ 
-                    background: idx === current ? '#11B3B8' : '#22CCD2',
+                    background: idx === current ? '#8B489A' : '#D4BEDE',
                     opacity: idx === current ? 1 : 0.5
                   }}
                 />
@@ -177,7 +154,7 @@ const TestimonialCarousel = () => {
             <button
               onClick={next}
               className="p-1.5 sm:p-2 rounded-full transition-opacity hover:opacity-80"
-              style={{ background: '#11B3B8' }}
+              style={{ background: '#8B489A' }}
             >
               <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </button>

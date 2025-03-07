@@ -88,7 +88,7 @@ const AppointmentBookingDirectly = ({ selectedDoctor }) => {
     <div>
       <button 
         className="flex items-center gap-2 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors"
-        style={{ backgroundColor: "#11B3B8" }}
+        style={{ backgroundColor: "#795F9F" }}
         onClick={() => setIsOpen(true)}
       >
         <Calendar className="h-4 w-4" />
@@ -119,7 +119,7 @@ const AppointmentBookingDirectly = ({ selectedDoctor }) => {
                       name="full_name"
                       value={formData.full_name}
                       onChange={handleChange}
-                      placeholder="John Doe"
+                      placeholder="enter your full name"
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                     />
@@ -132,7 +132,7 @@ const AppointmentBookingDirectly = ({ selectedDoctor }) => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@example.com"
+                      placeholder="enter your email address"
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                     />
@@ -145,7 +145,7 @@ const AppointmentBookingDirectly = ({ selectedDoctor }) => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="123-456-7890"
+                      placeholder="phone number "
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                     />
@@ -160,7 +160,7 @@ const AppointmentBookingDirectly = ({ selectedDoctor }) => {
                     name="age"
                     value={formData.age}
                     onChange={handleChange}
-                    placeholder="25"
+                    placeholder="select your age"
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                   />
@@ -175,7 +175,7 @@ const AppointmentBookingDirectly = ({ selectedDoctor }) => {
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
-                    placeholder="123 Main St, City"
+                    placeholder="enter your address"
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                   />
@@ -226,7 +226,7 @@ const AppointmentBookingDirectly = ({ selectedDoctor }) => {
                 </div>
 
                 <div className="flex justify-end mt-6">
-                  <button type="submit" className="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700">
+                  <button type="submit" className="bg-[#795F9F] text-white px-6 py-3 rounded-lg ">
                     {loading ? "Booking..." : "Book Appointment"}
                   </button>
                 </div>

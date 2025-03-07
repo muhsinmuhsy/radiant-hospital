@@ -1,151 +1,102 @@
 'use client';
 import React from 'react'
 import Image from 'next/image';
-import styled from 'styled-components';
 import { useFetchHomeAboutHero } from '@/lib/data';
-
-const AboutSectionWrapper = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-  gap: 20px;
-  margin-top: 15px;
-
-
-  @media (max-width: 920px) {
-    flex-direction: column;
-  }
-`;
-
-const AboutContent = styled.div`
-  flex: 1;
-  min-width: 300px;
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    color: #2D3A3A;
-  }
-
-  p {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: #555;
-  }
-
-  button {
-    background-color: #11B3B8;
-    color: white;
-    border: none;
-    padding: 10px 45px;
-    font-size: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: #5ea8d0;
-    }
-  }
-
-  @media (max-width: 1064px) {
-   h1{
-    font-size: 2.5rem;
-   } 
-  }
-
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 1.75rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-    }
-
-    button {
-      font-size: 1rem;
-      padding: 10px 30px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 1.7rem;
-    }
-
-    p {
-      font-size: 0.85rem;
-    }
-
-    button {
-      font-size: 1rem;
-      padding: 10px 30px;
-    }
-  }
-`;
-
-const AboutImage = styled.div`
-  flex: 1;
-  min-width: 300px;
-  text-align: center;
-
-  img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 10px;
-  }
-`;
-
-
+import AppointmentBooking from './AppointmentBooking';
+import { ArrowRight, CheckCircle, HeartPulse, Mail, PhoneCall, ShieldCheck } from 'lucide-react';
 
 function AboutHero() {
   const { aboutHero, isLoading, error } = useFetchHomeAboutHero();
-
   
   if (error) {
     console.log(`Error loading data: ${error.message}`);
   }
   
   return (
-    
-    <AboutSectionWrapper>
-    <AboutContent>
-    {/* <h1>
-        We Provide affordable,  accessible and quality healthcare for all
-      </h1>
-      <p>
-        Radient Ent Hospital has always been in the forefront to introduce the most
-        advanced and sophisticated treatment options in various specialities and
-        subspecialities, most of them are at par with the international standards.
-        We Provide affordable, accessible and quality healthcare for all.
-      </p> */}
-      <h1>
-        {aboutHero?.title}
-      </h1>
-      <p>
-        {aboutHero?.description}
-      </p>
-      <button>Read More</button>
-    </AboutContent>
-    <AboutImage>
-      <Image
-        src="/doc-property.png"
-        alt="Healthcare Image"
-        width={500}
-        height={300}
-      />
-    </AboutImage>
-  </AboutSectionWrapper>
-   
-      );
-    }
-    
-
+    <div className="relative py-16 lg:py-24 overflow-hidden">
+    <div className="container mx-auto px-4 relative z-10">
+      <div className="grid md:grid-cols-2 gap-12 items-center">
+        {/* Content Section */}
+        <div className="space-y-6">
+          <div 
+            className="inline-block px-4 py-2 rounded-full text-sm font-medium"
+            style={{ 
+              background: 'linear-gradient(90deg, #8c7497 0%, #7a5ea5 100%)',
+              color: 'white'
+            }}
+          >
+           {aboutHero?.title || "Comprehensive care tailored to your unique needs"}
+          </div>
+          
+          <h2 
+            className="text-4xl md:text-5xl font-bold leading-tight"
+            style={{ color: '#795F9F' }}
+          >
+            {aboutHero?.description || "Personalized Healthcare Solutions"}
+          </h2>
+          
+          <p className="text-xl text-gray-600">
+          Together, we'll help you Listen, Breathe, and Speak to Life.
+          </p>
+          
+          
+          
+          {/* Feature Highlights */}
+          <div className="mt-8 space-y-4">
+            {[
+              { 
+                icon: <ShieldCheck className="w-6 h-6" style={{ color: '#8B489A' }} />, 
+                text: "Comprehensive Health Screening",
+                description: "Advanced diagnostic services"
+              },
+              { 
+                icon: <HeartPulse className="w-6 h-6" style={{ color: '#795F9F' }} />, 
+                text: "Personalized Treatment Plans",
+                description: "Tailored medical solutions"
+              }
+            ].map((item, index) => (
+              <div 
+                key={index} 
+                className="flex items-center space-x-4 p-4 rounded-xl transition-all duration-300 hover:shadow-lg"
+                style={{ 
+                  backgroundColor: index % 2 === 0 ? '#D4BEDE20' : '#795F9F10' 
+                }}
+              >
+                <div className="flex-shrink-0">{item.icon}</div>
+                <div>
+                  <h3 className="font-bold text-lg" style={{ color: '#795F9F' }}>{item.text}</h3>
+                  <p className="text-gray-600 text-sm">{item.description}</p>
+                </div>
+                
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Image Section */}
+        <div className="relative group">
+          <div 
+            className="absolute -inset-4 rounded-2xl opacity-30 blur-xl"
+           
+          ></div>
+          
+          <div className="relative overflow-hidden rounded-2xl ">
+            <Image
+              src="/radiant/building.png"
+              alt="Healthcare Professionals"
+              width={600}
+              height={400}
+              className="w-full h-auto object-cover rounded-2xl transform transition-transform duration-500 group-hover:scale-105"
+            />
+            
+            {/* Overlay Badge */}
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  );
+}
 
 export default AboutHero

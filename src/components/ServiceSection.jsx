@@ -9,22 +9,23 @@ import { useFetchHomeServiceHeader } from '@/lib/data';
 
 
 export const Section = styled.div`
-    background-image: url('/service-bg.png');
-    background-repeat: no-repeat;
-    background-size: cover; /* Ensures the background image covers the entire section */
-    background-position: center; /* Center the image */
-    width: 100%;
-    height: fit-content;
-    align-items: center;
-    margin-top: 20px;
-    max-width: 1536px;
- margin: auto;
- margin-bottom: 35px;
- margin-top: 35px;
-
-
-
+  background: linear-gradient(135deg, #D4BEDE 0%, #795F9F 50%, #8B489A 100%);
+  background-size: cover; /* Ensures the background covers the entire section */
+  background-position: center; /* Center the gradient */
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  margin-top: 20px;
+  max-width: 1536px;
+  margin: auto;
+  margin-bottom: 35px;
+  margin-top: 35px;
 `
+
+
+
+
+
 
 export const ServiceBtn = styled.div`
 display: flex;
