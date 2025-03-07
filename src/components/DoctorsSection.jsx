@@ -149,7 +149,7 @@ const DoctorsCarousel = () => {
             {Data.length > 0 ? (
               Data.map((doctor, index) => (
                 <div key={index} className="flex-shrink-0 px-2 md:px-4" style={{ width: `${100 / cardsPerView}%` }}>
-                  <div className="bg-[#f7e8fe] border border-[#f0d0ff] rounded-[25px] h-[410px] overflow-hidden transition-transform duration-300 hover:scale-105">
+                  <div className="bg-[#f7e8fe] border border-[#f0d0ff] rounded-[25px] h-[430px]  overflow-hidden transition-transform duration-300 hover:scale-105">
                     <div className="bg-[#795F9F] w-[70%] mx-auto rounded-b-[15px]">
                       <img src={doctor?.image} alt={doctor?.name} className="w-full max-w-[250px] h-[250px] object-cover rounded-b-[15px]" />
                     </div>
