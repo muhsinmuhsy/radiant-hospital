@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { 
   X, UserCircle, Phone, Mail, Award, MapPin, 
@@ -7,50 +7,75 @@ import {
 
 
 // ENT Doctor data
-const doctorData = {
-  name: "Dr. Sarah Thompson",
-  specialty: "Otolaryngology (ENT)",
-  qualification: "MD, FACS (Fellow of the American College of Surgeons)",
-  experience: "12 years",
-  contact: "+91 1234-5678",
-  email: "sarah.thompson@enthospital.com",
-  location: "Advanced ENT Care Center, Otolaryngology Department",
-  imageUrl: "/doc-1.svg",
-  description: "Dr. Sarah Thompson is a board-certified otolaryngologist specializing in advanced ear, nose, and throat treatments. She has extensive experience in surgical and medical management of complex ENT conditions, including sinus disorders, hearing loss, and head and neck surgeries.",
-  specializedDepartments: [
-    "Pediatric ENT",
-    "Sinus Surgery",
-    "Hearing Restoration",
-    "Voice and Swallowing Disorders",
-    "Allergy Treatment"
-  ],
-  availableDays: [
-    {
-      day: "Monday",
-      timeSlots: [
-        { time: "9:00 AM - 12:00 PM", type: "Consultation" },
-        { time: "2:00 PM - 5:00 PM", type: "Surgical Procedures" }
-      ]
-    },
-    {
-      day: "Wednesday",
-      timeSlots: [
-        { time: "10:00 AM - 1:00 PM", type: "Hearing Tests" },
-        { time: "4:00 PM - 7:00 PM", type: "Evening Consultation" }
-      ]
-    },
-    {
-      day: "Friday",
-      timeSlots: [
-        { time: "8:00 AM - 11:00 AM", type: "Sinus Evaluation" },
-        { time: "3:00 PM - 6:00 PM", type: "Allergy Consultation" }
-      ]
-    }
-  ]
-};
+// const doctorData = {
+//   "id": 2,
+//   "image": "http://127.0.0.1:8000/media/consultants/DSC_0137_copy-removebg-preview.png",
+//   "name": "Dr. Priyadarshan M.S",
+//   "specialty": "Chief ENT Surgeon & Managing Director.Head of Ear Surgery and Endoscopic Sinus Surgery",
+//   "qualification": "MD, FACS (Fellow of the American College of Surgeons)",
+//   "experience": "12 years",
+//   "contact": "+91 1234-5678",
+//   "email": "sarah.thompson@enthospital.com",
+//   "location": "Advanced ENT Care Center, Otolaryngology Department",
+//   "description": "Dr. Sarah Thompson is a board-certified otolaryngologist specializing in advanced ear, nose, and throat treatments. She has extensive experience in surgical and medical management of complex ENT conditions, including sinus disorders, hearing loss, and head and neck surgeries.",
+//   "specialized_departments": [
+//       "Pediatric ENT",
+//       "Sinus Surgery",
+//       "Hearing Restoration",
+//       "Voice and Swallowing Disorders",
+//       "Allergy Treatment"
+//   ],
+//   "available_days": [
+//       {
+//           "day": "Monday",
+//           "timeSlots": [
+//               {
+//                   "time": "9:00 AM - 12:00 PM",
+//                   "type": "Consultation"
+//               },
+//               {
+//                   "time": "2:00 PM - 5:00 PM",
+//                   "type": "Surgical Procedures"
+//               }
+//           ]
+//       },
+//       {
+//           "day": "Wednesday",
+//           "timeSlots": [
+//               {
+//                   "time": "10:00 AM - 1:00 PM",
+//                   "type": "Hearing Tests"
+//               },
+//               {
+//                   "time": "4:00 PM - 7:00 PM",
+//                   "type": "Evening Consultation"
+//               }
+//           ]
+//       },
+//       {
+//           "day": "Friday",
+//           "timeSlots": [
+//               {
+//                   "time": "8:00 AM - 11:00 AM",
+//                   "type": "Sinus Evaluation"
+//               },
+//               {
+//                   "time": "3:00 PM - 6:00 PM",
+//                   "type": "Allergy Consultation"
+//               }
+//           ]
+//       }
+//   ],
+//   "created_at": "2025-01-26T07:06:17.712318Z",
+//   "updated_at": "2025-03-09T06:21:41.922668Z"
+// };
 
-const DoctorProfilePopup = () => {
+const DoctorProfilePopup = ({ selectedDoctor }) => {
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const doctorData = selectedDoctor;
+
 
   const openPopup = () => {
     setIsOpen(true);
@@ -95,12 +120,12 @@ const DoctorProfilePopup = () => {
               {/* Doctor Header */}
               <div className="flex flex-col items-center mb-6">
                 <img 
-                  src={doctorData.imageUrl} 
-                  alt={doctorData.name} 
+                  src={doctorData?.image} 
+                  alt={doctorData?.name} 
                   className="w-32 h-32 rounded-full object-cover border-4 border-[#735EA9] mb-4"
                 />
-                <h2 className="text-2xl font-bold text-gray-800">{doctorData.name}</h2>
-                <p className="text-[#735EA9] font-semibold">{doctorData.specialty}</p>
+                <h2 className="text-2xl font-bold text-gray-800">{doctorData?.name}</h2>
+                <p className="text-[#735EA9] font-semibold">{doctorData?.specialty}</p>
               </div>
 
               {/* Profile Content Grid */}
@@ -112,31 +137,31 @@ const DoctorProfilePopup = () => {
                     <div className="flex items-center space-x-3 mb-2">
                       <Award className="text-[#735EA9]" size={20} />
                       <span className="text-gray-700 font-semibold text-sm sm:text-base">
-                        Qualification: {doctorData.qualification}
+                        Qualification: {doctorData?.qualification}
                       </span>
                     </div>
                     <div className="flex items-center space-x-3 mb-2">
                       <UserCircle className="text-[#735EA9]" size={20} />
                       <span className="text-gray-700 text-sm sm:text-base">
-                        Experience: {doctorData.experience}
+                        Experience: {doctorData?.experience}
                       </span>
                     </div>
                     <div className="flex items-center space-x-3 mb-2">
                       <Phone className="text-[#735EA9]" size={20} />
                       <span className="text-gray-700 text-sm sm:text-base">
-                        Contact: {doctorData.contact}
+                        Contact: {doctorData?.contact}
                       </span>
                     </div>
                     <div className="flex items-center space-x-3 mb-2">
                       <Mail className="text-[#735EA9]" size={20} />
                       <span className="text-gray-700 text-sm sm:text-base">
-                        Email: {doctorData.email}
+                        Email: {doctorData?.email}
                       </span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <MapPin className="text-[#735EA9]" size={20} />
                       <span className="text-gray-700 text-sm sm:text-base">
-                        Location: {doctorData.location}
+                        Location: {doctorData?.location}
                       </span>
                     </div>
                   </div>
@@ -147,7 +172,7 @@ const DoctorProfilePopup = () => {
                       <Stethoscope className="text-[#735EA9]" size={20} />
                       <h3 className="text-lg font-semibold text-gray-800">Profile Overview</h3>
                     </div>
-                    <p className="text-gray-600 text-sm sm:text-base">{doctorData.description}</p>
+                    <p className="text-gray-600 text-sm sm:text-base">{doctorData?.description}</p>
                   </div>
                 </div>
 
@@ -160,7 +185,7 @@ const DoctorProfilePopup = () => {
                       <h3 className="text-lg font-semibold text-gray-800">Specialized Areas</h3>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {doctorData.specializedDepartments.map((dept, index) => (
+                      {doctorData?.specialized_departments.map((dept, index) => (
                         <span 
                           key={index} 
                           className="bg-[#f2ddf6] text-[#634e98] px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm"
@@ -178,7 +203,7 @@ const DoctorProfilePopup = () => {
                       <h3 className="text-lg font-semibold text-gray-800">Available Schedule</h3>
                     </div>
                     <div className="space-y-3">
-                      {doctorData.availableDays.map((daySchedule, index) => (
+                      {doctorData?.available_days.map((daySchedule, index) => (
                         <div key={index} className="bg-gray-50 p-2 sm:p-3 rounded-lg">
                           <div className="flex items-center justify-between mb-2">
                             <span className="font-semibold text-gray-700 text-sm sm:text-base">{daySchedule.day}</span>

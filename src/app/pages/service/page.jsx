@@ -1,50 +1,16 @@
+'use client';
 import BlogSectionDisplay from '@/components/BlogDisplay';
 import Footer from '@/components/Footer';
 import GetinTouch from '@/components/GetinTouch';
 import Navbar from '@/components/Navbar';
 import TestimonialCarousel from '@/components/Testimonial';
 import React from 'react';
+import { useFetchServices, useFetchServiceHero } from '@/lib/data';
 
 const ServicesPage = () => {
-  const services = [
-    {
-      icon: '/hearing-aid.svg',
-      title: 'Hearing Aid',
-      description:
-        'We offer advanced hearing aid solutions tailored to your specific needs, improving your quality of life through better hearing.',
-    },
-    {
-      icon: '/vertigo.svg',
-      title: 'Vertigo Clinic',
-      description:
-        'Our specialized vertigo clinic provides comprehensive diagnosis and treatment for balance disorders and dizziness symptoms.',
-    },
-    {
-      icon: '/endoscopy.svg',
-      title: 'Endoscopic & Skull Base Surgery',
-      description:
-        'ENT surgery has expanded its vistas more than any other surgical specialty in the world. An excellent example is endoscopic surgery.',
-    },
-    {
-      icon: '/icons/icon.png',
-      title: 'Cochlear Implant Services',
-      description:
-        'Our cochlear implant services provide life-changing solutions for those with severe to profound hearing loss.',
-    },
-    {
-      icon: '/icons/hearing.png',
-      title: 'Tinnitus Management',
-      description:
-        'We offer effective tinnitus management strategies to help reduce the impact of ringing or buzzing sounds in your ears.',
-    },
-    {
-      icon: '/icons/pediatrics.png',
-      title: 'Pediatric ENT Care',
-      description:
-        'Specialized ENT care for children, addressing common issues like ear infections, tonsillitis, and hearing concerns with gentle expertise.',
-    },
-    
-  ];
+ 
+  const { service: services, isLoading, error } = useFetchServices();
+  const { data } = useFetchServiceHero();
 
   return (
     <>
@@ -59,9 +25,9 @@ const ServicesPage = () => {
         >
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-8">
-              <h1 className="text-4xl md:text-6xl font-bold text-black mb-6">Comprehensive ENT Services</h1>
+              <h1 className="text-4xl md:text-6xl font-bold text-black mb-6">{data?.title}</h1>
               <p className="text-xl text-black/90 max-w-3xl mx-auto leading-relaxed">
-                Advanced care for all your ear, nose, and throat needs with personalized treatment plans
+              {data?.description}
               </p>
             </div>
           </div>
@@ -86,7 +52,7 @@ const ServicesPage = () => {
 
     {/* Services Grid - Keeping the card design as requested */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {services.map((service, index) => (
+      {services?.map((service, index) => (
         <div
           key={index}
           className="group hover:-translate-y-2 transition-all duration-300"
@@ -95,18 +61,18 @@ const ServicesPage = () => {
             <div className="heading flex flex-col items-center mb-4">
               <div className="w-[60px] h-[60px] mb-4 group-hover:scale-110 transition-transform">
                 <img
-                  src={service.icon}
-                  alt={service.title}
+                  src={service?.icon}
+                  alt={service?.title}
                   className="w-full h-full"
                 />
               </div>
               <h2 className="text-xl md:text-2xl text-white font-semibold">
-                {service.title}
+                {service?.title}
               </h2>
             </div>
             <div className="text">
               <p className="text-sm md:text-base text-white/90">
-                {service.description}
+                {service?.description}
               </p>
             </div>
           </div>

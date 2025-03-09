@@ -1,10 +1,14 @@
 'use client'
 import React from 'react'
 import { useState } from 'react'
+import {useFetchMission, useFetchVision } from '@/lib/data';
 
 function MissionVision() {
       const [activeTab, setActiveTab] = useState('mission');
       const [hoveredValue, setHoveredValue] = useState(null);
+
+      const {data:missionData } = useFetchMission();
+      const {data:visionData } = useFetchVision();
   return (
  <>
    {/* Mission & Vision */}
@@ -29,22 +33,16 @@ function MissionVision() {
             <div className="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-lg">
               {activeTab === 'mission' ? (
                 <>
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">Our Mission</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">{missionData?.title || "Our Mission"}</h2>
                   <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    To provide world-class ENT care through innovative treatments, 
-                    expert specialists, and compassionate service. We strive to improve 
-                    the quality of life for our patients using the latest medical 
-                    advancements and personalized care approaches.
+                    {missionData?.description}
                   </p>
                 </>
               ) : (
                 <>
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">Our Vision</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">{visionData?.title || "Our Vision"}</h2>
                   <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    To be the leading ENT healthcare provider in Kerala, recognized 
-                    for excellence in patient care, medical innovation, and community 
-                    service. We aim to set new standards in ENT healthcare through 
-                    continuous advancement and patient-centered approaches.
+                    {visionData?.description}
                   </p>
                 </>
               )}

@@ -113,6 +113,10 @@ const SpecialitiesPage = () => {
     console.log(`Error loading data: ${error0.message}`);
   }
 
+  const filteredSpecialties = displaySpecialties.filter(
+    (specialty) => specialty.category === (activeView === 'surgery' ? "Surgical Procedures" : "Endoscopic Procedures")
+  );
+
   return (
     <>
       <Navbar />
@@ -127,7 +131,7 @@ const SpecialitiesPage = () => {
           </p>
         </div>
 
-        {/* Modern Toggle Buttons */}
+        {/* Toggle Buttons */}
         <ToggleContainer>
           <ToggleButton 
             active={String(activeView === 'surgery')}
@@ -144,7 +148,7 @@ const SpecialitiesPage = () => {
         </ToggleContainer>
 
         <ImageDiv>
-          {displaySpecialties?.map((specialty) => (
+          {filteredSpecialties?.map((specialty) => (
             <Link href={`/pages/specialities/${specialty.id}`} key={specialty.id}>
               <ImageCard>
                 <Image

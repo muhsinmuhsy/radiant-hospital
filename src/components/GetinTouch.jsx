@@ -11,7 +11,13 @@ import {
    
   } from 'lucide-react';
 import AppointmentBooking from './AppointmentBooking';
+import { useFetchGetInTouch } from '@/lib/data';
+
 function GetinTouch() {
+
+  const {data} = useFetchGetInTouch();
+
+  
   return (
     <>
       {/* Contact Section with Hover Effects */}
@@ -27,22 +33,22 @@ function GetinTouch() {
                   {
                     icon: MapPin,
                     title: "Location",
-                    content: "Civil Station Road, Kannur, Kerala - 670002"
+                    content: data?.location
                   },
                   {
                     icon: Phone,
                     title: "Phone",
-                    content: "+91 497 2700 XXX"
+                    content: data?.phone
                   },
                   {
                     icon: Mail,
                     title: "Email",
-                    content: "info@radiantent.com"
+                    content: data?.email
                   },
                   {
                     icon: Clock,
                     title: "Working Hours",
-                    content: "Monday - Saturday: 9:00 AM - 8:00 PM\nSunday: Emergency Services Only"
+                    content: data?.working_hours
                   }
                 ].map((item, index) => (
                   <div

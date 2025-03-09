@@ -156,7 +156,7 @@ const DoctorsCarousel = () => {
                     <div className="text-center mt-3">
                       <h1 className="text-[1.5rem] mb-0 text-black">{doctor?.name}</h1>
                       <p className="text-[0.9rem] text-[#555] leading-[1.5] mb-[10px] px-5">{doctor?.specialty}</p>
-                      <DoctorProfilePopup/>
+                      <DoctorProfilePopup selectedDoctor={doctor} />  
                     </div>
                     
                   </div>

@@ -11,27 +11,47 @@ import {
   ArrowRight
 } from 'lucide-react';
 
+import { BASE_URL } from '@/lib/data';
+
 export default function ContactComponent() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
+    full_name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
-
+  
+  const [message, setMessage] = useState("");
+  
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement form submission logic
-    console.log('Form submitted:', formData);
-    alert('Your inquiry has been received. Our medical team will contact you shortly.');
+    setMessage("");
+  
+    try {
+      const response = await fetch(`${BASE_URL}/api/inquiry/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        setMessage(data?.error || "Failed to submit inquiry");
+        return;
+      }
+  
+      setMessage("Inquiry submitted successfully!");
+      setFormData({ full_name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      setMessage("Something went wrong. Please try again later.");
+    }
   };
 
   return (
@@ -110,15 +130,15 @@ export default function ContactComponent() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name
                   </label>
                   <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="full_name"
+                    id="full_name"
                     required
-                    value={formData.name}
+                    value={formData.full_name}
                     onChange={handleChange}
                     className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#795F9F] focus:border-[#795F9F] transition-all duration-300"
                     placeholder="Enter your full name"
@@ -152,7 +172,7 @@ export default function ContactComponent() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#795F9F] focus:border-[#795F9F] transition-all duration-300"
-                    placeholder="enter your phone number "
+                    placeholder="Enter your phone number"
                   />
                 </div>
 
@@ -179,6 +199,8 @@ export default function ContactComponent() {
                   Submit Inquiry
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
+
+                {message && <p className="mt-4 text-sm text-red-500">{message}</p>}
               </form>
             </div>
           </div>

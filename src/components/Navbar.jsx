@@ -4,30 +4,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import AppointmentBooking from './AppointmentBooking';
+import { useFetchSpecialities } from '@/lib/data';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState('');
   const [activeSubDropdown, setActiveSubDropdown] = useState('');
 
-  const specialities = {
-    Surgery: [
-      'MICRO EAR SURGERIES',
-      'ENDOSCOPIC EAR SURGERY',
-      'ENDOSCOPIC SIWOS SURGERIES',
-      'ENDOLARYNGEAC SURGERIES',
-      'VOICE RESTORATION SURGERIES',
-      'SKULL BASE SURGERIES',
-      'NECK SURGERIES',
-    ],
-    Endoscopy: [
-      'OTOSCOPY',
-      'DIAGNOSTIC NASAC ENDOSCOPY',
-      'VIDEO LARYNGOSCOPY',
-      'STROBOSCOPY',
-      'FLEXIBLE NASOPHARYNGOSCOPY',
-      'SLEEP STUDY AND SLEEP ENDOSCOPY',
-    ],
+  const { specialities: specialitiesData, isLoading, error } = useFetchSpecialities();
+
+  // Ensure specialitiesData is an array, default to empty array if null/undefined
+  const filteredSpecialities = {
+    Surgery: (specialitiesData || []).filter(spec => spec.category === "Surgical Procedures"),
+    Endoscopy: (specialitiesData || []).filter(spec => spec.category === "Endoscopic Procedures"),
   };
 
   const toggleSubDropdown = (subCategory) => {
@@ -56,17 +44,17 @@ export default function Navbar() {
               {/* Dropdown for Specialities */}
               <div className="hidden group-hover:block absolute top-full left-0 w-[600px] bg-white shadow-xl rounded-b-lg">
                 <div className="grid grid-cols-2 p-6 gap-6">
-                  {Object.entries(specialities).map(([category, items]) => (
+                  {Object.entries(filteredSpecialities).map(([category, items]) => (
                     <div key={category} className="space-y-2">
                       <h3 className="font-semibold text-[#795F9F]">{category}</h3>
                       <ul className="space-y-1">
                         {items.map((item) => (
-                          <li key={item}>
+                          <li key={item.id}>
                             <Link
-                              href={`/pages/specialities/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                              href={`/pages/specialities/${item.id}`}
                               className="block text-sm text-gray-600 hover:text-[#795F9F] py-1"
                             >
-                              {item}
+                              {item.title}
                             </Link>
                           </li>
                         ))}
@@ -103,14 +91,14 @@ export default function Navbar() {
         <div className={`lg:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
           <div className="px-4 py-2 space-y-4 bg-white border-t">
             <Link href="/" className="block text-lg text-gray-700 hover:text-[#795F9F]">Home</Link>
-            
+
             <div>
               <Link href="/pages/specialities" className="flex items-center justify-between w-full text-lg text-gray-700 hover:text-[#795F9F]">
                 <span>Specialities</span>
                 <ChevronDown className="w-4 h-4 transform transition-transform" />
               </Link>
               <div className="mt-2 space-y-2 pl-4">
-                {Object.entries(specialities).map(([category, items]) => (
+                {Object.entries(filteredSpecialities).map(([category, items]) => (
                   <div key={category}>
                     <button
                       onClick={() => toggleSubDropdown(category)}
@@ -123,11 +111,11 @@ export default function Navbar() {
                     <div className={`${activeSubDropdown === category ? 'block' : 'hidden'} mt-1 pl-4 space-y-1`}>
                       {items.map((item) => (
                         <Link
-                          key={item}
-                          href={`/pages/specialities/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                          key={item.id}
+                          href={`/pages/specialities/${item.id}`}
                           className="block text-sm text-gray-600 hover:text-[#795F9F]"
                         >
-                          {item}
+                          {item.title}
                         </Link>
                       ))}
                     </div>

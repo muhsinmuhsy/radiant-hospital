@@ -6,36 +6,14 @@ import { Users, Award, Calendar, Building2, Star, Phone, Clock, MapPin, ChevronR
 import {
   useFetchContactHero,
   useFetchQuickInfo,
-  useFetchMission,
-  useFetchVision,
-  useFetchOurValues,
-  useFetchCTASection,
 } from '@/lib/data';
 
 
 const AboutusComponent = () => {
-  const [activeTab, setActiveTab] = useState('mission');
-  const [hoveredValue, setHoveredValue] = useState(null);
 
 
   const { data: contactHero, isLoading: isContactHeroLoading, error: contactHeroError } = useFetchContactHero();
   const { data: quickInfo, isLoading: isQuickInfoLoading, error: quickInfoError } = useFetchQuickInfo();
-  const { data: mission, isLoading: isMissionLoading, error: missionError } = useFetchMission();
-  const { data: vision, isLoading: isVisionLoading, error: visionError } = useFetchVision();
-  const { data: ourValues, isLoading: isOurValuesLoading, error: ourValuesError } = useFetchOurValues();
-  const { data: ctaSection, isLoading: isCTASectionLoading, error: ctaSectionError } = useFetchCTASection();
-
-  
-  
-  // Defining iconMap at the top so it is available in the map function
-  const iconMap = [<Star size={24} />, <Award size={24} />, <Heart size={24} />];
-  
-  // Ensure ourValues is an array before mapping and fallback to valuesData if it's not
-  const values = (Array.isArray(ourValues) && ourValues.length > 0 ? ourValues : ourValues)?.map((value, index) => ({
-    ...value,
-    icon: iconMap[index % iconMap.length], // Assign icon based on index
-  }));
-
  
 
   return (

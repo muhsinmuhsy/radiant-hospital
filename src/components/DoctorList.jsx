@@ -147,7 +147,7 @@ const DoctorList = () => {
                     <div className="text-white px-6 py-2 rounded-full transform transition-all duration-300 hover:scale-105">
                       <AppointmentBookingDirectly selectedDoctor={doctor} />
                       <div className='mt-2'>
-                        <DoctorProfilePopup doctor={doctor} />
+                      <DoctorProfilePopup selectedDoctor={doctor} />
                       </div>
                     </div>
                   </div>

@@ -1,8 +1,10 @@
 import useSWR from 'swr';
+import { useState, useEffect } from "react";
+
 
 /////////////////////////////////// Fetcher ///////////////////////////////////
 
-export const BASE_URL = 'https://muhsiiyy.pythonanywhere.com';
+export const BASE_URL = 'http://127.0.0.1:8000';
 
 const fetcher = async (url: string): Promise<any> => {
   const res = await fetch(`${BASE_URL}${url}`);
@@ -50,10 +52,24 @@ export interface HomeConsultantHeader {
 }
 
 export interface Consultant {
-    id: number;
-    image: string;
-    name: string;
-    specialty: string;
+  id: number;
+  image: string;
+  name: string;
+  specialty: string;
+  qualification: string;
+  experience: string;
+  contact: string;
+  email: string;
+  location: string;
+  description: string;
+  specialized_departments: string[];
+  available_days: {
+      day: string;
+      timeSlots: {
+          time: string;
+          type: string;
+      }[];
+  }[];
 }
 
 export interface HomeSpecialitiesHeader {
@@ -69,7 +85,8 @@ export interface Speciality {
     description: string;
     about: string,
     stat: string,
-    benefits: string
+    benefits: string,
+    category: string,
 }
   
 export interface Equipment {
@@ -212,6 +229,19 @@ export interface AboutContactDetails {
   time: string;
 }
 
+export interface GetInTouch {
+  id: number;
+  location: string;
+  phone: string;
+  email: string;
+  working_hours: string;
+};
+
+export interface ServiceHero {
+  id: number;
+  title: string;
+  description: string;
+}
 
 
 /////////////////////////////////// Hook ///////////////////////////////////
@@ -228,7 +258,6 @@ export function useFetchDescCarousal() {
     error,
   };
 }
-
 
 export function useFetchMobCarousal() {
   const { data, error, isLoading } = useSWR<MobCarousal[]>(
@@ -281,6 +310,34 @@ export function useFetchServices() {
       isLoading,
       error,
     };
+  }
+
+
+  export function useFetch2Services() {
+    const [services, setServices] = useState<Service[] | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+  
+    useEffect(() => {
+      const fetchServices = async () => {
+        try {
+          const response = await fetch("/readonly-services/");
+          if (!response.ok) {
+            throw new Error("Failed to fetch services");
+          }
+          const data: Service[] = await response.json();
+          setServices(data);
+        } catch (err) {
+          setError(err as Error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+  
+      fetchServices();
+    }, []);
+  
+    return { services, isLoading, error };
   }
 
 export function useFetchHomeConsultantHeader() {
@@ -577,6 +634,33 @@ export function useFetchAboutAchievements() {
 // Hook for AboutContactDetails
 export function useFetchAboutContactDetails() {
   const { data, error, isLoading } = useSWR<AboutContactDetails[]>('/readonly-about-contact-details/', fetcher);
+
+  return {
+    data: data ? data[0] : null,
+    isLoading,
+    error,
+  };
+}
+
+
+export function useFetchGetInTouch() {
+  const { data, error, isLoading } = useSWR<GetInTouch[]>(
+    '/readonly-get-in-touch/',
+    fetcher
+  );
+
+  return {
+    data: data ? data[0] : null,
+    isLoading,
+    error,
+  };
+}
+
+export function useFetchServiceHero() {
+  const { data, error, isLoading } = useSWR<ServiceHero[]>(
+    '/readonly-service-hero/',
+    fetcher
+  );
 
   return {
     data: data ? data[0] : null,
