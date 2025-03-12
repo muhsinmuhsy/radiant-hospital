@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 /////////////////////////////////// Fetcher ///////////////////////////////////
 
-export const BASE_URL = 'http://127.0.0.1:8000';
+export const BASE_URL = 'https://muhsiiyy.pythonanywhere.com';
 
 const fetcher = async (url: string): Promise<any> => {
   const res = await fetch(`${BASE_URL}${url}`);
@@ -239,6 +239,13 @@ export interface GetInTouch {
 
 export interface ServiceHero {
   id: number;
+  title: string;
+  description: string;
+}
+
+export interface CTAButton {
+  id: number;
+  single_title: string;
   title: string;
   description: string;
 }
@@ -659,6 +666,19 @@ export function useFetchGetInTouch() {
 export function useFetchServiceHero() {
   const { data, error, isLoading } = useSWR<ServiceHero[]>(
     '/readonly-service-hero/',
+    fetcher
+  );
+
+  return {
+    data: data ? data[0] : null,
+    isLoading,
+    error,
+  };
+}
+
+export function useFetchCTAButton() {
+  const { data, error, isLoading } = useSWR<CTAButton[]>(
+    '/readonly-cta-button/',
     fetcher
   );
 

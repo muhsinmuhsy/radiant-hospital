@@ -4,12 +4,12 @@ import {
   MapPin, 
   Phone, 
   Mail, 
-  Clock, 
   ShieldCheck, 
   Stethoscope, 
   Microscope,
   ArrowRight
 } from 'lucide-react';
+import Swal from 'sweetalert2'
 
 import { BASE_URL } from '@/lib/data';
 
@@ -48,6 +48,15 @@ export default function ContactComponent() {
       }
   
       setMessage("Inquiry submitted successfully!");
+      setMessage("");
+      Swal.fire({
+        title: "Inquiry Submitted!",
+        text: "Thank you for reaching out. Our team will review your inquiry and get back to you shortly.",
+        icon: "success",
+        confirmButtonText: "Got it!",
+        draggable: true
+      });
+      
       setFormData({ full_name: "", email: "", phone: "", message: "" });
     } catch (error) {
       setMessage("Something went wrong. Please try again later.");
