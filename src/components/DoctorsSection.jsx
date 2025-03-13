@@ -112,9 +112,9 @@ const DoctorsCarousel = () => {
       </ServiceBtn>
 
       <MainContent className="mb-10">
-        <h1 className="text-black">{consultantHeader?.title || 'We Provide'}</h1>
+        <h1 className="text-black">{consultantHeader?.title || ''}</h1>
         <p className="text-black">
-          {consultantHeader?.specialty || 'Through our 25+ specialities, we provide in-depth expertise in the spectrum of advanced medical and surgical interventions. Our specialities are integrated to provide a seamless experience.'}
+          {consultantHeader?.description || ''}
         </p>
       </MainContent>
 

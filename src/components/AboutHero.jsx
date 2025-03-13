@@ -2,8 +2,7 @@
 import React from 'react'
 import Image from 'next/image';
 import { useFetchHomeAboutHero } from '@/lib/data';
-import AppointmentBooking from './AppointmentBooking';
-import { ArrowRight, CheckCircle, HeartPulse, Mail, PhoneCall, ShieldCheck } from 'lucide-react';
+import { HeartPulse, ShieldCheck } from 'lucide-react';
 
 function AboutHero() {
   const { aboutHero, isLoading, error } = useFetchHomeAboutHero();
@@ -25,18 +24,18 @@ function AboutHero() {
               color: 'white'
             }}
           >
-           {aboutHero?.title || "Comprehensive care tailored to your unique needs"}
+           {aboutHero?.title || ""}
           </div>
           
           <h2 
             className="text-4xl md:text-5xl font-bold leading-tight"
             style={{ color: '#795F9F' }}
           >
-            {aboutHero?.description || "Personalized Healthcare Solutions"}
+            {aboutHero?.description || ""}
           </h2>
           
           <p className="text-xl text-gray-600">
-          Together, we'll help you Listen, Breathe, and Speak to Life.
+            {aboutHero?.mini_text || ""}
           </p>
           
           
@@ -45,14 +44,14 @@ function AboutHero() {
           <div className="mt-8 space-y-4">
             {[
               { 
-                icon: <ShieldCheck className="w-6 h-6" style={{ color: '#8B489A' }} />, 
-                text: "Comprehensive Health Screening",
-                description: "Advanced diagnostic services"
+                "icon": <ShieldCheck className="w-6 h-6" style={{ color: '#8B489A' }} />, 
+                "text": aboutHero?.feature_one_name || "",
+                "description": aboutHero?.feature_one_description || ""
               },
               { 
-                icon: <HeartPulse className="w-6 h-6" style={{ color: '#795F9F' }} />, 
-                text: "Personalized Treatment Plans",
-                description: "Tailored medical solutions"
+                "icon": <HeartPulse className="w-6 h-6" style={{ color: '#795F9F' }} />, 
+                "text": aboutHero?.feature_two_name || "",
+                "description": aboutHero?.feature_two_name || ""
               }
             ].map((item, index) => (
               <div 

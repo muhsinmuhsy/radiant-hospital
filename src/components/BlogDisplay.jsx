@@ -34,11 +34,11 @@ const BlogSectionDisplay = () => {
               >
                 <div className="relative">
                   {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-10">
+                  {/* <div className="absolute top-4 left-4 z-10">
                     <span className="bg-white/90 text-purple-700 px-3 py-1 rounded-md text-sm font-medium shadow-sm">
                       {blog.categories}
                     </span>
-                  </div>
+                  </div> */}
                   
                   {/* Image with overlay gradient */}
                   <div className="relative overflow-hidden h-52">

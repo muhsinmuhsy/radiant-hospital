@@ -30,6 +30,11 @@ export interface HomeAboutHero {
   id: number;
   title: string;
   description: string;
+  mini_text: string;
+  feature_one_name: string;
+  feature_one_description: string;
+  feature_two_name: string;
+  feature_two_description: string;
 }
 
 export interface HomeServiceHeader {
