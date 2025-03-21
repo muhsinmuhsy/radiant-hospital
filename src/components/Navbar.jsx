@@ -15,7 +15,7 @@ export default function Navbar() {
   // Ensure specialitiesData is an array, default to empty array if null/undefined
   const filteredSpecialities = {
     Surgery: (specialitiesData || []).filter(spec => spec.category === "Surgical Procedures"),
-    Endoscopy: (specialitiesData || []).filter(spec => spec.category === "Endoscopic Procedures"),
+    "Endoscopy Surgery": (specialitiesData || []).filter(spec => spec.category === "Endoscopic Surgery"),
   };
 
   const toggleSubDropdown = (subCategory) => {
