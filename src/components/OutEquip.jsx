@@ -93,7 +93,7 @@ const OurEquipment = () => {
     // {
     //   name: "Stryker 4K Camera and Endoscopy System",
     //   short_desc: "Advanced 4K imaging for minimally invasive surgeries",
-    //   description: "The Stryker 4K system offers ultra-high-definition imaging for endoscopic procedures. With its advanced optics and ergonomic design, it enhances surgical precision and visualization.",
+    //   description: "The Stryker 4K system offers ultra-high-definition imaging for Endoscopic Surgery. With its advanced optics and ergonomic design, it enhances surgical precision and visualization.",
     //   specs: {
     //     resolution: "4K Ultra HD",
     //     connectivity: "HDMI Output",
