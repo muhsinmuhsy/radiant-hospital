@@ -36,7 +36,7 @@ const OurEquipment = () => {
         compliance: "Loading..."
       },
       image: "/air-flow.webp",
-      color: "bg-emerald-500"
+      color: "bg-[#795F9F]"
     },
     
   ];
