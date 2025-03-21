@@ -77,10 +77,10 @@ function GetinTouch() {
                  <AppointmentBooking/>
                   <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <div className=" mt-5 w-full bg-gradient-to-r  text-[#795F9F] py-3 rounded-xl font-medium  transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center group" style={{backgroundColor:"#D4BEDE"}}>
+                {/* <div className=" mt-5 w-full bg-gradient-to-r  text-[#795F9F] py-3 rounded-xl font-medium  transition-all transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center group" style={{backgroundColor:"#D4BEDE"}}>
                     Connect With Us
                   <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -7,6 +7,7 @@ const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [direction, setDirection] = useState('next'); // Track animation direction
 
   const { data: desktopSlides, isLoading, error } = useFetchDescCarousal();
   const { data: mobileSlides, isLoading: isLoading0, error: error0 } = useFetchMobCarousal();
@@ -38,6 +39,7 @@ const HeroCarousel = () => {
   // Handle next slide
   const handleNext = useCallback(() => {
     if (isAnimating || !slides?.length) return;
+    setDirection('next');
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
     setTimeout(() => setIsAnimating(false), 700); // Match transition duration
@@ -46,6 +48,7 @@ const HeroCarousel = () => {
   // Handle previous slide
   const handlePrev = useCallback(() => {
     if (isAnimating || !slides?.length) return;
+    setDirection('prev');
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     setTimeout(() => setIsAnimating(false), 700); // Match transition duration
@@ -55,12 +58,24 @@ const HeroCarousel = () => {
   const handleDotClick = useCallback(
     (index) => {
       if (isAnimating || index === currentSlide || !slides?.length) return;
+      setDirection(index > currentSlide ? 'next' : 'prev');
       setIsAnimating(true);
       setCurrentSlide(index);
       setTimeout(() => setIsAnimating(false), 700);
     },
     [isAnimating, currentSlide, slides]
   );
+
+  // Get slide position class based on index and current direction
+  const getSlidePositionClass = (index) => {
+    if (index === currentSlide) return 'translate-x-0 z-10';
+    
+    if (direction === 'next') {
+      return index < currentSlide ? '-translate-x-full z-0' : 'translate-x-full z-0';
+    } else {
+      return index > currentSlide ? 'translate-x-full z-0' : '-translate-x-full z-0';
+    }
+  };
 
   if (isLoading || isLoading0) {
     return (
@@ -81,33 +96,43 @@ const HeroCarousel = () => {
           <div
             key={slide.id}
             className={`absolute w-full h-full transition-all duration-700 ease-in-out
-              ${index === currentSlide ? 'translate-x-0' : 
-                index < currentSlide ? '-translate-x-full' : 'translate-x-full'}`}
-            style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)' }}
+              ${getSlidePositionClass(index)}`}
+            style={{ 
+              transitionTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+              willChange: 'transform',
+              backfaceVisibility: 'hidden'
+            }}
             aria-hidden={index !== currentSlide}
           >
-            {/* Image */}
-            <div className="relative w-full h-full lazy-loading">
+            {/* Image with Parallax Effect */}
+            <div className="relative w-full h-full overflow-hidden">
               <img
                 src={slide.image}
                 alt={slide.title || 'Carousel Slide'}
-                className="object-cover w-full h-full"
+                className={`object-cover w-full h-full transform scale-105 transition-transform duration-700 ease-out
+                  ${index === currentSlide ? 'scale-100' : 'scale-105'}`}
                 loading="lazy"
+                style={{ 
+                  willChange: 'transform', 
+                  imageRendering: 'high-quality' 
+                }}
               />
             </div>
 
-            {/* Content */}
+            {/* Content with Fade-in Effect */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
               <div className="max-w-4xl mx-auto text-center">
                 <h2
                   className={`text-3xl md:text-5xl font-bold mb-4 text-center transform transition-all duration-700 opacity-0 translate-y-5 delay-200
                   ${index === currentSlide ? 'opacity-100 translate-y-0' : ''}`}
+                  style={{ willChange: 'transform, opacity' }}
                 >
                   {slide.title}
                 </h2>
                 <p
                   className={`text-lg md:text-xl text-center max-w-2xl mx-auto transform transition-all duration-700 opacity-0 translate-y-5 delay-300
                   ${index === currentSlide ? 'opacity-100 translate-y-0' : ''}`}
+                  style={{ willChange: 'transform, opacity' }}
                 >
                   {slide.description}
                 </p>
@@ -122,7 +147,7 @@ const HeroCarousel = () => {
         <>
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200 z-20"
             aria-label="Previous slide"
             disabled={isAnimating}
           >
@@ -130,7 +155,7 @@ const HeroCarousel = () => {
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-all duration-200 z-20"
             aria-label="Next slide"
             disabled={isAnimating}
           >
@@ -141,7 +166,7 @@ const HeroCarousel = () => {
 
       {/* Dots Indicator - Only visible on Desktop */}
       {!isMobile && (
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
           {slides?.map((_, index) => (
             <button
               key={index}

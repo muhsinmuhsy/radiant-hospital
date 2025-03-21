@@ -64,7 +64,7 @@ export default function ContactComponent() {
   };
 
   return (
-    <div className="min-h-screen bg-purple-50">
+    <div className="bg-purple-50">
       {/* Professional Layout */}
       <div className="container mx-auto px-4 py-12 lg:py-16">
         <div className="grid lg:grid-cols-2 gap-12 bg-white shadow-2xl rounded-2xl overflow-hidden">
@@ -105,13 +105,13 @@ export default function ContactComponent() {
               <div className="flex items-center space-x-4">
                 <MapPin className="w-6 h-6 text-white/80" />
                 <span className="text-white/80">
-                  Caltax Juction , Near Gandhi Circle , Kannur 
+                Opp. KSRTC Bus stand, National Highway, Kannur-1
                 </span>
               </div>
               <div className="flex items-center space-x-4">
                 <Phone className="w-6 h-6 text-white/80" />
                 <span className="text-white/80">
-                  +91 80899 88502 - For Enquiry
+                0497 2768768 ,  +91 85477 69268 - For Enquiry
                 </span>
               </div>
               <div className="flex items-center space-x-4">
@@ -203,7 +203,7 @@ export default function ContactComponent() {
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center bg-[#795F9F] text-white py-3 rounded-lg hover:bg-[#795F9F] focus:outline-none focus:ring-2 focus:ring-[#795F9F] focus:ring-offset-2 transition-colors duration-300 group"
+                  className="w-full flex items-center justify-center bg-[#795F9F] text-white py-3 rounded-lg hover:bg-[#8B489A] focus:outline-none focus:ring-2 focus:ring-[#795F9F] focus:ring-offset-2 transition-colors duration-300 group"
                 >
                   Submit Inquiry
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

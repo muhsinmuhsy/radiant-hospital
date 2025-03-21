@@ -69,7 +69,7 @@ export default function Navbar() {
             <Link href="/pages/consultants">Consultants</Link>
             <Link href="/pages/contact" className="nav-link">Contact</Link>
             <Link href="/pages/about" className="nav-link">About Us</Link>
-            <Link href="/pages/blog" className="nav-link">Blog</Link>
+            {/* <Link href="/pages/blog" className="nav-link">Blog</Link> */}
           </div>
 
           <div className="hidden lg:block">

@@ -121,7 +121,7 @@ const TestimonialCarousel = () => {
                       <div className="space-y-0.5 sm:space-y-1 text-center">
                         <p className="font-semibold text-sm sm:text-base" style={{ color: '#8B489A' }}>{testimonial.name}</p>
                         <p className="font-medium text-sm sm:text-base" style={{ color: '#795F9F' }}>Treatment: {testimonial.treatment}</p>
-                        <p className="text-xs sm:text-sm" style={{ color: '#8B489A', opacity: 0.7 }}>{testimonial.date}</p>
+                        {/* <p className="text-xs sm:text-sm" style={{ color: '#8B489A', opacity: 0.7 }}>{testimonial.date}</p> */}
                       </div>
                     </div>
                   </div>

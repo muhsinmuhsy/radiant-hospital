@@ -71,7 +71,7 @@ const DoctorCard = () => {
                     </p>
                     <div className="text-white px-6 py-2 rounded-full transform transition-all duration-300 hover:scale-105">
                       <AppointmentBookingDirectly selectedDoctor={doctor} />
-                      <div className='mt-2'>
+                      <div className='mt-2' style={{marginRight:'7px'}}>
                         <DoctorProfilePopup doctor={doctor} />
                       </div>
                     </div>

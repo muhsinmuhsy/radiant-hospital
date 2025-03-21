@@ -56,7 +56,7 @@ const SpecialityHero = () => {
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <AppointmentBooking/>
               <button className="px-10 md:px-8 py-3 rounded-lg hover:bg-[#ffffff] transition-colors" style={{border:'2px solid #795F9F'}}>
-               Connect with Us
+               0497 2768768
               </button>
             </div>
           </div>
