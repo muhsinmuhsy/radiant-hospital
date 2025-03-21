@@ -114,7 +114,7 @@ const SpecialitiesPage = () => {
   }
 
   const filteredSpecialties = displaySpecialties.filter(
-    (specialty) => specialty.category === (activeView === 'surgery' ? "Surgical Procedures" : "Endoscopic Procedures")
+    (specialty) => specialty.category === (activeView === 'surgery' ? "Surgical Procedures" : "Endoscopic Surgery")
   );
 
   return (
@@ -143,7 +143,7 @@ const SpecialitiesPage = () => {
             active={String(activeView === 'endoscopy')}
             onClick={() => setActiveView('endoscopy')}
           >
-            Endoscopic Procedures
+            Endoscopic Surgery
           </ToggleButton>
         </ToggleContainer>
 
