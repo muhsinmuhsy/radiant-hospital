@@ -61,14 +61,14 @@ const ENTBlog = () => {
                           </span>
                           <h3 className="text-2xl font-bold text-white mb-2 line-clamp-2">{post?.title}</h3>
                           <div className="flex items-center text-white/90 text-sm space-x-4">
-                            <div className="flex items-center">
+                            {/* <div className="flex items-center">
                               <Calendar className="w-4 h-4 mr-1" />
                               <span>{post?.date}</span>
                             </div>
                             <div className="flex items-center">
                               <User className="w-4 h-4 mr-1" />
                               <span>{post?.author}</span>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -110,14 +110,14 @@ const ENTBlog = () => {
                     
                     <div className="p-6 flex-grow flex flex-col">
                       <div className="flex items-center text-gray-500 text-sm mb-3 space-x-4">
-                        <div className="flex items-center">
+                        {/* <div className="flex items-center">
                           <Calendar className="w-4 h-4 mr-1 text-purple-500" />
                           <span>{post?.date}</span>
                         </div>
                         <div className="flex items-center">
                           <Clock className="w-4 h-4 mr-1 text-purple-500" />
                           <span>{post?.time_ago || '5 min'} read</span>
-                        </div>
+                        </div> */}
                       </div>
                       
                       <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-700 transition-colors">
