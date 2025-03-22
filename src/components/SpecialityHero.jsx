@@ -25,7 +25,7 @@ const SpecialityHero = () => {
           {/* Left Column - Text Content */}
           <div className="space-y-6 md:space-y-8 text-center lg:text-left">
             <div>
-              <span className="inline-block px-4 py-2 rounded-full text-sm mb-4" style={{backgroundColor:'#795F9F', color:'white'}}>
+              <span className="inline-block px-4 py-2 rounded-lg text-sm mb-4" style={{backgroundColor:'#795F9F', color:'white'}}>
                 {data?.simple_title}
               </span>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
@@ -55,9 +55,9 @@ const SpecialityHero = () => {
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <AppointmentBooking/>
-              <button className="px-10 md:px-8 py-3 rounded-lg hover:bg-[#ffffff] transition-colors" style={{border:'2px solid #795F9F'}}>
+              {/* <button className="px-10 md:px-8 py-3 rounded-lg hover:bg-[#ffffff] transition-colors" style={{border:'2px solid #795F9F'}}>
                0497 2768768
-              </button>
+              </button> */}
             </div>
           </div>
 

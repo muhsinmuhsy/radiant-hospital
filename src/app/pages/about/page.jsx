@@ -1,7 +1,7 @@
 'use client';
 import AboutStatus from '@/components/AboutStatus'
 import AboutusComponent from '@/components/AboutusComponent'
-import BlogSectionDisplay from '@/components/BlogDisplay'
+
 import CTAButton from '@/components/CTAButton'
 import DoctorCard from '@/components/DoctorCard'
 
@@ -36,7 +36,7 @@ function AboutusPage() {
      <DoctorCard/>
      <WhyChooseUs/>
      <CTAButton/>
-     <BlogSectionDisplay/>
+   
      
      <Footer/>
     </>

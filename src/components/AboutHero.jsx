@@ -19,7 +19,7 @@ function AboutHero() {
           {/* Content Section */}
           <div className="space-y-6">
             <div 
-              className="inline-block px-4 py-2 rounded-full text-sm font-medium"
+              className="inline-block px-4 py-2 rounded-lg text-sm font-medium"
               style={{ 
                 background: 'linear-gradient(90deg, #8c7497 0%, #7a5ea5 100%)',
                 color: 'white'

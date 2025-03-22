@@ -16,7 +16,7 @@ const BlogSectionDisplay = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header - Even more simplified */}
         <div className="mb-10 text-center">
-          <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm mb-2">Our Latest Articles</span>
+          <span className="inline-block px-3 py-1 rounded-lg bg-purple-100 text-purple-700 text-sm mb-2">Our Latest Articles</span>
           <h2 className="text-2xl font-bold mb-2 text-gray-900">Health Insights & Updates</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Stay informed about the latest developments in ENT healthcare and expert medical advice.

@@ -45,7 +45,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-[#19051d] text-white py-12 px-8 w-full">
+    <footer className="bg-[#000000] text-white py-12 px-8 w-full">
       <div className="max-w-6xl mx-auto flex flex-col gap-8 md:flex-row md:justify-between">
         <div className="flex-1 max-w-[280px]">
           <Image 
@@ -89,6 +89,30 @@ const Footer = () => {
             <div className="text-sm hover:underline transition-colors duration-200">
               <Link href="/pages/specialities/3" className="text-white hover:text-white">Functional Endoscopic Sinus surgeries</Link>
             </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/12" className="text-white hover:text-white">Coblation UPPP</Link>
+            </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/13" className="text-white hover:text-white">Cochlear Implants</Link>
+            </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/14" className="text-white hover:text-white">Facial Reconstructive Surgery</Link>
+            </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/15" className="text-white hover:text-white">Oral and Maxillofacial Surgery</Link>
+            </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/16" className="text-white hover:text-white">Head and Neck Surgery</Link>
+            </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/18" className="text-white hover:text-white">Endoscopic Nasal Mass Removal</Link>
+            </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/5" className="text-white hover:text-white">Endoscopic DCR (Dacrocystorhinostomy)</Link>
+            </div>
+            <div className="text-sm hover:underline transition-colors duration-200">
+              <Link href="/pages/specialities/10" className="text-white hover:text-white">Endoscopic CSF Repair</Link>
+            </div>
           </div>
           
           <div className="flex flex-col gap-3">
@@ -117,35 +141,35 @@ const Footer = () => {
             <div className="text-sm hover:underline transition-colors duration-200">
               <Link href="/pages/service" className="text-white hover:text-white">Hearing Aid</Link>
             </div>
-            <div className="text-sm hover:underline transition-colors duration-200">
-              <Link href="/faq" className="text-white hover:text-white">FAQs</Link>
-            </div>
+            
           </div>
           
           <div className="flex flex-col gap-3">
-            <h3 className="text-lg font-semibold mb-2 text-white">About</h3>
+            <h3 className="text-lg font-semibold mb-2 text-white">Pages</h3>
             <div className="text-sm hover:underline transition-colors duration-200">
-              <Link href="/about/team" className="text-white hover:text-white">Our Doctors</Link>
+              <Link href="/pages/consultants" className="text-white hover:text-white">Our Doctors</Link>
             </div>
             <div className="text-sm hover:underline transition-colors duration-200">
-              <Link href="/about/facility" className="text-white hover:text-white">Our Facility</Link>
+              <Link href="/pages/specialities" className="text-white hover:text-white">Our Specialities</Link>
             </div>
             <div className="text-sm hover:underline transition-colors duration-200">
-              <Link href="/careers" className="text-white hover:text-white">Careers</Link>
+              <Link href="/pages/service" className="text-white hover:text-white">Our Service</Link>
             </div>
             <div className="text-sm hover:underline transition-colors duration-200">
-              <Link href="/blog" className="text-white hover:text-white">Blog</Link>
+              <Link href="/pages/blog" className="text-white hover:text-white">Blog</Link>
             </div>
             <div className="text-sm hover:underline transition-colors duration-200">
-              <Link href="/contact" className="text-white hover:text-white">Contact Us</Link>
+              <Link href="/pages/contact" className="text-white hover:text-white">Contact Us</Link>
             </div>
+            
+            
           </div>
         </div>
       </div>
       
       <div className="mt-8 pt-6 border-t border-white border-opacity-20 flex flex-col items-center gap-4 md:flex-row md:justify-between">
         <p className="text-sm text-white">
-          © {currentYear} ENT Specialty Hospital. All Rights Reserved.
+          © {currentYear} Radiant ENT Hospital. All Rights Reserved.
         </p>
         
         <div className="flex gap-4">

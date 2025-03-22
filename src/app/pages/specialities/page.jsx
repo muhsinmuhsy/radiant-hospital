@@ -36,6 +36,7 @@ const ImageCard = styled.div`
     height: 350px;
     object-fit: cover;
     transition: transform 0.3s ease;
+    filter: brightness(80%);
   }
 
   .text-overlay {

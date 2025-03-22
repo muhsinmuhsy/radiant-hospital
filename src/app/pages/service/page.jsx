@@ -1,9 +1,9 @@
 'use client';
-import BlogSectionDisplay from '@/components/BlogDisplay';
+
 import Footer from '@/components/Footer';
-import GetinTouch from '@/components/GetinTouch';
+
 import Navbar from '@/components/Navbar';
-import TestimonialCarousel from '@/components/Testimonial';
+
 import React from 'react';
 import { useFetchServices, useFetchServiceHero } from '@/lib/data';
 
@@ -40,7 +40,7 @@ const ServicesPage = () => {
         {/* Services Section */}
         {/* Services Section */}
 <div className="py-16 px-4 md:px-8" style={{
-  background: 'linear-gradient(135deg, #D4BEDE 0%, #795F9F 50%, #8B489A 100%)'
+  background: '#795F9F'
 }}>
   <div className="max-w-7xl mx-auto">
     <div className="text-center mb-16">
@@ -88,9 +88,7 @@ const ServicesPage = () => {
         
     
     
-      <BlogSectionDisplay/>
-      <GetinTouch/>
-      <TestimonialCarousel/>
+
       <Footer />
     </>
   );

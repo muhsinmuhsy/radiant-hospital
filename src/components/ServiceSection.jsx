@@ -9,7 +9,8 @@ import { useFetchHomeServiceHeader } from '@/lib/data';
 
 
 export const Section = styled.div`
-  background: linear-gradient(135deg, #D4BEDE 0%, #795F9F 50%, #8B489A 100%);
+  /* background: linear-gradient(135deg, #D4BEDE 0%, #795F9F 50%, #8B489A 100%); */
+  background-color: #795F9F;
   background-size: cover; /* Ensures the background covers the entire section */
   background-position: center; /* Center the gradient */
   width: 100%;

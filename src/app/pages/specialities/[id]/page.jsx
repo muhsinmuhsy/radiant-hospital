@@ -48,10 +48,10 @@ const SpecialtyDetails = () => {
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold leading-tight">{specialty?.title}</h1>
               <p className="text-xl opacity-90">{specialty?.description}</p>
-              <div className="flex items-center gap-2 bg-white/20 w-fit px-4 py-2 rounded-full">
+              {/* <div className="flex items-center gap-2 bg-white/20 w-fit px-4 py-2 rounded-full">
                 <Award className="w-5 h-5" />
                 <span>{specialty?.stat}</span>
-              </div>
+              </div> */}
             </div>
             <div className="flex justify-center">
               <div className="relative w-64 h-64 md:w-96 md:h-96">
@@ -110,7 +110,7 @@ const SpecialtyDetails = () => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
               
-              <button
+              {/* <button
                 onClick={() => alert('Schedule Consultation')}
                 className="w-full text-white px-6 py-3 rounded-lg hover:opacity-90 transition-colors flex items-center justify-center gap-2 group mt-5"
                 style={{ backgroundColor: '#8B489A' }}
@@ -118,7 +118,7 @@ const SpecialtyDetails = () => {
                 <Phone className="w-5 h-5" />
                 Connect with us 
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

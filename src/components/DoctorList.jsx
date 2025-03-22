@@ -29,7 +29,7 @@ const DoctorList = () => {
   }
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-white via-[#f9f6ff] to-[#ffffff29] ">
+    <section className="min-h-screen bg-gradient-to-b from-white via-[#f9f6ff] to-[#ffffff29] py-16">
       {/* Hero Banner */}
       <div className="relative mb-16">
         <div className="absolute inset-0 bg-[#795F9F]/10 rounded-3xl mx-4 md:mx-8 lg:mx-16 -z-10"></div>
@@ -43,8 +43,8 @@ const DoctorList = () => {
             </p>
             <div className="mt-8 inline-flex items-center px-4 py-2 bg-white border border-[#D4BEDE]/30 rounded-full shadow-md">
               <Phone size={18} className="text-[#795F9F] mr-2" />
-              <p className="text-[#795F9F] text-xs xl:text-sm">
-                Need help? Call us at <span className="font-bold">+91 123 456 7890</span>
+              <p className="text-[#795F9F] font-medium">
+                Need help? <span className="font-bold"> 0497 2768768</span>
               </p>
             </div>
           </div>
@@ -146,8 +146,8 @@ const DoctorList = () => {
                     </p>
                     <div className="text-white px-6 py-2 rounded-full transform transition-all duration-300 hover:scale-105">
                       <AppointmentBookingDirectly selectedDoctor={doctor} />
-                      <div className='mt-2 ' style={{marginRight:'7px'}}>
-                      <DoctorProfilePopup selectedDoctor={doctor} />
+                      <div className='mt-2' style={{marginRight:'6px'}}>
+                        <DoctorProfilePopup doctor={doctor} />
                       </div>
                     </div>
                   </div>

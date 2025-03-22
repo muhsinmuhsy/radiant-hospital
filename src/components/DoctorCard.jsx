@@ -24,7 +24,7 @@ const DoctorCard = () => {
   }
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-white via-[#f9f6ff] to-[#ffffff29] py-16">
+    <section className="min-h-screen bg-gradient-to-b from-white via-[#f9f6ff] to-[#ffffff29] ">
       <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-[#795F9F] mb-4">Meet Our Doctors</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -71,7 +71,7 @@ const DoctorCard = () => {
                     </p>
                     <div className="text-white px-6 py-2 rounded-full transform transition-all duration-300 hover:scale-105">
                       <AppointmentBookingDirectly selectedDoctor={doctor} />
-                      <div className='mt-2' style={{marginRight:'7px'}}>
+                      <div className='mt-2' style={{marginRight:'6px'}}>
                         <DoctorProfilePopup doctor={doctor} />
                       </div>
                     </div>
