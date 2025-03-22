@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { useFetchDescCarousal, useFetchMobCarousal } from '@/lib/data';
 import { useFetchHomeServiceHeader } from '@/lib/data';
 import { useFetchHomeAboutHero } from '@/lib/data';
@@ -11,6 +12,8 @@ import { useFetchBlogs } from '@/lib/data';
 import { useFetchTestimonials } from '@/lib/data';
 
 export default function MainLoader() {
+  const [showLoader, setShowLoader] = useState(true);
+
   const { isLoading } = useFetchDescCarousal();
   const { isLoading: isLoading0 } = useFetchMobCarousal();
   const { isLoading: isLoading1 } = useFetchHomeAboutHero();
@@ -23,11 +26,25 @@ export default function MainLoader() {
   const { isLoading: isLoading8 } = useFetchBlogs();
   const { isLoading: isLoading9 } = useFetchTestimonials();
 
-  if (
-    isLoading || isLoading0 || isLoading1 || isLoading2 || 
-    isLoading3 || isLoading4 || isLoading5 || isLoading6 || 
-    isLoading7 || isLoading8 || isLoading9
-  ) {
+  useEffect(() => {
+    if (
+      !isLoading && !isLoading0 && !isLoading1 && !isLoading2 && 
+      !isLoading3 && !isLoading4 && !isLoading5 && !isLoading6 && 
+      !isLoading7 && !isLoading8 && !isLoading9
+    ) {
+      const timer = setTimeout(() => {
+        setShowLoader(false);
+      }, 5000); // 5000 milliseconds = 5 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [
+    isLoading, isLoading0, isLoading1, isLoading2, 
+    isLoading3, isLoading4, isLoading5, isLoading6, 
+    isLoading7, isLoading8, isLoading9
+  ]);
+
+  if (showLoader) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
         <Image
