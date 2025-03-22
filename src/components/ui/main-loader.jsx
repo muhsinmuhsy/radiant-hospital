@@ -46,15 +46,17 @@ export default function MainLoader() {
 
   if (showLoader) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50">
         <Image
-          src="/radiant/logo-hr.png"
+          src="/radiant/loader-icon.png"
           alt="Logo"
-          width={250} 
-          height={250}
-          className="animate-pulse"
+          width={150} 
+          height={150}
+          className="animate-spin"
         />
-      </div>
+      <p className="mt-4 text-lg font-semibold text-gray-600">Loading...</p>
+    </div>
+    
     );
   }
 
