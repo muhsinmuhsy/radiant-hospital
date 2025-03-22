@@ -8,8 +8,7 @@ const BlogSectionDisplay = () => {
   const [hoveredId, setHoveredId] = useState(null);
   const { blogs: blogData, isLoading, error } = useFetchBlogs();
   const blogs = blogData;
-
-  const regularBlogs = blogs?.filter(blog => !blog.is_latest);
+  const regularBlogs = blogs.slice(0, 3);
 
   return (
     <div className="w-full bg-white py-12">
