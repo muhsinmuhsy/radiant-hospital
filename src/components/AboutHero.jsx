@@ -78,7 +78,7 @@ function AboutHero() {
             
             <div className="relative overflow-hidden rounded-2xl">
               <Image
-                src="/radiant/building.png"
+                src="/radiant/building.jpg"
                 alt="Healthcare Professionals"
                 width={600}
                 height={400}
