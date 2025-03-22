@@ -9,7 +9,7 @@ const kanitRegular = localFont({
 
 export const metadata = {
   title: "Radiant ENT Hospital",
-  description: "We Provide affordable, accessible, and quality healthcare for all",
+  description: "We Provide affordable, accessible and qualityhealthcare for all",
 };
 
 export default function RootLayout({ children }) {
