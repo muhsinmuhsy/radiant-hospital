@@ -48,6 +48,9 @@ const gilroyRegular = localFont({
 export const metadata = {
   title: "Radiant ENT Hospital",
   description: "We Provide affordable, accessible and qualityhealthcare for all",
+  // icons: {
+  //   icon: "/radiant/logo-hr.png",
+  // },
 };
 
 export default function RootLayout({ children }) {
