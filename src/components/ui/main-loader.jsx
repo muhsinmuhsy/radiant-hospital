@@ -54,7 +54,7 @@ export default function MainLoader() {
           height={150}
           className="animate-spin"
         />
-      <p className="mt-4 text-lg font-semibold text-gray-600">Loading...</p>
+      <p className="mt-4 text-lg font-semibold">Loading...</p>
     </div>
     
     );
