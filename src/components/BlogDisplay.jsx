@@ -7,9 +7,8 @@ import Link from 'next/link';
 const BlogSectionDisplay = () => {
   const [hoveredId, setHoveredId] = useState(null);
   const { blogs: blogData, isLoading, error } = useFetchBlogs();
-  const blogs = blogData;
-
-  const regularBlogs = blogs.slice(0, 3);
+  const blogs = blogData ?? []; 
+  const regularBlogs = blogs.slice(0, 3); 
 
   return (
     <div className="w-full bg-white py-12">
