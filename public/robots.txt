@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.radiantenthospital.com
+
+# Sitemaps
+Sitemap: https://www.radiantenthospital.com/sitemap.xml
