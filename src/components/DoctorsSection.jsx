@@ -59,7 +59,7 @@ const animationStyles = `
     }
     
     .doctor-image {
-      height: 250px !important;
+      height: 280px !important;
       max-width: 100% !important;
       width: 100% !important;
     }
@@ -276,7 +276,7 @@ const DoctorsCarousel = () => {
                   className="px-2 md:px-4"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="doctor-card bg-[#f7e8fe] border border-[#f0d0ff] rounded-[25px] h-[440px] overflow-hidden transition-transform duration-300 hover:scale-105">
+                  <div className="doctor-card bg-[#f7e8fe] border border-[#f0d0ff] rounded-[25px] md:h-[440px] h-[460px] overflow-hidden transition-transform duration-300 hover:scale-105">
                     <div className="doctor-image-container bg-[#795F9F] w-[70%] mx-auto rounded-b-[15px] flex justify-center items-center">
                       <img 
                         src={doctor?.image} 
