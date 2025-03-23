@@ -129,7 +129,7 @@ const DoctorList = () => {
                 key={index}
                 className="group relative"
               >
-                <div className="bg-[#f5efff] border border-[##D4BEDE] rounded-[25px] h-[440px] w-[300px] mx-auto overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-[##D4BEDE]/20 hover:-translate-y-1">
+                <div className="bg-[#f5efff] border border-[##D4BEDE] rounded-[25px] lg:h-[440px] md:h-[450px] h-[460px] w-[300px] mx-auto overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-[##D4BEDE]/20 hover:-translate-y-1">
                   <div className="bg-[#795F9F] w-[70%] mx-auto rounded-b-[15px] group-hover:bg-[#795F9F] transition-colors duration-300">
                     <img
                       src={doctor?.image}
