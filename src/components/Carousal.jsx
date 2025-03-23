@@ -32,7 +32,7 @@ const HeroCarousel = () => {
 
     const interval = setInterval(() => {
       handleNext();
-    }, 7000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [currentSlide, isAnimating, slides]);

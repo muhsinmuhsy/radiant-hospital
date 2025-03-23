@@ -50,6 +50,18 @@ const animationStyles = `
   @media (max-width: 377px) {
     .custom-main-content h1 {
       font-size: 3rem !important;
+      
+    }
+    
+    /* Fix for doctor image container on small screens */
+    .doctor-image-container {
+      width: 85% !important;
+    }
+    
+    .doctor-image {
+      height: 250px !important;
+      max-width: 100% !important;
+      width: 100% !important;
     }
   }
 `;
@@ -61,10 +73,13 @@ const DoctorsCarousel = () => {
   const [touchEnd, setTouchEnd] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(true); // Start paused until scrolled into view
+  const [isVisible, setIsVisible] = useState(false);
 
+  const sectionRef = useRef(null);
   const carouselRef = useRef(null);
   const autoPlayRef = useRef(null);
+  const observerRef = useRef(null);
 
   const { consultant, isLoading, error } = useFetchConsultants();
   const { consultantHeader, isLoading: isLoading0, error: error0 } = useFetchHomeConsultantHeader();
@@ -75,15 +90,73 @@ const DoctorsCarousel = () => {
   // Calculate total slides needed
   const totalSlides = Data.length ? Math.ceil(Data.length / cardsPerView) : 1;
 
+  // Handle next slide transition
+  const handleNext = useCallback(() => {
+    if (isAnimating || totalSlides <= 1) return;
+    setIsAnimating(true);
+    setActiveIndex((prev) => (prev + 1 >= totalSlides ? 0 : prev + 1));
+    setTimeout(() => setIsAnimating(false), 600); // Match transition duration
+  }, [isAnimating, totalSlides]);
+
+  // Handle previous slide transition
+  const handlePrev = useCallback(() => {
+    if (isAnimating || totalSlides <= 1) return;
+    setIsAnimating(true);
+    setActiveIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
+    setTimeout(() => setIsAnimating(false), 600); // Match transition duration
+  }, [isAnimating, totalSlides]);
+
+  // Handle manual pause during user interaction
+  const handleManualPause = useCallback((pause) => {
+    setIsPaused(pause);
+  }, []);
+
+  // Auto-play functionality - now works for all screen sizes
   const play = useCallback(() => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-    autoPlayRef.current = setInterval(() => {
-      if (!isPaused && Data.length > cardsPerView) {
+    
+    // Only start autoplay if the section is visible and not manually paused
+    if (isVisible && !isPaused && Data.length > 0 && totalSlides > 1) {
+      autoPlayRef.current = setInterval(() => {
         handleNext();
-      }
-    }, 10000);
-  }, [isPaused, Data.length, cardsPerView]);
+      }, 7000);
+    }
+  }, [isPaused, isVisible, Data.length, totalSlides, handleNext]);
 
+  // Set up Intersection Observer to detect when carousel is in viewport
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    observerRef.current = new IntersectionObserver(
+      ([entry]) => {
+        // Update visibility state when intersection changes
+        setIsVisible(entry.isIntersecting);
+        
+        // When it comes into view, unpause if it was paused due to visibility
+        if (entry.isIntersecting) {
+          setIsPaused(false);
+        } else {
+          // Pause when out of view
+          setIsPaused(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.25 // Trigger when 25% of the component is visible
+      }
+    );
+
+    observerRef.current.observe(sectionRef.current);
+    
+    return () => {
+      if (observerRef.current && sectionRef.current) {
+        observerRef.current.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  // Handle autoplay based on visibility and pause state
   useEffect(() => {
     play();
     return () => {
@@ -105,10 +178,18 @@ const DoctorsCarousel = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Make sure we don't exceed the maximum number of slides
+  // Fix: Add proper dependency array with consistent size
+  useEffect(() => {
+    if (activeIndex >= totalSlides) {
+      setActiveIndex(0);
+    }
+  }, [activeIndex, totalSlides]);
+
   const minSwipeDistance = 50;
 
   const handleTouchStart = (e) => {
-    setIsPaused(true);
+    handleManualPause(true);
     setTouchStart(e.touches[0].clientX);
   };
 
@@ -117,7 +198,7 @@ const DoctorsCarousel = () => {
   };
 
   const handleTouchEnd = () => {
-    setIsPaused(false);
+    handleManualPause(false);
     if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
@@ -128,32 +209,19 @@ const DoctorsCarousel = () => {
     setTouchEnd(null);
   };
 
-  const handlePrev = () => {
-    if (isAnimating || Data.length <= cardsPerView) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-    setTimeout(() => setIsAnimating(false), 600); // Match transition duration
-  };
-
-  const handleNext = () => {
-    if (isAnimating || Data.length <= cardsPerView) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev + 1 >= totalSlides ? 0 : prev + 1));
-    setTimeout(() => setIsAnimating(false), 600); // Match transition duration
-  };
-
-  // Make sure we don't exceed the maximum number of slides
-  useEffect(() => {
-    if (activeIndex >= totalSlides) {
-      setActiveIndex(0);
-    }
-  }, [activeIndex, totalSlides, cardsPerView]);
-
   if (error) console.log(`Error loading data: ${error.message}`);
   if (error0) console.log(`Error loading data: ${error0.message}`);
 
+  // Calculate the current slice of data to display
+  const currentDoctors = Data.length > 0 
+    ? Data.slice(
+        activeIndex * cardsPerView, 
+        Math.min((activeIndex + 1) * cardsPerView, Data.length)
+      )
+    : [];
+
   return (
-    <section className="mt-8 mb-8 mx-auto max-w-[1536px] py-8 md:px-8">
+    <section ref={sectionRef} className="mt-8 mb-8 mx-auto max-w-[1536px] py-8 md:px-8">
       <style>{animationStyles}</style>
       
       <ServiceBtn>
@@ -176,12 +244,12 @@ const DoctorsCarousel = () => {
       </MainContent>
 
       <div className="relative max-w-7xl mx-auto">
-        {Data.length > cardsPerView && !isMobile && (
+        {totalSlides > 1 && !isMobile && (
           <button
             onClick={() => {
-              setIsPaused(true);
+              handleManualPause(true);
               handlePrev();
-              setTimeout(() => setIsPaused(false), 5000);
+              setTimeout(() => handleManualPause(false), 5000);
             }}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-[#795F9F] rounded-full hover:bg-[#D4BEDE] transition-colors"
             aria-label="Previous slide"
@@ -196,27 +264,24 @@ const DoctorsCarousel = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+          onMouseEnter={() => handleManualPause(true)}
+          onMouseLeave={() => isVisible && handleManualPause(false)}
         >
           <div className="carousel-slide">
             {Data.length > 0 ? (
-              // Only map the doctors for the current slide
-              Data.slice(
-                activeIndex * cardsPerView, 
-                Math.min((activeIndex + 1) * cardsPerView, Data.length)
-              ).map((doctor, index) => (
+              // Using the pre-calculated array to avoid calculations during render
+              currentDoctors.map((doctor, index) => (
                 <div 
                   key={index} 
                   className="px-2 md:px-4"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="doctor-card bg-[#f7e8fe] border border-[#f0d0ff] rounded-[25px] h-[440px] overflow-hidden transition-transform duration-300 hover:scale-105">
-                    <div className="bg-[#795F9F] w-[70%] mx-auto rounded-b-[15px]">
+                    <div className="doctor-image-container bg-[#795F9F] w-[70%] mx-auto rounded-b-[15px] flex justify-center items-center">
                       <img 
                         src={doctor?.image} 
                         alt={doctor?.name || `Doctor ${index + 1}`} 
-                        className="w-full max-w-[250px] h-[250px] object-cover rounded-b-[15px]" 
+                        className="doctor-image w-full h-[250px] object-cover object-center rounded-b-[15px]" 
                       />
                     </div>
                     <div className="text-center mt-3">
@@ -235,12 +300,12 @@ const DoctorsCarousel = () => {
           </div>
         </div>
 
-        {Data.length > cardsPerView && !isMobile && (
+        {totalSlides > 1 && !isMobile && (
           <button
             onClick={() => {
-              setIsPaused(true);
+              handleManualPause(true);
               handleNext();
-              setTimeout(() => setIsPaused(false), 5000);
+              setTimeout(() => handleManualPause(false), 5000);
             }}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-[#795F9F] rounded-full hover:bg-[#D4BEDE] transition-colors"
             aria-label="Next slide"
@@ -249,20 +314,20 @@ const DoctorsCarousel = () => {
           </button>
         )}
         
-        {/* Navigation dots - only show if needed */}
-        {Data.length > cardsPerView && (
-          <div className="flex justify-center mt-6">
+        {/* Navigation dots - show for all screen sizes when multiple slides exist */}
+        {totalSlides > 1 && (
+          <div className="flex justify-center mt-6 gap-2">
             {[...Array(totalSlides)].map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => {
                   setActiveIndex(idx);
-                  setIsPaused(true);
-                  setTimeout(() => setIsPaused(false), 3000);
+                  handleManualPause(true);
+                  setTimeout(() => handleManualPause(false), 3000);
                 }}
-                className={`w-3 h-3 mx-1 rounded-full ${
-                  idx === activeIndex ? 'bg-[#795F9F]' : 'bg-gray-300'
-                } transition-all duration-300`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  idx === activeIndex ? 'bg-[#795F9F] w-6' : 'bg-gray-300'
+                }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
