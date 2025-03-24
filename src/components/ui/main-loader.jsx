@@ -2,14 +2,13 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useFetchDescCarousal, useFetchMobCarousal } from '@/lib/data';
-import { useFetchHomeServiceHeader } from '@/lib/data';
-import { useFetchHomeAboutHero } from '@/lib/data';
-import { useFetchConsultants, useFetchHomeConsultantHeader } from '@/lib/data';
-import { useFetchHomeSpecialitiesHeader, useFetchSpecialities } from '@/lib/data';
-import { useFetchEquipments } from '@/lib/data';
-import { useFetchBlogs } from '@/lib/data';
-import { useFetchTestimonials } from '@/lib/data';
+import { 
+  useFetchDescCarousal, useFetchMobCarousal, 
+  useFetchHomeServiceHeader, useFetchHomeAboutHero, 
+  useFetchConsultants, useFetchHomeConsultantHeader, 
+  useFetchHomeSpecialitiesHeader, useFetchSpecialities, 
+  useFetchEquipments, useFetchBlogs, useFetchTestimonials 
+} from '@/lib/data';
 
 export default function MainLoader() {
   const [showLoader, setShowLoader] = useState(true);
@@ -32,11 +31,7 @@ export default function MainLoader() {
       !isLoading3 && !isLoading4 && !isLoading5 && !isLoading6 && 
       !isLoading7 && !isLoading8 && !isLoading9
     ) {
-      const timer = setTimeout(() => {
-        setShowLoader(false);
-      }, 5000); // 5000 milliseconds = 5 seconds
-
-      return () => clearTimeout(timer);
+      setShowLoader(false);
     }
   }, [
     isLoading, isLoading0, isLoading1, isLoading2, 
@@ -54,7 +49,7 @@ export default function MainLoader() {
           height={150}
           className="animate-spin"
         />
-      <p className="mt-4 text-lg font-normal">Loading...</p>
+      <p className="mt-4 text-lg font-semibold">Loading...</p>
     </div>
     
     );
@@ -62,4 +57,3 @@ export default function MainLoader() {
 
   return null;
 }
-
