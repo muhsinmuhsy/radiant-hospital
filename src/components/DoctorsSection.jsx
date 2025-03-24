@@ -1,12 +1,12 @@
 'use client';
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { MainContent, ServiceBtn } from './ServiceSection';
 import Link from 'next/link';
 import { useFetchConsultants, useFetchHomeConsultantHeader } from '@/lib/data';
 import DoctorProfilePopup from './DoctorPopup';
 
-// Simple animation styles
+// Retained original animation styles
 const animationStyles = `
   /* Simple slide animation */
   .carousel-container {
@@ -50,7 +50,6 @@ const animationStyles = `
   @media (max-width: 377px) {
     .custom-main-content h1 {
       font-size: 3rem !important;
-      
     }
     
     /* Fix for doctor image container on small screens */
@@ -71,9 +70,14 @@ const DoctorsCarousel = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
-  const [isPaused, setIsPaused] = useState(true); // Start paused until scrolled into view
+  
+  // Performance optimization: Combine mobile and tablet states
+  const [screenInfo, setScreenInfo] = useState({
+    isMobile: false,
+    isTablet: false
+  });
+  
+  const [isPaused, setIsPaused] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
   const sectionRef = useRef(null);
@@ -84,66 +88,75 @@ const DoctorsCarousel = () => {
   const { consultant, isLoading, error } = useFetchConsultants();
   const { consultantHeader, isLoading: isLoading0, error: error0 } = useFetchHomeConsultantHeader();
 
-  const Data = consultant || [];
-  const cardsPerView = isMobile ? 1 : isTablet ? 2 : 3;
-  
-  // Calculate total slides needed
-  const totalSlides = Data.length ? Math.ceil(Data.length / cardsPerView) : 1;
+  // Memoize data processing to reduce unnecessary calculations
+  const memoizedData = useMemo(() => {
+    const Data = consultant || [];
+    const cardsPerView = screenInfo.isMobile ? 1 : screenInfo.isTablet ? 2 : 3;
+    const totalSlides = Data.length ? Math.ceil(Data.length / cardsPerView) : 1;
+    
+    return {
+      Data,
+      cardsPerView,
+      totalSlides
+    };
+  }, [consultant, screenInfo]);
 
-  // Handle next slide transition
+  // Optimized slide transition handlers
   const handleNext = useCallback(() => {
+    const { totalSlides } = memoizedData;
     if (isAnimating || totalSlides <= 1) return;
+    
     setIsAnimating(true);
     setActiveIndex((prev) => (prev + 1 >= totalSlides ? 0 : prev + 1));
-    setTimeout(() => setIsAnimating(false), 600); // Match transition duration
-  }, [isAnimating, totalSlides]);
+    
+    const timer = setTimeout(() => setIsAnimating(false), 600);
+    return () => clearTimeout(timer);
+  }, [isAnimating, memoizedData]);
 
-  // Handle previous slide transition
   const handlePrev = useCallback(() => {
+    const { totalSlides } = memoizedData;
     if (isAnimating || totalSlides <= 1) return;
+    
     setIsAnimating(true);
     setActiveIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-    setTimeout(() => setIsAnimating(false), 600); // Match transition duration
-  }, [isAnimating, totalSlides]);
+    
+    const timer = setTimeout(() => setIsAnimating(false), 600);
+    return () => clearTimeout(timer);
+  }, [isAnimating, memoizedData]);
 
-  // Handle manual pause during user interaction
+  // Retain original manual pause functionality
   const handleManualPause = useCallback((pause) => {
     setIsPaused(pause);
   }, []);
 
-  // Auto-play functionality - now works for all screen sizes
+  // Optimized autoplay with memoization
   const play = useCallback(() => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     
-    // Only start autoplay if the section is visible and not manually paused
+    const { Data, totalSlides } = memoizedData;
     if (isVisible && !isPaused && Data.length > 0 && totalSlides > 1) {
-      autoPlayRef.current = setInterval(() => {
-        handleNext();
-      }, 7000);
+      autoPlayRef.current = setInterval(handleNext, 7000);
     }
-  }, [isPaused, isVisible, Data.length, totalSlides, handleNext]);
+  }, [isPaused, isVisible, memoizedData, handleNext]);
 
-  // Set up Intersection Observer to detect when carousel is in viewport
+  // Retain original Intersection Observer logic
   useEffect(() => {
     if (!sectionRef.current) return;
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
-        // Update visibility state when intersection changes
         setIsVisible(entry.isIntersecting);
         
-        // When it comes into view, unpause if it was paused due to visibility
         if (entry.isIntersecting) {
           setIsPaused(false);
         } else {
-          // Pause when out of view
           setIsPaused(true);
         }
       },
       {
         root: null,
         rootMargin: '0px',
-        threshold: 0.25 // Trigger when 25% of the component is visible
+        threshold: 0.25
       }
     );
 
@@ -156,7 +169,7 @@ const DoctorsCarousel = () => {
     };
   }, []);
 
-  // Handle autoplay based on visibility and pause state
+  // Autoplay effect with dependency on play callback
   useEffect(() => {
     play();
     return () => {
@@ -166,26 +179,41 @@ const DoctorsCarousel = () => {
     };
   }, [play]);
 
+  // Performance-optimized resize handling
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      setIsMobile(width < 768);
-      setIsTablet(width >= 768 && width < 1024);
+      setScreenInfo({
+        isMobile: width < 768,
+        isTablet: width >= 768 && width < 1024
+      });
     };
 
+    // Initial call
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    
+    // Add event listener with debounce
+    const debouncedResize = () => {
+      clearTimeout(window.resizeTimer);
+      window.resizeTimer = setTimeout(handleResize, 100);
+    };
+
+    window.addEventListener('resize', debouncedResize);
+    return () => {
+      window.removeEventListener('resize', debouncedResize);
+      clearTimeout(window.resizeTimer);
+    };
   }, []);
 
-  // Make sure we don't exceed the maximum number of slides
-  // Fix: Add proper dependency array with consistent size
+  // Ensure active index doesn't exceed total slides
   useEffect(() => {
+    const { totalSlides } = memoizedData;
     if (activeIndex >= totalSlides) {
       setActiveIndex(0);
     }
-  }, [activeIndex, totalSlides]);
+  }, [activeIndex, memoizedData]);
 
+  // Touch handling methods
   const minSwipeDistance = 50;
 
   const handleTouchStart = (e) => {
@@ -209,16 +237,20 @@ const DoctorsCarousel = () => {
     setTouchEnd(null);
   };
 
+  // Error logging
   if (error) console.log(`Error loading data: ${error.message}`);
   if (error0) console.log(`Error loading data: ${error0.message}`);
 
-  // Calculate the current slice of data to display
-  const currentDoctors = Data.length > 0 
-    ? Data.slice(
-        activeIndex * cardsPerView, 
-        Math.min((activeIndex + 1) * cardsPerView, Data.length)
-      )
-    : [];
+  // Memoized current doctors calculation
+  const currentDoctors = useMemo(() => {
+    const { Data, cardsPerView } = memoizedData;
+    return Data.length > 0 
+      ? Data.slice(
+          activeIndex * cardsPerView, 
+          Math.min((activeIndex + 1) * cardsPerView, Data.length)
+        )
+      : [];
+  }, [activeIndex, memoizedData]);
 
   return (
     <section ref={sectionRef} className="mt-8 mb-8 mx-auto max-w-[1536px] py-8 md:px-8">
@@ -244,7 +276,7 @@ const DoctorsCarousel = () => {
       </MainContent>
 
       <div className="relative max-w-7xl mx-auto">
-        {totalSlides > 1 && !isMobile && (
+        {memoizedData.totalSlides > 1 && !screenInfo.isMobile && (
           <button
             onClick={() => {
               handleManualPause(true);
@@ -268,11 +300,10 @@ const DoctorsCarousel = () => {
           onMouseLeave={() => isVisible && handleManualPause(false)}
         >
           <div className="carousel-slide">
-            {Data.length > 0 ? (
-              // Using the pre-calculated array to avoid calculations during render
+            {currentDoctors.length > 0 ? (
               currentDoctors.map((doctor, index) => (
                 <div 
-                  key={index} 
+                  key={doctor.id || index} 
                   className="px-2 md:px-4"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -300,7 +331,7 @@ const DoctorsCarousel = () => {
           </div>
         </div>
 
-        {totalSlides > 1 && !isMobile && (
+        {memoizedData.totalSlides > 1 && !screenInfo.isMobile && (
           <button
             onClick={() => {
               handleManualPause(true);
@@ -314,10 +345,9 @@ const DoctorsCarousel = () => {
           </button>
         )}
         
-        {/* Navigation dots - show for all screen sizes when multiple slides exist */}
-        {totalSlides > 1 && (
+        {memoizedData.totalSlides > 1 && (
           <div className="flex justify-center mt-6 gap-2">
-            {[...Array(totalSlides)].map((_, idx) => (
+            {[...Array(memoizedData.totalSlides)].map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => {

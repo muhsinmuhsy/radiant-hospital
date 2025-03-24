@@ -90,7 +90,7 @@ const HeroCarousel = () => {
   if (error || error0) return <div>Error loading carousel data.</div>;
 
   return (
-    <div className="relative w-full md:h-[450px] lg:h-[250px] xl:h-[450px] h-[200px] overflow-hidden bg-gray-100">
+    <div className="relative w-full md:h-[450px] lg:h-[250px] xl:h-[450px]  h-[200px] overflow-hidden bg-gray-100">
       {/* Slides */}
       <div className="relative w-full h-full">
         {slides?.map((slide, index) => (
