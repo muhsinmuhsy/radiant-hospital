@@ -7,32 +7,33 @@ import Image from 'next/image';
 import { CheckCircle, Calendar, ArrowRight, Award, Phone } from 'lucide-react';
 import { useFetchSpecialities } from '@/lib/data';
 import AppointmentBooking from '@/components/AppointmentBooking';
+import { notFound } from 'next/navigation';
 
 const SpecialtyDetails = () => {
   const { id } = useParams(); 
 
-  const [specialty, setSpecialty] = useState(null);
+ 
   const { specialities, isLoading, error } = useFetchSpecialities();
 
-  useEffect(() => {
-    if (id) {
-      const specialties = specialities;
-
-      const matchedSpecialty = specialties.find((item) => item.id === Number(id));
-      setSpecialty(matchedSpecialty);
-    }
-  }, [id, specialities]);
-  
   if (error) {
     console.log(`Error loading data: ${error.message}`);
   }
 
-  if (!specialty) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        {id ? <p>Specialty not found.</p> : <div className="animate-pulse">Loading...</div>}
+        <div className="animate-pulse">Loading...</div>
       </div>
     );
+  }
+
+  // Derive the specialty directly
+  const specialty = specialities?.find(
+    (item) => item.id === Number(id)
+  );
+
+  if (!specialty) {
+    notFound();
   }
 
   return (
