@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://www.radiantenthospital.com/pages/specialities</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.radiantenthospital.com</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.radiantenthospital.com/pages/about</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.radiantenthospital.com/pages/home</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.radiantenthospital.com/pages/service</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.radiantenthospital.com/pages/contact</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.radiantenthospital.com/pages/blog</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.radiantenthospital.com/pages/consultants</loc><lastmod>2025-03-22T21:19:38.394Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.radiantenthospital.com/</loc><lastmod>2025-03-22</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.radiantenthospital.com/about</loc><lastmod>2025-03-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.radiantenthospital.com/service</loc><lastmod>2025-03-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.radiantenthospital.com/specialities</loc><lastmod>2025-03-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.radiantenthospital.com/consultants</loc><lastmod>2025-03-22</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.radiantenthospital.com/blog</loc><lastmod>2025-03-22</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.radiantenthospital.com/contact</loc><lastmod>2025-03-22</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
