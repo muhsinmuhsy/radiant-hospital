@@ -54,7 +54,7 @@ const DoctorCard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
             {filteredDoctors?.map((doctor, index) => (
               <div key={index} className="group relative">
-                <div className="bg-[#f5efff] border border-[##D4BEDE] rounded-[25px] h-[440px] w-[300px] mx-auto overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-[##D4BEDE]/20 hover:-translate-y-1">
+                <div className="bg-[#f5efff] border border-[##D4BEDE] rounded-[25px] h-[400px] w-[300px] mx-auto overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-[##D4BEDE]/20 hover:-translate-y-1">
                   <div className="bg-[#795F9F] w-[70%] mx-auto rounded-b-[15px] group-hover:bg-[#795F9F] transition-colors duration-300">
                     <img
                       src={doctor?.image}
@@ -71,9 +71,9 @@ const DoctorCard = () => {
                     </p>
                     <div className="text-white px-6 py-2 rounded-full transform transition-all duration-300 hover:scale-105">
                       <AppointmentBookingDirectly selectedDoctor={doctor} />
-                      <div className='mt-2' style={{marginRight:'6px'}}>
+                      {/* <div className='mt-2' style={{marginRight:'6px'}}>
                         <DoctorProfilePopup doctor={doctor} />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

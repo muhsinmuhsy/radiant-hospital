@@ -46,7 +46,7 @@ const ENTBlog = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {featuredPosts.map(post => (
-                  <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
+                  <Link href={`/blog/${post?.id}`} key={post?.id}>
                     <article className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md group">
                       <div className="relative h-72 overflow-hidden">
                         <img 
@@ -90,7 +90,7 @@ const ENTBlog = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {regularPosts.map(post => (
-                <Link href={`/pages/blog/${post?.id}`} key={post?.id}>
+                <Link href={`/blog/${post?.id}`} key={post?.id}>
                   <article className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden flex flex-col h-full transition-all duration-300 hover:shadow-md hover:border-purple-200 group">
                     <div className="relative h-48 overflow-hidden">
                       <img 

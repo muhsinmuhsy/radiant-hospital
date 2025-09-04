@@ -110,7 +110,7 @@ function  ServiceSection() {
         <div className="left">Our Services</div>
         <div className="right">
          <button >
-           <Link href={'/pages/service'}className='text-white'>
+           <Link href={'/service'}className='text-white'>
            Explore More
            </Link>
          </button>

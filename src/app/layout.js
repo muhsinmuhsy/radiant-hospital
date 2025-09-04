@@ -30,7 +30,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Best ENT Hospital in Kannur | Radiant ENT Hospital",
     description: "Get expert ENT treatment from leading specialists in Kannur. Book an appointment at Radiant ENT Hospital today!",
-    images: ["https://www.radiantenthospital.com/radiant/logo-hr.png"], // Replace with actual image URL
+    images: ["https://www.radiantenthospital.com/radiant/logo-hr.png"], 
   },
 };
 
@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
 
         {/* Meta Tags for Search Engines */}
         <meta name="robots" content="index, follow" />
-        <meta name="keywords" content="ENT hospital in Kannur, best ENT hospital in Kannur, ENT specialist in Kannur, ENT doctor near me, ENT clinic near Kannur, Radiant ENT Hospital, ear nose throat treatment Kannur" />
+        <meta name="keywords" content="Radiant ENT hospital in Kannur,Radiant ENT hospital,ENT hospital in Kannur, best ENT hospital in Kannur, ENT specialist in Kannur, ENT doctor near me, ENT clinic near Kannur, Radiant ENT Hospital, ear nose throat treatment Kannur" />
         <meta name="author" content="Radiant ENT Hospital, Kannur" />
         <meta name="geo.region" content="IN-KL" />
         <meta name="geo.placename" content="Kannur" />

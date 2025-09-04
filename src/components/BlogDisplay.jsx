@@ -25,7 +25,7 @@ const BlogSectionDisplay = () => {
         {/* Blog Cards Grid - Ultra Simplified Design */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {regularBlogs?.map((blog) => (
-            <Link href={`/pages/blog/${blog?.id}`} key={blog.id} className="group">
+            <Link href={`/blog/${blog?.id}`} key={blog.id} className="group">
               <div 
                 className="bg-white rounded-lg overflow-hidden border border-gray-100 h-full flex flex-col hover:shadow-sm transition-all duration-300"
                 onMouseEnter={() => setHoveredId(blog.id)}

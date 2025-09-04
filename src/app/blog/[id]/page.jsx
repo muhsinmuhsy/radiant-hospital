@@ -30,7 +30,7 @@ export default function ViewBlog() {
       <div className="min-h-screen bg-gray-50 pt-8 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}
-          <Link href="/pages/blog" className="inline-flex items-center text-gray-600 hover:text-purple-700 mb-8 transition-colors">
+          <Link href="/blog" className="inline-flex items-center text-gray-600 hover:text-purple-700 mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" />
             <span className="text-sm font-medium">Back to articles</span>
           </Link>

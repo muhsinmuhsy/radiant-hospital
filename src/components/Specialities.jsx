@@ -159,7 +159,7 @@ function OurSpecialities() {
       <ServiceBtn>
         <div className="left">Our Specialities</div>
         <div className="right">
-          <Link href={'/pages/specialities'} className='text-white'>
+          <Link href={'specialities'} className='text-white'>
             Explore More
           </Link>
           <img src="/button-right-arrow.svg" alt="icon" />
@@ -173,7 +173,7 @@ function OurSpecialities() {
 
       <ImageDiv>
         {limitedSpecialities?.map((speciality) => (
-          <Link href={`/pages/specialities/${speciality?.id}`} key={speciality?.id}>
+          <Link href={`specialities/${speciality?.id}`} key={speciality?.id}>
             <ImageCard>
               <div className="image-container">
                 {speciality.src ? (

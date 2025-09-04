@@ -260,7 +260,7 @@ const DoctorsCarousel = () => {
         <div className="left text-black">Our Consultants</div>
         <div className="right">
           <button>
-            <Link href={'/pages/consultants'} className="text-[#795F9F]">
+            <Link href={'/consultants'} className="text-[#795F9F]">
               Explore More
             </Link>
           </button>

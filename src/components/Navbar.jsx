@@ -37,7 +37,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-8">
             <Link href="/" className="nav-link">Home</Link>
             <div className="relative group">
-              <Link href="/pages/specialities" className="nav-link flex items-center">
+              <Link href="/specialities" className="nav-link flex items-center">
                 Specialities
                 <ChevronDown className="ml-1 w-4 h-4" />
               </Link>
@@ -51,7 +51,7 @@ export default function Navbar() {
                         {items.map((item) => (
                           <li key={item.id}>
                             <Link
-                              href={`/pages/specialities/${item.id}`}
+                              href={`/specialities/${item.id}`}
                               className="block text-sm text-gray-600 hover:text-[#795F9F] py-1"
                             >
                               {item.title}
@@ -65,11 +65,11 @@ export default function Navbar() {
               </div>
             </div>
 
-            <Link href="/pages/service">Services</Link>
-            <Link href="/pages/consultants">Consultants</Link>
-            <Link href="/pages/contact" className="nav-link">Contact</Link>
-            <Link href="/pages/about" className="nav-link">About Us</Link>
-            {/* <Link href="/pages/blog" className="nav-link">Blog</Link> */}
+            <Link href="/service">Services</Link>
+            <Link href="/consultants">Consultants</Link>
+            <Link href="/contact" className="nav-link">Contact</Link>
+            <Link href="/about" className="nav-link">About Us</Link>
+            {/* <Link href="/blog" className="nav-link">Blog</Link> */}
           </div>
 
           <div className="hidden lg:block">
@@ -93,7 +93,7 @@ export default function Navbar() {
             <Link href="/" className="block text-lg text-gray-700 hover:text-[#795F9F]">Home</Link>
 
             <div>
-              <Link href="/pages/specialities" className="flex items-center justify-between w-full text-lg text-gray-700 hover:text-[#795F9F]">
+              <Link href="/specialities" className="flex items-center justify-between w-full text-lg text-gray-700 hover:text-[#795F9F]">
                 <span>Specialities</span>
                 <ChevronDown className="w-4 h-4 transform transition-transform" />
               </Link>
@@ -112,7 +112,7 @@ export default function Navbar() {
                       {items.map((item) => (
                         <Link
                           key={item.id}
-                          href={`/pages/specialities/${item.id}`}
+                          href={`/specialities/${item.id}`}
                           className="block text-sm text-gray-600 hover:text-[#795F9F]"
                         >
                           {item.title}
@@ -124,11 +124,11 @@ export default function Navbar() {
               </div>
             </div>
 
-            <Link href="/pages/service" className="block text-lg text-gray-700 hover:text-[#795F9F]">Services</Link>
-            <Link href="/pages/consultants" className="block text-lg text-gray-700 hover:text-[#795F9F]">Consultants</Link>
-            <Link href="/pages/contact" className="block text-lg text-gray-700 hover:text-[#795F9F]">Contact</Link>
-            <Link href="/pages/about" className="block text-lg text-gray-700 hover:text-[#795F9F]">About Us</Link>
-            <Link href="/pages/blog" className="block text-lg text-gray-700 hover:text-[#795F9F]">Blog</Link>
+            <Link href="/service" className="block text-lg text-gray-700 hover:text-[#795F9F]">Services</Link>
+            <Link href="/consultants" className="block text-lg text-gray-700 hover:text-[#795F9F]">Consultants</Link>
+            <Link href="/contact" className="block text-lg text-gray-700 hover:text-[#795F9F]">Contact</Link>
+            <Link href="/about" className="block text-lg text-gray-700 hover:text-[#795F9F]">About Us</Link>
+            <Link href="/blog" className="block text-lg text-gray-700 hover:text-[#795F9F]">Blog</Link>
 
             {/* Appointment Booking for Mobile */}
             <div className="pt-4">

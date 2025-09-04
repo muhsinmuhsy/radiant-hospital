@@ -150,13 +150,14 @@ const SpecialitiesPage = () => {
 
         <ImageDiv>
           {filteredSpecialties?.map((specialty) => (
-            <Link href={`/pages/specialities/${specialty.id}`} key={specialty.id}>
+            <Link href={`/specialities/${specialty.id}`} key={specialty.id}>
               <ImageCard>
                 <Image
                   src={specialty.src}
                   alt={specialty.title}
                   width={400}
                   height={250}
+                  priority
                 />
                 <div className="text-overlay">{specialty.title}</div>
               </ImageCard>
