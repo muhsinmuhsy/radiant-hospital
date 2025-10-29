@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: '*',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'muhsiiyy.pythonanywhere.com',
+        pathname: '**',
+      },
     ],
   },
 }
